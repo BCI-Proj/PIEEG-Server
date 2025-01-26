@@ -142,8 +142,12 @@
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\window\menu.cpp" />
+    <ClCompile Include="src\window\graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\menu.h" />
+    <ClInclude Include="include\graphics.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_sdl2.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_sdlrenderer2.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />

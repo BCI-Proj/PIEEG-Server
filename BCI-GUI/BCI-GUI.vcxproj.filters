@@ -45,6 +45,12 @@
     <ClCompile Include="lib\imgui\imgui_widgets.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\window\menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\window\graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h">
@@ -70,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>Header Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\menu.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
