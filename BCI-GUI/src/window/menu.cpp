@@ -39,19 +39,19 @@ void Menu::TrainingView()
 {
     int margin_width = 30, margin_height = 50;
 
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width)  * 0.5f);
-    TrainingActioner(TOP, &Menu::is_activet);
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.5f);
+    TrainingActioner(TOP,    &Menu::is_activet);
 
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width)  * 1.0f);
-    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height) * 0.5f);
-    TrainingActioner(RIGHT, &Menu::is_activer);
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 1.0f);
+    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 0.5f);
+    TrainingActioner(RIGHT,  &Menu::is_activer);
 
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width)  *  0.0f);
-    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height) * 0.5f);
-    TrainingActioner(LEFT, &Menu::is_activel);
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.0f);
+    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 0.5f);
+    TrainingActioner(LEFT,   &Menu::is_activel);
 
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width)  * 0.5f);
-    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height) * 1.0f);
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.5f);
+    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 1.0f);
     TrainingActioner(BOTTOM, &Menu::is_activeb);
 }
 
