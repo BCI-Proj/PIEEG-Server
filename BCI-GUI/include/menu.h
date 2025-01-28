@@ -4,9 +4,18 @@
 
 namespace Menu 
 {
+	// For saving training buttons order
+	enum Direction
+	{
+		TOP,
+		BOTTOM,
+		LEFT,
+		RIGHT
+	};
+
 	#pragma region Space for Custom Components
 		
-	// Custom components here
+	void TrainingActioner(const char* label, bool* b_value);
 
 	#pragma endregion
 

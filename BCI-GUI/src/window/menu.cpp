@@ -5,10 +5,43 @@
 
 #pragma warning(disable: 4996)
 
+void Menu::TrainingActioner(const char* label, bool* b_value)
+{
+    ImGui::PushID(label);
+
+    ImVec2 actioner_position   = ImGui::GetCursorScreenPos();
+
+    float width = 30, height = 30;
+
+    // To place the actioner at the exact position by taking consideration of its width and height
+    ImVec2 actioner_dimension = ImVec2(actioner_position.x + width, actioner_position.y + height);
+
+    // Colors in format RGBA
+    ImU32 active_col  = ImGui::GetColorU32(ImVec4(0.0f,  1.0f,  0.0f,  1.0f));
+    ImU32 disable_col = ImGui::GetColorU32(ImVec4(0.45f, 0.45f, 0.45f, 1.0f));
+
+    // Act as a button for now
+    bool is_pressed = ImGui::InvisibleButton(label, ImVec2(width, height)); // an invisible button is here to make it interactable
+
+    if (is_pressed)
+        *b_value = !*b_value;
+
+    
+        
+    ImGui::GetWindowDrawList()->AddRectFilled(
+        actioner_position, 
+        actioner_dimension, 
+        (*b_value) ? active_col : disable_col
+    );
+
+    ImGui::PopID();
+}
+
+
 void Menu::ShowMenu()
 {
 	ImGui::Begin("Plotting");
-		ImGui::Text("Hi ImGui");
+        ImGui::Text("Hello");
 	ImGui::End();
 
 	ImGui::Begin("Profile Loader");
