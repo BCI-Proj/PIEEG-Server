@@ -1,16 +1,17 @@
-#include "menu.h"
 #include <iostream>
 #include <stdio.h>
+
+#include "menu.h"
 
 #pragma warning(disable: 4996)
 
 void Menu::ShowMenu()
 {
-	ImGui::Begin("Test");
+	ImGui::Begin("Plotting");
 		ImGui::Text("Hi ImGui");
 	ImGui::End();
 
-	ImGui::Begin("Profile Selector");
+	ImGui::Begin("Profile Loader");
 
         static int selected = 0;
 
@@ -27,8 +28,11 @@ void Menu::ShowMenu()
         ImGui::SameLine();
 
         ImGui::BeginGroup();
+            ImGui::SeparatorText("Info");
 		    ImGui::Text("FPS : %f", ImGui::GetIO().Framerate);
             ImGui::Text("On Profile %d", selected);
+            ImGui::SeparatorText("Options");
+            ImGui::Button("Load");
         ImGui::EndGroup();
 
 	ImGui::End();

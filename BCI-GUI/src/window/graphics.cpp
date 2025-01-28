@@ -1,4 +1,5 @@
 #include "graphics.h"
+#include "menu.h"
 
 void Graphics::InitSDL()
 {
