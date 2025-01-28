@@ -10,25 +10,25 @@
 
 class Graphics
 {
-private:
-	int mWidth				 = 0;
-	int mHeight				 = 0;
+	private:
+		int mWidth				 = 0;
+		int mHeight				 = 0;
 	
-	SDL_Window*	  mWindow    = nullptr;
-	SDL_Renderer* mRenderer  = nullptr;
+		SDL_Window*	  mWindow    = nullptr;
+		SDL_Renderer* mRenderer  = nullptr;
 
-	bool		  mIsRunning = true;
+		bool		  mIsRunning = true;
 	
-public:
-	Graphics(int width, int height) 
-		: mWidth(width), mHeight(height)
-	{
-		InitSDL();
-		InitImGui();
-	}
+	public:
+		Graphics(int width, int height) 
+			: mWidth(width), mHeight(height)
+		{
+			InitSDL();
+			InitImGui();
+		}
 
-	void InitSDL();
-	void InitImGui();
-	void Loop(const std::function<void()>& toRender);
-	void Cleanup();
+		void InitSDL();
+		void InitImGui();
+		void Loop(const std::function<void()>& toRender);
+		void Cleanup();
 };

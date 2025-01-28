@@ -5,9 +5,9 @@
 
 #pragma warning(disable: 4996)
 
-void Menu::TrainingActioner(const char* label, bool* b_value)
+void Menu::TrainingActioner(Direction direction, bool* b_value)
 {
-    ImGui::PushID(label);
+    ImGui::PushID(direction);
 
     ImVec2 actioner_position   = ImGui::GetCursorScreenPos();
 
@@ -16,17 +16,15 @@ void Menu::TrainingActioner(const char* label, bool* b_value)
     // To place the actioner at the exact position by taking consideration of its width and height
     ImVec2 actioner_dimension = ImVec2(actioner_position.x + width, actioner_position.y + height);
 
-    // Colors in format RGBA
+    // Colors in format RGBA ( From 1.0f to 0.0f | Max is 1.0f so 255 )
     ImU32 active_col  = ImGui::GetColorU32(ImVec4(0.0f,  1.0f,  0.0f,  1.0f));
     ImU32 disable_col = ImGui::GetColorU32(ImVec4(0.45f, 0.45f, 0.45f, 1.0f));
 
-    // Act as a button for now
-    bool is_pressed = ImGui::InvisibleButton(label, ImVec2(width, height)); // an invisible button is here to make it interactable
+    // Act as a button for now 
+    bool is_pressed = ImGui::InvisibleButton("button", ImVec2(width, height)); // an invisible button is here to make it interactable
 
     if (is_pressed)
         *b_value = !*b_value;
-
-    
         
     ImGui::GetWindowDrawList()->AddRectFilled(
         actioner_position, 
@@ -37,11 +35,34 @@ void Menu::TrainingActioner(const char* label, bool* b_value)
     ImGui::PopID();
 }
 
+void Menu::TrainingView()
+{
+    int margin_width = 30, margin_height = 50;
+
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width)  * 0.5f);
+    TrainingActioner(TOP, &Menu::is_activet);
+
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width)  * 1.0f);
+    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height) * 0.5f);
+    TrainingActioner(RIGHT, &Menu::is_activer);
+
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width)  *  0.0f);
+    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height) * 0.5f);
+    TrainingActioner(LEFT, &Menu::is_activel);
+
+    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width)  * 0.5f);
+    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height) * 1.0f);
+    TrainingActioner(BOTTOM, &Menu::is_activeb);
+}
 
 void Menu::ShowMenu()
 {
-	ImGui::Begin("Plotting");
-        ImGui::Text("Hello");
+    ImGui::Begin("Plotting");
+        ImGui::Text("the plot");
+    ImGui::End();
+
+	ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);
+        TrainingView();
 	ImGui::End();
 
 	ImGui::Begin("Profile Loader");
