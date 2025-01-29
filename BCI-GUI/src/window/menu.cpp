@@ -7,19 +7,19 @@
 
 float delta_time = 0.0f;
 std::vector<ImVec2> data = {};
-bool on_pause = false;
+bool is_graph_moving = false;
 
 void Menu::ChannelGraph(int numChannel)
 {
     delta_time += ImGui::GetIO().DeltaTime;
     data.push_back(ImVec2(delta_time, ImGui::GetIO().MousePos.y)); // for testing | Should be replaced by received data from channels
     
-    ImGui::Checkbox("pause", &on_pause);
+    ImGui::Checkbox("pause", &is_graph_moving);
 
     if (ImPlot::BeginPlot(std::to_string(numChannel).c_str(), ImVec2(-1, 250), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
         // To make the graph scrolling for new data
-        if (!on_pause)
+        if (!is_graph_moving)
             ImPlot::SetupAxisLimits(ImAxis_X1, delta_time - 10.0f, delta_time, ImGuiCond_Always); 
 
         // Plot for all channels
