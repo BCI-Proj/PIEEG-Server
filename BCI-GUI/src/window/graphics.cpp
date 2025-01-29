@@ -1,5 +1,4 @@
 #include "graphics.h"
-#include "menu.h"
 
 void Graphics::InitSDL()
 {
@@ -31,9 +30,12 @@ void Graphics::InitImGui()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
+	ImPlot::CreateContext();
+
 
 	ImGuiIO& io{ ImGui::GetIO() }; (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\segoeui.ttf", 20);
 
 	ImGui::StyleColorsDark();
 
@@ -48,6 +50,9 @@ void Graphics::Cleanup()
 {
 	ImGui_ImplSDLRenderer2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
+
+	ImPlot::DestroyContext();
+	ImGui::DestroyContext();
 
 	SDL_DestroyWindow(mWindow);
 	SDL_DestroyRenderer(mRenderer);

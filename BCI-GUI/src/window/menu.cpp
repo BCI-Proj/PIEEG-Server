@@ -1,9 +1,35 @@
 #include <iostream>
 #include <stdio.h>
-
+#include <string>
 #include "menu.h"
 
 #pragma warning(disable: 4996)
+
+float delta_time = 0.0f;
+std::vector<ImVec2> data = {};
+bool on_pause = false;
+
+void Menu::ChannelGraph(int numChannel)
+{
+    delta_time += ImGui::GetIO().DeltaTime;
+    data.push_back(ImVec2(delta_time, ImGui::GetIO().MousePos.y)); // for testing | Should be replaced by received data from channels
+    
+    ImGui::Checkbox("pause", &on_pause);
+
+    if (ImPlot::BeginPlot(std::to_string(numChannel).c_str(), ImVec2(-1, 250), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
+    {
+        // To make the graph scrolling for new data
+        if (!on_pause)
+            ImPlot::SetupAxisLimits(ImAxis_X1, delta_time - 10.0f, delta_time, ImGuiCond_Always); 
+
+        // Plot for all channels
+        ImPlot::PlotLine("ch1", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
+        //ImPlot::PlotLine("ch2", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
+        //ImPlot::PlotLine("ch3", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
+        //ImPlot::PlotLine("ch4", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
+        ImPlot::EndPlot();
+    }
+}
 
 void Menu::TrainingActioner(Direction direction, bool* b_value)
 {
@@ -58,7 +84,7 @@ void Menu::TrainingView()
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
-        ImGui::Text("the plot");
+    ChannelGraph(1);
     ImGui::End();
 
 	ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);

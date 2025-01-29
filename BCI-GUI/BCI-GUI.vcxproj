@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)\lib\imgui\;$(ProjectDir)\lib\SDL2\SDL2-2.30.11\include\;$(ProjectDir)\lib\imgui\backends\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\lib\implot\;$(ProjectDir)\lib\imgui\;$(ProjectDir)\lib\SDL2\SDL2-2.30.11\include\;$(ProjectDir)\lib\imgui\backends\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +141,8 @@
     <ClCompile Include="lib\imgui\imgui_draw.cpp" />
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="lib\implot\implot.cpp" />
+    <ClCompile Include="lib\implot\implot_items.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\window\menu.cpp" />
     <ClCompile Include="src\window\graphics.cpp" />
@@ -156,6 +158,8 @@
     <ClInclude Include="lib\imgui\imstb_rectpack.h" />
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="lib\implot\implot.h" />
+    <ClInclude Include="lib\implot\implot_internal.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="lib\SDL2\SDL2.dll">
