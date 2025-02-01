@@ -4,42 +4,46 @@
 #pragma warning(disable: 4996)
 
 float delta_time = 0.0f;
-std::vector<PIEEG::Channels> graphDataPositions = {};
+
+Menu::Graph graph(2000);
 
 void Menu::ChannelGraph()
 {
+    using namespace PIEEG;
+
+    ImGui::Text("Size : %d", graph.data.size());
+    ImGui::Text("Capacity : %d", graph.data.capacity());
+
     ImGui::Checkbox("pause", &is_paused);
 
     if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
         // To make the graph scrolling for new data
-        if (!is_paused) 
+        if (!is_paused)
         {
-            ImPlot::SetupAxisLimits(ImAxis_X1, delta_time - 10.0f, delta_time, ImGuiCond_Always); 
+            ImPlot::SetupAxisLimits(ImAxis_X1, delta_time - 5.0f, delta_time, ImGuiCond_Always);
             delta_time += ImGui::GetIO().DeltaTime;
 
-            graphDataPositions.push_back(
-                PIEEG::RetrieveData(delta_time)
-            );
+            graph.Add(RetrieveData(delta_time).vals);
         }
 
         // Plot all 8 channels
-        for (int i = 1; i <= PIEEG::num_electrodes; i++)
+        for (int i = 1; i <= kNumElectrodes; i++)
         {
             ImPlot::PlotLine(
-                std::to_string(i).c_str(), 
-                &graphDataPositions[0].vals[0], // Delta Time
-                &graphDataPositions[0].vals[i], // Value of Channel that is being plotted
-                graphDataPositions.size(),
-                0, 0, 
-                9 * sizeof(float)               
+                std::to_string(i).c_str(),
+                &graph.data[0][0], // Delta Time
+                &graph.data[0][i], // Value of Channel that is being plotted
+                graph.data.size(),
+                0, 0,
+                9 * sizeof(float)  // Size of the 9 elements in graph ChannelsArray
             );
         }
         ImPlot::EndPlot();
     }
 }
 
-void Menu::TrainingActioner(Direction direction, bool* b_value)
+void Menu::TrainingActioner(TrainingDirection direction, bool* b_value)
 {
     ImGui::PushID(direction);
 
@@ -74,19 +78,19 @@ void Menu::TrainingView()
     int margin_width = 30, margin_height = 50;
 
     ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.5f);
-    TrainingActioner(TOP,    &Menu::is_activet);
+    TrainingActioner(kTop,    &Menu::is_activet);
 
     ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 1.0f);
     ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 0.5f);
-    TrainingActioner(RIGHT,  &Menu::is_activer);
+    TrainingActioner(kRight,  &Menu::is_activer);
 
     ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.0f);
     ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 0.5f);
-    TrainingActioner(LEFT,   &Menu::is_activel);
+    TrainingActioner(kLeft,   &Menu::is_activel);
 
     ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.5f);
     ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 1.0f);
-    TrainingActioner(BOTTOM, &Menu::is_activeb);
+    TrainingActioner(kBottom, &Menu::is_activeb);
 }
 
 void Menu::ShowMenu()
