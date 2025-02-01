@@ -1,32 +1,40 @@
-#include <iostream>
-#include <stdio.h>
-#include <string>
 #include "menu.h"
+#include "pieeg.h"
 
 #pragma warning(disable: 4996)
 
 float delta_time = 0.0f;
-std::vector<ImVec2> data = {};
-bool is_graph_moving = false;
+std::vector<PIEEG::Channels> graphDataPositions = {};
 
-void Menu::ChannelGraph(int numChannel)
+void Menu::ChannelGraph()
 {
-    delta_time += ImGui::GetIO().DeltaTime;
-    data.push_back(ImVec2(delta_time, ImGui::GetIO().MousePos.y)); // for testing | Should be replaced by received data from channels
-    
-    ImGui::Checkbox("pause", &is_graph_moving);
+    ImGui::Checkbox("pause", &is_paused);
 
-    if (ImPlot::BeginPlot(std::to_string(numChannel).c_str(), ImVec2(-1, 250), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
+    if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
         // To make the graph scrolling for new data
-        if (!is_graph_moving)
+        if (!is_paused) 
+        {
             ImPlot::SetupAxisLimits(ImAxis_X1, delta_time - 10.0f, delta_time, ImGuiCond_Always); 
+            delta_time += ImGui::GetIO().DeltaTime;
 
-        // Plot for all channels
-        ImPlot::PlotLine("ch1", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
-        //ImPlot::PlotLine("ch2", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
-        //ImPlot::PlotLine("ch3", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
-        //ImPlot::PlotLine("ch4", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
+            graphDataPositions.push_back(
+                PIEEG::RetrieveData(delta_time)
+            );
+        }
+
+        // Plot all 8 channels
+        for (int i = 1; i <= PIEEG::num_electrodes; i++)
+        {
+            ImPlot::PlotLine(
+                std::to_string(i).c_str(), 
+                &graphDataPositions[0].vals[0], // Delta Time
+                &graphDataPositions[0].vals[i], // Value of Channel that is being plotted
+                graphDataPositions.size(),
+                0, 0, 
+                9 * sizeof(float)               
+            );
+        }
         ImPlot::EndPlot();
     }
 }
@@ -84,7 +92,7 @@ void Menu::TrainingView()
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
-    ChannelGraph(1);
+        ChannelGraph();
     ImGui::End();
 
 	ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);
