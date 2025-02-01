@@ -43,7 +43,7 @@ void Graphics::SetupImGuiStyle()
 	style.CellPadding			    = ImVec2(4.0f, 2.0f);
 	style.IndentSpacing			    = 21.0f;
 	style.ColumnsMinSpacing		    = 6.0f;
-	style.ScrollbarSize			    = 5.599999904632568f;
+	style.ScrollbarSize			    = 5.59f;
 	style.ScrollbarRounding		    = 18.0f;
 	style.GrabMinSize			    = 10.0f;
 	style.TabBorderSize			    = 0.0f;

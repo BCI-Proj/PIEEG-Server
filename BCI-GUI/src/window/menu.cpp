@@ -11,9 +11,6 @@ void Menu::ChannelGraph()
 {
     using namespace PIEEG;
 
-    ImGui::Text("Size : %d", graph.data.size());
-    ImGui::Text("Capacity : %d", graph.data.capacity());
-
     ImGui::Checkbox("pause", &is_paused);
 
     if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
