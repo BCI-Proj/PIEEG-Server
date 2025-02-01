@@ -5,7 +5,7 @@
 
 float delta_time = 0.0f;
 
-Menu::Graph graph(2000);
+Menu::Graph graph(3000);
 
 void Menu::ChannelGraph()
 {

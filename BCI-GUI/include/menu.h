@@ -34,7 +34,7 @@ namespace Menu
 	{
 		ImVector<ChannelsArray> data;
 		const int maximum_size;
-		const int remove_amount = 0.01 * maximum_size; // remove 10% 
+		const int remove_amount = 0.1f * maximum_size; // remove 10% 
 
 		Graph(int _max)
 			: maximum_size(_max)
