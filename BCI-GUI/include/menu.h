@@ -14,7 +14,7 @@ namespace Menu
 {
 	using ChannelsArray = std::array<float, 9>;
 
-	// Booleans that refer to training actioners
+	// Booleans that refer to training actioners ( last letter refert to direction )
 	inline bool is_activet = false;
 	inline bool is_activeb = false;
 	inline bool is_activel = false;
