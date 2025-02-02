@@ -8,17 +8,17 @@
 class Graphics
 {
 	private:
-		int mWidth				 = 0;
-		int mHeight				 = 0;
+		int m_width				   = 0;
+		int m_height			   = 0;
 	
-		SDL_Window*	  mWindow    = nullptr;
-		SDL_Renderer* mRenderer  = nullptr;
+		SDL_Window*	  m_pWindow    = nullptr;
+		SDL_Renderer* m_pRenderer  = nullptr;
 
-		bool		  mIsRunning = true;
+		bool		  m_IsRunning  = true;
 	
 	public:
 		Graphics(int width, int height) 
-			: mWidth(width), mHeight(height)
+			: m_width(width), m_height(height)
 		{
 			InitSDL();
 			InitImGui();

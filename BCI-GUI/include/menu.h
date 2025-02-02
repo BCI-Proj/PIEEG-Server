@@ -15,11 +15,11 @@ namespace Menu
 	using ChannelsArray = std::array<float, 9>;
 
 	// Booleans that refer to training actioners ( last letter refert to direction )
-	inline bool is_activet = false;
-	inline bool is_activeb = false;
-	inline bool is_activel = false;
-	inline bool is_activer = false;
-	inline bool is_paused  = false;
+	inline bool bActionerT = false;
+	inline bool bActionerB = false;
+	inline bool bActionerL = false;
+	inline bool bActionerR = false;
+	inline bool bPaused    = false;
 
 	// For saving training buttons order
 	enum TrainingDirection
@@ -33,13 +33,13 @@ namespace Menu
 	struct Graph
 	{
 		ImVector<ChannelsArray> data;
-		const int maximum_size;
-		const int remove_amount = 0.1f * maximum_size; // remove 10% 
+		const int maximumSize;
+		const int removeAmount = 0.1f * maximumSize; // remove 10% 
 
-		Graph(int _max)
-			: maximum_size(_max)
+		Graph(int max)
+			: maximumSize(max)
 		{
-			data.reserve(maximum_size); // Set capacity to maximum
+			data.reserve(maximumSize); // Set capacity to maximum
 		};
 
 		inline void Add(ChannelsArray arr)
@@ -47,8 +47,8 @@ namespace Menu
 			data.push_back(arr);
 
 			// Remember to check index of elements
-			if (data.size() >= maximum_size)
-				data.erase(data.begin(), data.begin() + remove_amount); // Removed N oldest
+			if (data.size() >= maximumSize)
+				data.erase(data.begin(), data.begin() + removeAmount); // Removed N oldest
 		}
 	};
 
@@ -58,7 +58,12 @@ namespace Menu
 	void ChannelGraph();
 
 	// Actioner in training view
-	void TrainingActioner(TrainingDirection direction, bool* b_value);
+	void TrainingActioner(TrainingDirection direction, bool* bValue);
+
+	inline void PlaceActioner(float posX, float posY, TrainingDirection direction)
+	{
+		
+	}
 
 	// Component used to display multiple Actioners in multiple directions
 	void TrainingView();

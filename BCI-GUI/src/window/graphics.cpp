@@ -6,24 +6,24 @@ void Graphics::InitSDL()
 
 	SDL_WindowFlags windowFlags = (SDL_WindowFlags) (SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 
-	mWindow = SDL_CreateWindow
+	m_pWindow = SDL_CreateWindow
 	(
 		"BCI",			        // Title
 		SDL_WINDOWPOS_CENTERED, // X
 		SDL_WINDOWPOS_CENTERED, // Y
-		mWidth,					// Width
-		mHeight,				// Height
+		m_width,			    // Width
+		m_height,				// Height
 		windowFlags				// Flags
 	);
 
-	mRenderer = SDL_CreateRenderer
+	m_pRenderer = SDL_CreateRenderer
 	(
-		mWindow,  // The window
-		-1,	      // Index of rendering driver
+		m_pWindow,  // The window
+		-1,	        // Index of rendering driver
 		SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED // Flags
 	);
 
-	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255); // all black
+	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255); // all black
 }
 
 void Graphics::SetupImGuiStyle()
@@ -91,8 +91,8 @@ void Graphics::InitImGui()
 
 	SetupImGuiStyle();
 
-	ImGui_ImplSDL2_InitForSDLRenderer(mWindow, mRenderer);
-	ImGui_ImplSDLRenderer2_Init(mRenderer);
+	ImGui_ImplSDL2_InitForSDLRenderer(m_pWindow, m_pRenderer);
+	ImGui_ImplSDLRenderer2_Init(m_pRenderer);
 
 	ImGui_ImplSDLRenderer2_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
@@ -106,14 +106,14 @@ void Graphics::Cleanup()
 	ImPlot::DestroyContext();
 	ImGui::DestroyContext();
 
-	SDL_DestroyWindow(mWindow);
-	SDL_DestroyRenderer(mRenderer);
+	SDL_DestroyWindow(m_pWindow);
+	SDL_DestroyRenderer(m_pRenderer);
 	SDL_Quit();
 }
 
 void Graphics::Loop(const std::function<void()>& toRender)
 {
-	while (mIsRunning)
+	while (m_IsRunning)
 	{
 		#pragma region Window Events
 
@@ -123,15 +123,15 @@ void Graphics::Loop(const std::function<void()>& toRender)
 			ImGui_ImplSDL2_ProcessEvent(&event);
 
 			if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-				SDL_GetRendererOutputSize(mRenderer, &mWidth, &mHeight);
+				SDL_GetRendererOutputSize(m_pRenderer, &m_width, &m_height);
 
 			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-				mIsRunning = false;
+				m_IsRunning = false;
 		}
 
 		#pragma endregion
 
-		SDL_RenderClear(mRenderer);
+		SDL_RenderClear(m_pRenderer);
 
 		ImGui_ImplSDLRenderer2_NewFrame();
 		ImGui_ImplSDL2_NewFrame();
@@ -149,8 +149,8 @@ void Graphics::Loop(const std::function<void()>& toRender)
 
 		ImGui::Render();
 
-		ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), mRenderer);
-		SDL_RenderPresent(mRenderer);
+		ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), m_pRenderer);
+		SDL_RenderPresent(m_pRenderer);
 	}
 
 	Cleanup();

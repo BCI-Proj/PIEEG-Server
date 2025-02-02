@@ -3,7 +3,7 @@
 
 #pragma warning(disable: 4996)
 
-float delta_time = 0.0f;
+float gDeltaTime = 0.0f;
 
 Menu::Graph graph(3000);
 
@@ -11,17 +11,17 @@ void Menu::ChannelGraph()
 {
     using namespace PIEEG;
 
-    ImGui::Checkbox("pause", &is_paused);
+    ImGui::Checkbox("pause", &bPaused);
 
     if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
         // To make the graph scrolling for new data
-        if (!is_paused)
+        if (!bPaused)
         {
-            ImPlot::SetupAxisLimits(ImAxis_X1, delta_time - 5.0f, delta_time, ImGuiCond_Always);
-            delta_time += ImGui::GetIO().DeltaTime;
+            ImPlot::SetupAxisLimits(ImAxis_X1, gDeltaTime - 5.0f, gDeltaTime, ImGuiCond_Always);
+            gDeltaTime += ImGui::GetIO().DeltaTime;
 
-            graph.Add(RetrieveData(delta_time).vals);
+            graph.Add(RetrieveData(gDeltaTime).vals);
         }
 
         // Plot all 8 channels
@@ -40,31 +40,31 @@ void Menu::ChannelGraph()
     }
 }
 
-void Menu::TrainingActioner(TrainingDirection direction, bool* b_value)
+void Menu::TrainingActioner(TrainingDirection direction, bool* bValue)
 {
     ImGui::PushID(direction);
 
-    ImVec2 actioner_position   = ImGui::GetCursorScreenPos();
+    ImVec2 actionerPos = ImGui::GetCursorScreenPos();
 
     float width = 30, height = 30;
 
     // To place the actioner at the exact position by taking consideration of its width and height
-    ImVec2 actioner_dimension = ImVec2(actioner_position.x + width, actioner_position.y + height);
+    ImVec2 actionerSize = ImVec2(actionerPos.x + width, actionerPos.y + height);
 
     // Colors in format RGBA ( From 1.0f to 0.0f | Max is 1.0f so 255 )
-    ImU32 active_col  = ImGui::GetColorU32(ImVec4(0.0f,  1.0f,  0.0f,  1.0f));
-    ImU32 disable_col = ImGui::GetColorU32(ImVec4(0.45f, 0.45f, 0.45f, 1.0f));
+    ImU32 activeColor  = ImGui::GetColorU32(ImVec4(0.0f,  1.0f,  0.0f,  1.0f));
+    ImU32 disableColor = ImGui::GetColorU32(ImVec4(0.45f, 0.45f, 0.45f, 1.0f));
 
     // Act as a button for now 
-    bool is_pressed = ImGui::InvisibleButton("button", ImVec2(width, height)); // an invisible button is here to make it interactable
+    bool isPressed = ImGui::InvisibleButton("button", ImVec2(width, height)); // an invisible button is here to make it interactable
 
-    if (is_pressed)
-        *b_value = !*b_value;
+    if (isPressed)
+        *bValue = !*bValue;
         
     ImGui::GetWindowDrawList()->AddRectFilled(
-        actioner_position, 
-        actioner_dimension, 
-        (*b_value) ? active_col : disable_col
+        actionerPos, 
+        actionerSize, 
+        (*bValue) ? activeColor : disableColor
     );
 
     ImGui::PopID();
@@ -72,22 +72,24 @@ void Menu::TrainingActioner(TrainingDirection direction, bool* b_value)
 
 void Menu::TrainingView()
 {
-    int margin_width = 30, margin_height = 50;
+    ImVec2 wndDimensions = ImGui::GetWindowSize(); // x refer to width, y refer to height
 
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.5f);
-    TrainingActioner(kTop,    &Menu::is_activet);
+    int marginWidth = 30, marginHeight = 50;
 
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 1.0f);
-    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 0.5f);
-    TrainingActioner(kRight,  &Menu::is_activer);
+    ImGui::SetCursorPosX((wndDimensions.x - marginWidth )  * 0.5f);
+    TrainingActioner(kTop,    &Menu::bActionerT);
 
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.0f);
-    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 0.5f);
-    TrainingActioner(kLeft,   &Menu::is_activel);
+    ImGui::SetCursorPosX((wndDimensions.x - marginWidth )  * 1.0f);
+    ImGui::SetCursorPosY((wndDimensions.y - marginHeight)  * 0.5f);
+    TrainingActioner(kRight,  &Menu::bActionerR);
 
-    ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.5f);
-    ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 1.0f);
-    TrainingActioner(kBottom, &Menu::is_activeb);
+    ImGui::SetCursorPosX((wndDimensions.x - marginWidth )  * 0.0f);
+    ImGui::SetCursorPosY((wndDimensions.y - marginHeight)  * 0.5f);
+    TrainingActioner(kLeft,   &Menu::bActionerL);
+
+    ImGui::SetCursorPosX((wndDimensions.x - marginWidth )  * 0.5f);
+    ImGui::SetCursorPosY((wndDimensions.y - marginHeight)  * 1.0f);
+    TrainingActioner(kBottom, &Menu::bActionerB);
 }
 
 void Menu::ShowMenu()
