@@ -5,40 +5,62 @@
 #include <imgui_impl_sdlrenderer2.h>
 #include <implot.h>
 #include <vector>
-#include <array>
+#include <string>
+#include <iostream>
 
+#include "pieeg.h"
 
 namespace Menu
 {
-	// Booleans that refer to training actioners
+	using ChannelsArray = std::array<float, 9>;
+
+	// Booleans that refer to training actioners ( last letter refert to direction )
 	inline bool is_activet = false;
 	inline bool is_activeb = false;
 	inline bool is_activel = false;
 	inline bool is_activer = false;
-
-	//	Struct that refer to all 8 channels. 8 for each electrode
-	struct Channels
-	{
-		std::array<float, 8> vals = {};
-		
-		Channels(float _c1, float _c2, float _c3, float _c4, float _c5, float _c6, float _c7, float _c8)
-			: vals{{_c1,_c2,_c3,_c4,_c5,_c6,_c7,_c8}} 
-		{};
-	};
+	inline bool is_paused  = false;
 
 	// For saving training buttons order
-	enum Direction
+	enum TrainingDirection
 	{
-		TOP,
-		BOTTOM,
-		LEFT,
-		RIGHT
+		kTop,
+		kBottom,
+		kLeft,
+		kRight
+	};
+
+	struct Graph
+	{
+		ImVector<ChannelsArray> data;
+		const int maximum_size;
+		const int remove_amount = 0.1f * maximum_size; // remove 10% 
+
+		Graph(int _max)
+			: maximum_size(_max)
+		{
+			data.reserve(maximum_size); // Set capacity to maximum
+		};
+
+		inline void Add(ChannelsArray arr)
+		{
+			data.push_back(arr);
+
+			// Remember to check index of elements
+			if (data.size() >= maximum_size)
+				data.erase(data.begin(), data.begin() + remove_amount); // Removed N oldest
+		}
 	};
 
 	#pragma region Custom Components
 	
-	void ChannelGraph(int numChannel);
-	void TrainingActioner(Direction direction, bool* b_value);
+	// Component used to display channels graph on interface
+	void ChannelGraph();
+
+	// Actioner in training view
+	void TrainingActioner(TrainingDirection direction, bool* b_value);
+
+	// Component used to display multiple Actioners in multiple directions
 	void TrainingView();
 
 	#pragma endregion

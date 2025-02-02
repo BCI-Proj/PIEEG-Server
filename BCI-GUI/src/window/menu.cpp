@@ -1,37 +1,46 @@
-#include <iostream>
-#include <stdio.h>
-#include <string>
 #include "menu.h"
+#include "pieeg.h"
 
 #pragma warning(disable: 4996)
 
 float delta_time = 0.0f;
-std::vector<ImVec2> data = {};
-bool is_graph_moving = false;
 
-void Menu::ChannelGraph(int numChannel)
+Menu::Graph graph(3000);
+
+void Menu::ChannelGraph()
 {
-    delta_time += ImGui::GetIO().DeltaTime;
-    data.push_back(ImVec2(delta_time, ImGui::GetIO().MousePos.y)); // for testing | Should be replaced by received data from channels
-    
-    ImGui::Checkbox("pause", &is_graph_moving);
+    using namespace PIEEG;
 
-    if (ImPlot::BeginPlot(std::to_string(numChannel).c_str(), ImVec2(-1, 250), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
+    ImGui::Checkbox("pause", &is_paused);
+
+    if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
         // To make the graph scrolling for new data
-        if (!is_graph_moving)
-            ImPlot::SetupAxisLimits(ImAxis_X1, delta_time - 10.0f, delta_time, ImGuiCond_Always); 
+        if (!is_paused)
+        {
+            ImPlot::SetupAxisLimits(ImAxis_X1, delta_time - 5.0f, delta_time, ImGuiCond_Always);
+            delta_time += ImGui::GetIO().DeltaTime;
 
-        // Plot for all channels
-        ImPlot::PlotLine("ch1", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
-        //ImPlot::PlotLine("ch2", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
-        //ImPlot::PlotLine("ch3", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
-        //ImPlot::PlotLine("ch4", &data[0].x, &data[0].y, data.size(), 0, 0, 2 * sizeof(float));
+            graph.Add(RetrieveData(delta_time).vals);
+        }
+
+        // Plot all 8 channels
+        for (int i = 1; i <= kNumElectrodes; i++)
+        {
+            ImPlot::PlotLine(
+                std::to_string(i).c_str(),
+                &graph.data[0][0], // Delta Time
+                &graph.data[0][i], // Value of Channel that is being plotted
+                graph.data.size(),
+                0, 0,
+                9 * sizeof(float)  // Size of the 9 elements in graph ChannelsArray
+            );
+        }
         ImPlot::EndPlot();
     }
 }
 
-void Menu::TrainingActioner(Direction direction, bool* b_value)
+void Menu::TrainingActioner(TrainingDirection direction, bool* b_value)
 {
     ImGui::PushID(direction);
 
@@ -66,25 +75,25 @@ void Menu::TrainingView()
     int margin_width = 30, margin_height = 50;
 
     ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.5f);
-    TrainingActioner(TOP,    &Menu::is_activet);
+    TrainingActioner(kTop,    &Menu::is_activet);
 
     ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 1.0f);
     ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 0.5f);
-    TrainingActioner(RIGHT,  &Menu::is_activer);
+    TrainingActioner(kRight,  &Menu::is_activer);
 
     ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.0f);
     ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 0.5f);
-    TrainingActioner(LEFT,   &Menu::is_activel);
+    TrainingActioner(kLeft,   &Menu::is_activel);
 
     ImGui::SetCursorPosX((ImGui::GetWindowWidth()  - margin_width )  * 0.5f);
     ImGui::SetCursorPosY((ImGui::GetWindowHeight() - margin_height)  * 1.0f);
-    TrainingActioner(BOTTOM, &Menu::is_activeb);
+    TrainingActioner(kBottom, &Menu::is_activeb);
 }
 
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
-    ChannelGraph(1);
+        ChannelGraph();
     ImGui::End();
 
 	ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);

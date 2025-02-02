@@ -26,6 +26,7 @@ class Graphics
 
 		void InitSDL();
 		void InitImGui();
+		void SetupImGuiStyle();
 		void Loop(const std::function<void()>& toRender);
 		void Cleanup();
 };
