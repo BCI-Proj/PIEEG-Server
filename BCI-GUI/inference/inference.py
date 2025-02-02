@@ -18,7 +18,7 @@ eeg_buffer: pd.DataFrame;
 CHANNEL_COUNT = 8;
 WINDOW_LENGHT = 250;
 SAMPLE_RATE = 250;
-CLASSES: List[str] = ["up", "down", "left", "right"];
+CLASSES: List[str] = ["up", "down", "left", "right", "baseline"];
 
 
 # [START DEFINITIONS]
