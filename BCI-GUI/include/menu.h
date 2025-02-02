@@ -52,23 +52,27 @@ namespace Menu
 		}
 	};
 
+
 	#pragma region Custom Components
 	
 	// Component used to display channels graph on interface
 	void ChannelGraph();
 
 	// Actioner in training view
-	void TrainingActioner(TrainingDirection direction, bool* bValue);
-
-	inline void PlaceActioner(float posX, float posY, TrainingDirection direction)
-	{
-		
-	}
+	void TrainingActioner(TrainingDirection direction, bool* p_bValue);
 
 	// Component used to display multiple Actioners in multiple directions
 	void TrainingView();
 
 	#pragma endregion
+
+	// To place Actioner in the Training View depending on direction
+	inline void PositionActioner(float posX, float posY, TrainingDirection direction, bool* p_bValue)
+	{
+		ImGui::SetCursorPosX(posX);
+		ImGui::SetCursorPosY(posY);
+		TrainingActioner(direction, p_bValue);
+	}
 
 	void ShowMenu();
 }
