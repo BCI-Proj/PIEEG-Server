@@ -398,3 +398,16 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Ignore Python virtual environment folder
+venv/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environment specific system files (on Windows)
+venv/Lib/site-packages/
+venv/Include/
+venv/Scripts/
+venv/pyvenv.cfg
