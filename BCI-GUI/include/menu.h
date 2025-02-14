@@ -22,7 +22,7 @@ namespace Menu
 	inline bool bPaused    = false;
 
 	// For saving training buttons order
-	constexpr enum TrainingDirection
+	enum TrainingDirection
 	{
 		kTop,
 		kBottom,
@@ -34,7 +34,7 @@ namespace Menu
 	{
 		ImVector<ChannelsArray> data;
 		const int maximumSize;
-		const int removeAmount = 0.1f * maximumSize; // remove 10% of maximum size
+		const int removeAmount = static_cast<int>(0.1f * maximumSize); // remove 10% of maximum size
 
 		Graph(int max)
 			: maximumSize(max)

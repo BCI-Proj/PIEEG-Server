@@ -11,8 +11,6 @@ void Menu::ChannelGraph()
 {
     using namespace PIEEG;
 
-    ImGui::Checkbox("pause", &bPaused);
-
     if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
         // To make the graph scrolling for new data
@@ -106,6 +104,8 @@ void Menu::TrainingView()
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
+        ImGui::Checkbox("Pause",  &bPaused);
+        ImGui::SeparatorText("Graph");
         ChannelGraph();
     ImGui::End();
 

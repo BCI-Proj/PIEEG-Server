@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)\lib\implot\;$(ProjectDir)\lib\imgui\;$(ProjectDir)\lib\SDL2\SDL2-2.30.11\include\;$(ProjectDir)\lib\imgui\backends\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\lib\implot\;$(ProjectDir)\lib\imgui\;$(ProjectDir)\lib\SDL2\SDL2-2.30.11\include\;$(ProjectDir)\lib\imgui\backends\;C:\Python313\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\pieeg\socket\receiver.cpp" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_sdl2.cpp" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_sdlrenderer2.cpp" />
     <ClCompile Include="lib\imgui\imgui.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="include\menu.h" />
     <ClInclude Include="include\graphics.h" />
     <ClInclude Include="include\pieeg.h" />
+    <ClInclude Include="include\receiver.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_sdl2.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_sdlrenderer2.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />
