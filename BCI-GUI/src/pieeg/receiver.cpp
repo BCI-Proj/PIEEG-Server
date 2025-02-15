@@ -7,6 +7,7 @@ int Receiver::Init()
 
 	if (result != 0)
 	{
+		
 		std::printf("Can't initialize WSA, Startup failed : %d\n", result);
 		WSACleanup();
 		return 1;
@@ -24,7 +25,7 @@ int Receiver::CreateSocket()
 	SOCKET serverSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (serverSocket == INVALID_SOCKET)
 	{
-		std::printf("Error at socket %ld\n", WSAGetLastError);
+		std::printf("Error at socket %d\n", WSAGetLastError());
 		WSACleanup();
 		return 1;
 	}

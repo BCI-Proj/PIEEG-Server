@@ -1,8 +1,6 @@
 #include "menu.h"
 #include "pieeg.h"
 
-#pragma warning(disable: 4996)
-
 float gDeltaTime = 0.0f;
 
 Menu::Graph graph(3000);
@@ -98,7 +96,6 @@ void Menu::TrainingView()
         (wndDimensions.y - marginHeight) * 1.0f, 
         kBottom, &Menu::bActionerB
     );
-
 }
 
 void Menu::ShowMenu()

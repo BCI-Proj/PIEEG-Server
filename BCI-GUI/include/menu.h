@@ -10,6 +10,8 @@
 
 #include "pieeg.h"
 
+#pragma warning(disable: 4996)
+
 namespace Menu
 {
 	using ChannelsArray = std::array<float, 9>;
