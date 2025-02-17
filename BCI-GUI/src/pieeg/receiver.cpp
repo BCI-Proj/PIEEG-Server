@@ -1,16 +1,14 @@
 #include "receiver.h"
 
-int Receiver::Init()
+bool Receiver::Init()
 {
 	WSAData wsaData;
 	int result = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
 	if (result != 0)
 	{
-		
-		std::printf("Can't initialize WSA, Startup failed : %d\n", result);
-		WSACleanup();
-		return 1;
+		WS_ERROR("CANT INIT WSA - %d\n");
+		WS_CLEAN();
 	}
 
 	m_receiverAddr.sin_port        = htons(m_port);
@@ -20,14 +18,13 @@ int Receiver::Init()
 	return 0;
 }
 
-int Receiver::CreateSocket()
+bool Receiver::CreateSocket()
 {
 	SOCKET serverSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (serverSocket == INVALID_SOCKET)
 	{
-		std::printf("Error at socket %d\n", WSAGetLastError());
-		WSACleanup();
-		return 1;
+		WS_ERROR("CANT CREATE SOCKET - %d\n");
+		WS_CLEAN();
 	}
 
 	m_socket = serverSocket;
@@ -35,23 +32,32 @@ int Receiver::CreateSocket()
 	return 0;
 }
 
-int Receiver::BindSocket()
+bool Receiver::BindSocket()
 {
 	int result = bind(
 		m_socket, reinterpret_cast<sockaddr*>(&m_receiverAddr), sizeof(m_receiverAddr));
 
 	if (result == SOCKET_ERROR)
 	{
-		std::printf("Bind failed with error %d\n", WSAGetLastError());
+		WS_ERROR("BIND FAILED - %d\n");
 		closesocket(m_socket);
-		WSACleanup();
-		return 1;
+		WS_CLEAN();
 	}
-	
 	return 0;
 }
 
-int Receiver::ReceiveFromSender(char* buffer, int bufferLen)
+bool Receiver::ReceiveFromSender(char* recvBuffer, int bufferLen)
 {
+	int result = recvfrom(m_socket, recvBuffer, bufferLen, 0, reinterpret_cast<sockaddr*>(&m_clientAddr), &m_clientAddrLen);
+
+	if (result == SOCKET_ERROR)
+	{
+		WS_ERROR("RECEIVING FAILED - %d\n");
+		closesocket(m_socket);
+		WS_CLEAN();
+	}
+	recvBuffer[bufferLen - 1] = '\0';
+	std::printf("buffer : %s \n", recvBuffer);
+
 	return 0;
 }
