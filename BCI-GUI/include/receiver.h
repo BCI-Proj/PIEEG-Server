@@ -25,7 +25,7 @@ private:
 	bool  BindSocket();
 
 public:
-	Receiver() = default;
+	Receiver() = default; // default constructor
 	Receiver(int port, int bufferLen)
 		: m_port(port), m_buffer(new char[bufferLen])
 	{

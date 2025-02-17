@@ -5,9 +5,8 @@
 
 namespace PIEEG
 {
-	inline constexpr uint8_t kNumElectrodes = 8;
-
-	Receiver receiver;
+	inline constexpr uint16_t kPort = 8888;
+	inline constexpr uint8_t  kNumElectrodes = 8;
 
 	struct Channels
 	{

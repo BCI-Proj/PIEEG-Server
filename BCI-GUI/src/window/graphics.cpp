@@ -126,6 +126,9 @@ void Graphics::Loop(const std::function<void()>& toRender)
 
 			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 				m_IsRunning = false;
+
+			if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE)
+				Menu::bPaused = !Menu::bPaused;
 		}
 
 		#pragma endregion
