@@ -8,8 +8,7 @@
 class Graphics
 {
 private:
-	int m_width = 0;
-	int m_height = 0;
+	int m_width = 0, m_height = 0;
 
 	SDL_Window*   m_pWindow = nullptr;
 	SDL_Renderer* m_pRenderer = nullptr;

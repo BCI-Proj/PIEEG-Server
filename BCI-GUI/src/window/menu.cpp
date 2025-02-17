@@ -2,7 +2,6 @@
 #include "pieeg.h"
 
 float gDeltaTime = 0.0f;
-
 Menu::Graph graph(3000);
 
 void Menu::ChannelGraph()
@@ -17,7 +16,10 @@ void Menu::ChannelGraph()
             ImPlot::SetupAxisLimits(ImAxis_X1, gDeltaTime - 5.0f, gDeltaTime, ImGuiCond_Always);
             gDeltaTime += ImGui::GetIO().DeltaTime;
 
+            // Receive data to a buffer
+            // Add received to graph data
             graph.Add(RetrieveData(gDeltaTime).vals);
+            
         }
 
         // Plot all 8 channels

@@ -1,10 +1,13 @@
 #pragma once
 
 #include <array>
+#include "receiver.h"
 
 namespace PIEEG
 {
 	inline constexpr uint8_t kNumElectrodes = 8;
+
+	Receiver receiver;
 
 	struct Channels
 	{

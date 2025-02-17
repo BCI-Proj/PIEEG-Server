@@ -9,7 +9,8 @@
 class Receiver
 {
 private:
-	int	m_port;
+	int	    m_port;
+	char*   m_buffer; // buffer for the data of the electrodes ( NOT char*, should be changed ) 
 
 	SOCKET m_socket = 0;
 
@@ -24,12 +25,13 @@ private:
 	bool  BindSocket();
 
 public:
-	Receiver(int port, char* recvBuffer, int bufferLen)
-		: m_port(port)
+	Receiver() = default;
+	Receiver(int port, int bufferLen)
+		: m_port(port), m_buffer(new char[bufferLen])
 	{
 		if (!Init())         return;
 		if (!CreateSocket()) return;
 		if (!BindSocket())   return;
 	}
-	bool ReceiveFromSender(char* buffer, int bufferLen);
+	bool ReceiveFromSender();
 };

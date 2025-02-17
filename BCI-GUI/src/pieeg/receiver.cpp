@@ -43,12 +43,13 @@ bool Receiver::BindSocket()
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
-	return 0;
+	return 0;	
 }
 
-bool Receiver::ReceiveFromSender(char* recvBuffer, int bufferLen)
+bool Receiver::ReceiveFromSender()
 {
-	int result = recvfrom(m_socket, recvBuffer, bufferLen, 0, reinterpret_cast<sockaddr*>(&m_clientAddr), &m_clientAddrLen);
+	int bufferLen = sizeof(m_buffer); 
+	int result    = recvfrom(m_socket, m_buffer, bufferLen, 0, reinterpret_cast<sockaddr*>(&m_clientAddr), &m_clientAddrLen);
 
 	if (result == SOCKET_ERROR)
 	{
@@ -56,8 +57,8 @@ bool Receiver::ReceiveFromSender(char* recvBuffer, int bufferLen)
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
-	recvBuffer[bufferLen - 1] = '\0';
-	std::printf("buffer : %s \n", recvBuffer);
+	m_buffer[bufferLen - 1] = '\0';
+	std::printf("buffer : %s \n", m_buffer);
 
 	return 0;
 }
