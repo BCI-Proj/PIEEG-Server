@@ -16,6 +16,11 @@ private:
 
 	bool		  m_IsRunning = true;
 
+	void InitSDL();
+	void InitImGui();
+	void SetupImGuiStyle();
+	void Cleanup();
+
 public:
 	Graphics(int width, int height)
 		: m_width(width), m_height(height)
@@ -24,9 +29,5 @@ public:
 		InitImGui();
 	}
 
-	void InitSDL();
-	void InitImGui();
-	void SetupImGuiStyle();
 	void Loop(const std::function<void()>& toRender);
-	void Cleanup();
 };
