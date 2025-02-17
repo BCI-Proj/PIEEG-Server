@@ -3,6 +3,8 @@
 #include <iostream>
 #include <winsock2.h>
 
+#define WSA_CLEAN() WSACleanup(); return 1;
+
 class Receiver
 {
 private:
@@ -12,21 +14,23 @@ private:
 
 	sockaddr_in
 		m_receiverAddr = {},
-		m_clientAddr = {};
+		m_clientAddr   = {};
+
+	int m_clientAddrLen = sizeof(m_clientAddr);
 
 public:
-	Receiver(int port, char* buffer, int bufferLen)
+	Receiver(int port, char* recvBuffer, int bufferLen)
 		: m_port(port)
 	{
 		if (!Init())         return;
 		if (!CreateSocket()) return;
 		if (!BindSocket())   return;
 
-		ReceiveFromSender(buffer, bufferLen);
+		ReceiveFromSender(recvBuffer, bufferLen);
 	}
 
-	int	 Init();
-	int  CreateSocket();
-	int  BindSocket();
-	int  ReceiveFromSender(char* buffer, int bufferLen);
+	bool  Init();
+	bool  CreateSocket();
+	bool  BindSocket();
+	bool  ReceiveFromSender(char* buffer, int bufferLen);
 };
