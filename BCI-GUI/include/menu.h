@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "pieeg.h"
+#include "globals.h"
 
 #pragma warning(disable: 4996)
 

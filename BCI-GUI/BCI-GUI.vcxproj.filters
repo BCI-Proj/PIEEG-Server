@@ -60,6 +60,9 @@
     <ClCompile Include="src\pieeg\pieeg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\pieeg\receiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h">
@@ -99,6 +102,12 @@
       <Filter>Header Files\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="include\pieeg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\receiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

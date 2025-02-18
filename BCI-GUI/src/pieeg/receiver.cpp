@@ -48,8 +48,8 @@ bool Receiver::BindSocket()
 
 bool Receiver::ReceiveFromSender()
 {
-	int bufferLen = sizeof(m_buffer); 
-	int result    = recvfrom(m_socket, m_buffer, bufferLen, 0, reinterpret_cast<sockaddr*>(&m_clientAddr), &m_clientAddrLen);
+	int bufferLen = sizeof(buffer); 
+	int result    = recvfrom(m_socket, reinterpret_cast<char*>(buffer), bufferLen * sizeof(float), 0, reinterpret_cast<sockaddr*>(&m_clientAddr), &m_clientAddrLen);
 
 	if (result == SOCKET_ERROR)
 	{
@@ -57,8 +57,13 @@ bool Receiver::ReceiveFromSender()
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
-	m_buffer[bufferLen - 1] = '\0';
-	std::printf("buffer : %s \n", m_buffer);
+
+#ifdef _DEBUG
+	// 8 is the number of electrodes
+	// Hardcoded here because I dont want to include constants.h
+	for (int i = 0; i < 8; i++)
+		std::printf("Channel %d : %f \n", i, buffer[0]);
+#endif
 
 	return 0;
 }

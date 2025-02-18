@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "pieeg.h"
 
 float gDeltaTime = 0.0f;
 Menu::Graph graph(3000);
@@ -23,7 +22,7 @@ void Menu::ChannelGraph()
         }
 
         // Plot all 8 channels
-        for (int i = 1; i <= kNumElectrodes; i++)
+        for (int i = 1; i <= Globals::kNumElectrodes; i++)
         {
             ImPlot::PlotLine(
                 std::to_string(i).c_str(),
@@ -38,7 +37,7 @@ void Menu::ChannelGraph()
     }
 }
 
-void Menu::TrainingActioner(TrainingDirection direction, bool* p_bValue)
+void Menu::TrainingActioner(TrainingDirection direction, bool* pBoolean)
 {
     ImGui::PushID(direction);
 
@@ -57,12 +56,12 @@ void Menu::TrainingActioner(TrainingDirection direction, bool* p_bValue)
     bool isPressed = ImGui::InvisibleButton("button", ImVec2(width, height)); // an invisible button is here to make it interactable
 
     if (isPressed)
-        *p_bValue = !*p_bValue;
+        *pBoolean = !*pBoolean;
         
     ImGui::GetWindowDrawList()->AddRectFilled(
         actionerPos, 
         actionerSize, 
-        (*p_bValue) ? activeColor : disableColor
+        (*pBoolean) ? activeColor : disableColor
     );
 
     ImGui::PopID();
