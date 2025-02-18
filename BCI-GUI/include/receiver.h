@@ -26,7 +26,7 @@ private:
 public:
 	float* buffer; // buffer for the data of the electrodes 
 
-	Receiver() = default; // default constructor
+	Receiver() = default;
 	Receiver(int port, int bufferLen)
 		: m_port(port), buffer(new float[bufferLen])
 	{

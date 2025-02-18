@@ -11,7 +11,7 @@ namespace PIEEG
 	struct Channels
 	{
 		// Num of electrodes + 1 to handle the delta time in addition
-		std::array<float, 8+ 1> vals = {};
+		std::array<float, 8+1> vals = {};
 
 		Channels() = default;
 		Channels(float deltaTime, float* buff)
