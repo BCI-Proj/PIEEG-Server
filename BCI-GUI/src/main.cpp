@@ -16,7 +16,8 @@ int main(int argc, char** argv)
 		});
 
 	panel.Loop();
-	
-	t_udp.join();
+
+	// Detach and not join here to kill the thread because recvfrom function will wait until the next message before closing.
+	t_udp.detach();
 	return 0;
 }

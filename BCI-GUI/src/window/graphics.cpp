@@ -77,12 +77,11 @@ void Graphics::Loop()
 
 			if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE)
 				Menu::bPaused = !Menu::bPaused;
-
-			SDL_RenderClear(m_pRenderer);
 		}
 
 		#pragma endregion
 
+		SDL_RenderClear(m_pRenderer);
 
 		ImGui_ImplSDLRenderer2_NewFrame();
 		ImGui_ImplSDL2_NewFrame();
