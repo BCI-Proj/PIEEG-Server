@@ -3,7 +3,7 @@
 float gDeltaTime = 0.0f;
 Menu::Graph graph(3000);
 
-void Menu::ChannelGraph()
+void Menu::ChannelGraph(float* buffer)
 {
     using namespace PIEEG;
 
@@ -17,8 +17,8 @@ void Menu::ChannelGraph()
 
             // Receive data to a buffer
             // Add received to graph data
-            graph.Add(RetrieveData(gDeltaTime).vals);
-            
+            Channels chns(gDeltaTime, buffer);
+            graph.Add(chns.vals);
         }
 
         // Plot all 8 channels
@@ -101,10 +101,12 @@ void Menu::TrainingView()
 
 void Menu::ShowMenu()
 {
+    float testBuffer[8] = { 10.2f, 42.4f, 100.3f, 86.2f, 67.5f, 48.2f, 123.7f, 23.4f };
+
     ImGui::Begin("Plotting");
         ImGui::Checkbox("Pause",  &bPaused);
         ImGui::SeparatorText("Graph");
-        ChannelGraph();
+        ChannelGraph(testBuffer);
     ImGui::End();
 
 	ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);

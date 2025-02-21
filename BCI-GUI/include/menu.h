@@ -58,7 +58,7 @@ namespace Menu
 	#pragma region Custom Components
 	
 	// Component used to display channels graph on interface
-	void ChannelGraph();
+	void ChannelGraph(float* buffer);
 
 	// Actioner in training view
 	void TrainingActioner(TrainingDirection direction, bool* p_bValue);
