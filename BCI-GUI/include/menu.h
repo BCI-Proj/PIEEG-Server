@@ -24,7 +24,7 @@ namespace Menu
 	inline bool bPaused    = false;
 
 	// For saving training buttons order
-	enum TrainingDirection
+	enum TrainingDirection // as class so is not considered as an integer
 	{
 		kTop,
 		kBottom,
@@ -38,13 +38,13 @@ namespace Menu
 		const int maximumSize;
 		const int removeAmount = static_cast<int>(0.1f * maximumSize); // remove 10% of maximum size
 
-		Graph(int max)
+		explicit Graph(int max)
 			: maximumSize(max)
 		{
 			data.reserve(maximumSize); // Set capacity to maximum
 		};
 
-		inline void Add(ChannelsArray arr)
+		inline void Add(const ChannelsArray& arr)
 		{
 			data.push_back(arr);
 

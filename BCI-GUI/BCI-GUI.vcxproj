@@ -151,7 +151,6 @@
     <ClCompile Include="lib\implot\implot.cpp" />
     <ClCompile Include="lib\implot\implot_items.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\pieeg\pieeg.cpp" />
     <ClCompile Include="src\window\menu.cpp" />
     <ClCompile Include="src\window\graphics.cpp" />
   </ItemGroup>

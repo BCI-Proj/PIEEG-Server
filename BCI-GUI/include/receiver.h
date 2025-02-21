@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <winsock2.h>
+#include "globals.h"
 
 #define WS_CLEAN() WSACleanup(); return 1;
 #define WS_ERROR(message) std::printf(message, WSAGetLastError());
@@ -30,9 +31,9 @@ public:
 	Receiver(int port, int bufferLen)
 		: m_port(port), buffer(new float[bufferLen])
 	{
-		if (!Init())         return;
-		if (!CreateSocket()) return;
-		if (!BindSocket())   return;
+		Init();
+		CreateSocket();
+		BindSocket();
 	}
 	bool ReceiveFromSender();
 };

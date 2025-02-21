@@ -7,8 +7,8 @@ bool Receiver::Init()
 
 	if (result != 0)
 	{
-		WS_ERROR("CANT INIT WSA - %d\n");
-		WS_CLEAN();
+		WS_ERROR("CANT INIT WSA - %d\n")
+		WS_CLEAN()
 	}
 
 	m_receiverAddr.sin_port        = htons(m_port);
@@ -48,12 +48,11 @@ bool Receiver::BindSocket()
 
 bool Receiver::ReceiveFromSender()
 {
-	int bufferLen = sizeof(buffer); 
-	int result    = recvfrom(m_socket, reinterpret_cast<char*>(buffer), bufferLen * sizeof(float), 0, reinterpret_cast<sockaddr*>(&m_clientAddr), &m_clientAddrLen);
+	int result = recvfrom(m_socket, reinterpret_cast<char*>(buffer), Globals::kNumElectrodes * sizeof(float), 0, reinterpret_cast<sockaddr*>(&m_clientAddr), &m_clientAddrLen);
 
 	if (result == SOCKET_ERROR)
 	{
-		WS_ERROR("RECEIVING FAILED - %d\n");
+		WS_ERROR("Receiving - %d\n");
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
@@ -62,8 +61,9 @@ bool Receiver::ReceiveFromSender()
 	// 8 is the number of electrodes
 	// Hardcoded here because I dont want to include constants.h
 	for (int i = 0; i < 8; i++)
+	{
 		std::printf("Channel %d : %f \n", i, buffer[0]);
+	}
 #endif
-
 	return 0;
 }
