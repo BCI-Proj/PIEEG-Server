@@ -1,17 +1,11 @@
 #include "menu.h"
-#include "pieeg.h"
-
-#pragma warning(disable: 4996)
 
 float gDeltaTime = 0.0f;
-
 Menu::Graph graph(3000);
 
-void Menu::ChannelGraph()
+void Menu::ChannelGraph(float* buffer)
 {
     using namespace PIEEG;
-
-    ImGui::Checkbox("pause", &bPaused);
 
     if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
@@ -21,11 +15,14 @@ void Menu::ChannelGraph()
             ImPlot::SetupAxisLimits(ImAxis_X1, gDeltaTime - 5.0f, gDeltaTime, ImGuiCond_Always);
             gDeltaTime += ImGui::GetIO().DeltaTime;
 
-            graph.Add(RetrieveData(gDeltaTime).vals);
+            // Receive data to a buffer
+            // Add received to graph data
+            Channels chns(gDeltaTime, buffer);
+            graph.Add(chns.vals);
         }
 
         // Plot all 8 channels
-        for (int i = 1; i <= kNumElectrodes; i++)
+        for (int i = 1; i <= Globals::kNumElectrodes; i++)
         {
             ImPlot::PlotLine(
                 std::to_string(i).c_str(),
@@ -40,7 +37,7 @@ void Menu::ChannelGraph()
     }
 }
 
-void Menu::TrainingActioner(TrainingDirection direction, bool* p_bValue)
+void Menu::TrainingActioner(TrainingDirection direction, bool* pBoolean)
 {
     ImGui::PushID(direction);
 
@@ -59,12 +56,12 @@ void Menu::TrainingActioner(TrainingDirection direction, bool* p_bValue)
     bool isPressed = ImGui::InvisibleButton("button", ImVec2(width, height)); // an invisible button is here to make it interactable
 
     if (isPressed)
-        *p_bValue = !*p_bValue;
+        *pBoolean = !*pBoolean;
         
     ImGui::GetWindowDrawList()->AddRectFilled(
         actionerPos, 
         actionerSize, 
-        (*p_bValue) ? activeColor : disableColor
+        (*pBoolean) ? activeColor : disableColor
     );
 
     ImGui::PopID();
@@ -100,13 +97,16 @@ void Menu::TrainingView()
         (wndDimensions.y - marginHeight) * 1.0f, 
         kBottom, &Menu::bActionerB
     );
-
 }
 
 void Menu::ShowMenu()
 {
+    //float testBuffer[8] = { 10.2f, 42.4f, 100.3f, 86.2f, 67.5f, 48.2f, 123.7f, 23.4f };
+
     ImGui::Begin("Plotting");
-        ChannelGraph();
+        ImGui::Checkbox("Pause",  &bPaused);
+        ImGui::SeparatorText("Graph");
+        ChannelGraph(PIEEG::receiver.buffer);
     ImGui::End();
 
 	ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);

@@ -1,20 +1,21 @@
 #pragma once
 
 #include <array>
+#include "receiver.h"
+#include "globals.h"
 
 namespace PIEEG
 {
-	inline constexpr uint8_t kNumElectrodes = 8;
+	inline Receiver receiver(Globals::kPort, Globals::kNumElectrodes);
 
 	struct Channels
 	{
 		// Num of electrodes + 1 to handle the delta time in addition
-		std::array<float, kNumElectrodes + 1> vals = {};
+		std::array<float, 8+1> vals = {};
 
-		Channels(float deltaTime, float c1, float c2, float c3, float c4, float c5, float c6, float c7, float c8)
-			: vals{ {deltaTime, c1,c2,c3,c4,c5,c6,c7,c8} }
+		Channels() = default;
+		Channels(float deltaTime, float* buff)
+			: vals{ {deltaTime, buff[0],buff[1],buff[2],buff[3],buff[4],buff[5],buff[6],buff[7]} }
 		{};
 	};
-
-	Channels RetrieveData(float deltaTime);
 }
