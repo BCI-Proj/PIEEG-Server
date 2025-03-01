@@ -14,16 +14,16 @@
 
 namespace Menu
 {
-
-	// Booleans that refer to training actioners ( last letter refert to direction )
+	// Booleans that refer to training actioners ( last letter refer to direction )
 	inline bool bActionerT = false;
 	inline bool bActionerB = false;
 	inline bool bActionerL = false;
 	inline bool bActionerR = false;
+
 	inline bool bPaused    = false;
 
 	// For saving training buttons order
-	enum TrainingDirection // as class so is not considered as an integer
+	enum TrainingDirection 
 	{
 		kTop,
 		kBottom,
@@ -31,6 +31,9 @@ namespace Menu
 		kRight
 	};
 
+	/// <summary>
+	/// Struct that dynamically remove oldest values by keeping a 
+	/// </summary>
 	struct Graph
 	{
 		ImVector<ChannelsArray> data;
@@ -53,19 +56,31 @@ namespace Menu
 		}
 	};
 
+	/// <summary>
+	/// Display the whole interface.
+	/// </summary>
+	void ShowMenu();
 
-	#pragma region Custom Components
+#pragma region Custom Components
 	
-	// Component used to display channels graph on interface
+	/// <summary>
+	/// Graph used to monitor all electrodes channels coming values
+	/// </summary>
+	/// <param name="buffer"> - floats buffer of values received via UDP from the electrodes</param>
 	void ChannelGraph(float* buffer);
 
-	// Actioner in training view
+	/// <summary>
+	/// Custom ImGui component that act as indicators. Can flash in green
+	/// </summary>
+	/// <param name="direction"> - where it should be placed</param>
+	/// <param name="pBoolean"> - active or not</param>
 	void TrainingActioner(TrainingDirection direction, bool* p_bValue);
 
-	// Component used to display multiple Actioners in multiple directions
+	/// <summary>
+	/// Contain all placed Actioners
+	/// </summary>
 	void TrainingView();
 
-	#pragma endregion
 
 	// To place Actioner in the Training View depending on direction
 	inline void PositionActioner(float posX, float posY, TrainingDirection direction, bool* p_bValue)
@@ -75,5 +90,6 @@ namespace Menu
 		TrainingActioner(direction, p_bValue);
 	}
 
-	void ShowMenu();
+#pragma endregion
+
 }

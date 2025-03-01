@@ -12,7 +12,6 @@ namespace PIEEG
 
 	struct Channels
 	{
-		// Num of electrodes + 1 to handle the delta time in addition
 		ChannelsArray vals = {};
 
 		Channels() = default;
