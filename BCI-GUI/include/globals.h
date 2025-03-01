@@ -1,7 +1,8 @@
 #pragma once
 
-#include <iostream>
-
+/// <summary>
+/// Commonly used variables. The're defined and compile time.
+/// </summary>
 namespace Globals
 {
 	inline constexpr uint16_t kPort = 8888;

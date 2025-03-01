@@ -7,6 +7,10 @@
 #define WS_CLEAN() WSACleanup(); return 1;
 #define WS_ERROR(message) std::printf(message, WSAGetLastError());
 
+/// <summary>
+/// Used to handle Socket and address.
+/// Act as a Winsock UDP Server.
+/// </summary>
 class Receiver
 {
 private:
@@ -35,5 +39,9 @@ public:
 		CreateSocket();
 		BindSocket();
 	}
+
+	/// <summary>
+	/// Store received float values in Receiver buffer
+	/// </summary>
 	bool ReceiveFromSender();
 };
