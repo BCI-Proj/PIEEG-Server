@@ -59,7 +59,7 @@ bool Receiver::ReceiveFromSender()
 
 #ifdef _DEBUG
 	// 8 is the number of electrodes
-	// Hardcoded here because I dont want to include constants.h
+	// Hardcoded here because I dont want to include globals.h 
 	for (int i = 0; i < 8; i++)
 	{
 		std::printf("Channel %d : %f \n", i, buffer[0]);

@@ -101,8 +101,6 @@ void Menu::TrainingView()
 
 void Menu::ShowMenu()
 {
-    //float testBuffer[8] = { 10.2f, 42.4f, 100.3f, 86.2f, 67.5f, 48.2f, 123.7f, 23.4f };
-
     ImGui::Begin("Plotting");
         ImGui::Checkbox("Pause",  &bPaused);
         ImGui::SeparatorText("Graph");

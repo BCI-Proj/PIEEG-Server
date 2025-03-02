@@ -57,10 +57,10 @@
     <ClCompile Include="lib\implot\implot.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\pieeg\pieeg.cpp">
+    <ClCompile Include="src\pieeg\receiver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\pieeg\receiver.cpp">
+    <ClCompile Include="src\pieeg\inference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -108,6 +108,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\inference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

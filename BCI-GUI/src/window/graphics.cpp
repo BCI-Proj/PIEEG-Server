@@ -90,6 +90,7 @@ void Graphics::Loop()
 			Menu::ShowMenu();
 		ImGui::EndFrame(); 
 
+		// for fullscreen
 #ifdef IMGUI_HAS_VIEWPORT
 		ImGuiViewport* viewport = ImGui::GetMainViewport();
 		ImGui::SetNextWindowPos(viewport->WorkPos);
