@@ -74,7 +74,7 @@ namespace Menu
 	/// </summary>
 	/// <param name="direction"> - where it should be placed</param>
 	/// <param name="pBoolean"> - active or not</param>
-	void TrainingActioner(TrainingDirection direction, bool* p_bValue);
+	void TrainingActioner(TrainingDirection direction, bool* pBoolean);
 
 	/// <summary>
 	/// Contain all placed Actioners
