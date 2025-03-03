@@ -4,9 +4,9 @@
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
 #include <implot.h>
-#include <vector>
 #include <string>
 #include <iostream>
+#include <unordered_map>
 
 #include "pieeg.h"
 
@@ -35,6 +35,16 @@ namespace Menu
 		kCenter
 	};
 
+	inline std::unordered_map<TrainingDirection, ImVec2> positionsMap =
+	{
+		{kTop,		ImVec2(0.5,  0.0f)  },
+		{kBottom,	ImVec2(0.5,  1.0f)  },
+		{kLeft,		ImVec2(0.0f, 0.5f)  },
+		{kRight,	ImVec2(1.0f, 0.5f)  },
+		{kCenter,	ImVec2(0.5f, 0.5f)  }
+	};
+
+
 	/// <summary>
 	/// Struct that dynamically remove oldest values by keeping a 
 	/// </summary>
@@ -54,7 +64,6 @@ namespace Menu
 		{
 			data.push_back(arr);
 
-			// Remember to check index of elements
 			if (data.size() >= maximumSize)
 				data.erase(data.begin(), data.begin() + removeAmount); // Removed N oldest
 		}
@@ -78,37 +87,21 @@ namespace Menu
 	/// </summary>
 	/// <param name="direction"> - where it should be placed</param>
 	/// <param name="pBoolean"> - active or not</param>
-	void TrainingActioner(TrainingDirection direction, bool* pBoolean);
+	void TrainingActioner(const TrainingDirection direction, bool* pBoolean);
 
 	/// <summary>
 	/// Contain all placed Actioners
 	/// </summary>
 	void TrainingView();
 
-
 	// To place Actioner in the Training View depending on direction
-	inline void PositionActioner(ImVec2 wndDimensions, int* margins, TrainingDirection direction, bool* p_bValue)
+
+	inline void PositionActioner(const TrainingDirection direction, bool* p_bValue)
 	{
-		ImVec2 cursorPos{};
+		ImVec2 wndDimensions = ImGui::GetWindowSize(); // x refer to width, y refer to height
 
-		switch (direction)
-		{
-		case kTop:
-			cursorPos = { 0.5f, 0.0f }; break;
-		case kBottom:
-			cursorPos = { 0.5f, 1.0f }; break;
-		case kLeft:
-			cursorPos = { 0.0f, 0.5f }; break;
-		case kRight:
-			cursorPos = { 1.0f, 0.5f }; break;
-		case kCenter:
-			cursorPos = { 0.5f, 0.5f }; break;
-		default:
-			cursorPos = { 0.0f, 0.0f }; break;
-		}
-
-		ImGui::SetCursorPosX((wndDimensions.x - margins[0]) * cursorPos.x);
-		ImGui::SetCursorPosY((wndDimensions.y - margins[1]) * cursorPos.y);
+		ImGui::SetCursorPosX((wndDimensions.x - 30) * Menu::positionsMap[direction].x);
+		ImGui::SetCursorPosY((wndDimensions.y - 50) * Menu::positionsMap[direction].y);
 
 		TrainingActioner(direction, p_bValue);
 	}
