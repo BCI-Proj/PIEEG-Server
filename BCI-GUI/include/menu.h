@@ -15,12 +15,14 @@
 namespace Menu
 {
 	// Booleans that refer to training actioners ( last letter refer to direction )
-	inline bool bActionerT = false;
-	inline bool bActionerB = false;
-	inline bool bActionerL = false;
-	inline bool bActionerR = false;
+	inline bool bActionerT       = false;
+	inline bool bActionerB       = false;
+	inline bool bActionerL       = false;
+	inline bool bActionerR       = false;
+	inline bool bActionerC		 = false;
 
-	inline bool bPaused    = false;
+	inline bool bPaused			 = false;
+	inline bool bTrainingStarted = false;
 
 	// For saving training buttons order
 	enum TrainingDirection 
@@ -28,7 +30,8 @@ namespace Menu
 		kTop,
 		kBottom,
 		kLeft,
-		kRight
+		kRight,
+		kCenter
 	};
 
 	/// <summary>
@@ -83,10 +86,35 @@ namespace Menu
 
 
 	// To place Actioner in the Training View depending on direction
-	inline void PositionActioner(float posX, float posY, TrainingDirection direction, bool* p_bValue)
+	inline void PositionActioner(ImVec2 wndDimensions, int* margins, TrainingDirection direction, bool* p_bValue)
 	{
-		ImGui::SetCursorPosX(posX);
-		ImGui::SetCursorPosY(posY);
+		ImVec2 cursorPos{};
+
+		switch (direction)
+		{
+		case kTop:
+			cursorPos.x = 0.5f; cursorPos.y = 0.0f;
+			break;
+		case kBottom:
+			cursorPos.x = 0.5f; cursorPos.y = 1.0f;
+			break;
+		case kLeft:
+			cursorPos.x = 0.0f; cursorPos.y = 0.5f;
+			break;
+		case kRight:
+			cursorPos.x = 1.0f; cursorPos.y = 0.5f;
+			break;
+		case kCenter:
+			cursorPos.x = 0.5f; cursorPos.y = 0.5f;
+			break;
+		default:
+			cursorPos.x = 0.0f; cursorPos.y = 0.0f;
+			break;
+		}
+
+		ImGui::SetCursorPosX((wndDimensions.x - margins[0]) * cursorPos.x);
+		ImGui::SetCursorPosY((wndDimensions.y - margins[1]) * cursorPos.y);
+
 		TrainingActioner(direction, p_bValue);
 	}
 

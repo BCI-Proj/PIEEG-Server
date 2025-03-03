@@ -37,7 +37,7 @@ void Menu::ChannelGraph(float* buffer)
     }
 }
 
-void Menu::TrainingActioner(TrainingDirection direction, bool* pBoolean)
+void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
 {
     ImGui::PushID(direction);
 
@@ -71,37 +71,49 @@ void Menu::TrainingView()
 {
     ImVec2 wndDimensions = ImGui::GetWindowSize(); // x refer to width, y refer to height
 
-    int marginWidth = 30, marginHeight = 50;
+    int margins[2] = { 30, 50 };
 
     // Top
     PositionActioner(
-        (wndDimensions.x - marginWidth) * 0.5f, 
-        ImGui::GetCursorPosY(), 
+        wndDimensions,
+        margins,
         kTop, &Menu::bActionerT
     );
+
     // Right
     PositionActioner(
-        (wndDimensions.x - marginWidth) * 1.0f, 
-        (wndDimensions.y - marginHeight) * 0.5f, 
+        wndDimensions,
+        margins,
         kRight, &Menu::bActionerR
     );
     // Left
     PositionActioner(
-        (wndDimensions.x - marginWidth) * 0.0f, 
-        (wndDimensions.y - marginHeight) * 0.5f, 
+        wndDimensions,
+        margins,
         kLeft, &Menu::bActionerL
     );
     // Bottom
     PositionActioner(
-        (wndDimensions.x - marginWidth) * 0.5f, 
-        (wndDimensions.y - marginHeight) * 1.0f, 
+        wndDimensions,
+        margins,
         kBottom, &Menu::bActionerB
+    );
+
+    // Center
+    PositionActioner(
+        wndDimensions,
+        margins,
+        kCenter, &Menu::bActionerC
     );
 }
 
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
+        if (ImGui::Button("Start Training"))
+        {
+            Info(L"Info", L"la session d'entrainement à commencé", MB_ICONINFORMATION);
+        }
         ImGui::Checkbox("Pause",  &bPaused);
         ImGui::SeparatorText("Graph");
         ChannelGraph(PIEEG::receiver.buffer);
