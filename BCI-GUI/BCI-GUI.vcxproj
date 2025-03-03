@@ -183,6 +183,7 @@
     <ClInclude Include="include\graphics.h" />
     <ClInclude Include="include\pieeg.h" />
     <ClInclude Include="include\receiver.h" />
+    <ClInclude Include="include\timing.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_sdl2.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_sdlrenderer2.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />

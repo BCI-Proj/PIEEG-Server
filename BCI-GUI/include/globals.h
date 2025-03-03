@@ -13,7 +13,7 @@ namespace Globals
 }
 
 /// <summary>
-/// Pop an info box on the screen. Used to display Error Message
+/// Pop an info box on the screen. Used to display Error Message or some information
 /// </summary>
 inline VOID Info(LPCWSTR title, LPCWSTR message, UINT icon)
 {

@@ -1,6 +1,11 @@
 #include "menu.h"
+#include "timing.h"
 
 float gDeltaTime = 0.0f;
+
+float deadline;
+
+// temporary here ( 3000 is the max capacity that can be displayed in the graph ) 
 Menu::Graph graph(3000);
 
 void Menu::ChannelGraph(float* buffer)
@@ -97,10 +102,19 @@ void Menu::TrainingView()
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
+        ImGui::Text("%f", gDeltaTime);
+
+        // this is a timing test ( testing how we can use deltatime to make timing events ) 
         if (ImGui::Button("Start Training"))
         {
-            Info(L"Info", L"la session d'entrainement à commencé", MB_ICONINFORMATION);
+            deadline = gDeltaTime + 5;
         }
+        if (gDeltaTime >= deadline && deadline != 0.0f) {
+            deadline = 0.0f;
+            bHideActioner = true;
+            Info(L"TIMEOUT", L"PATRON DU PARC #BENSON", MB_ICONEXCLAMATION);
+        }
+
         ImGui::Checkbox("Pause",  &bPaused);
         ImGui::SeparatorText("Graph");
         ChannelGraph(PIEEG::receiver.buffer);

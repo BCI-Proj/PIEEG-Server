@@ -23,7 +23,6 @@ bool Receiver::CreateSocket()
 	SOCKET serverSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (serverSocket == INVALID_SOCKET)
 	{
-		
 		WS_ERROR(L"CANT CREATE SOCKET");
 		WS_CLEAN();
 	}
@@ -53,7 +52,7 @@ bool Receiver::ReceiveFromSender()
 
 	if (result == SOCKET_ERROR)
 	{
-		WS_ERROR(L"Cannot Receive anything");
+		WS_ERROR(L"Can't receive anything");
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
