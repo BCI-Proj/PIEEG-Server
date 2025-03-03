@@ -93,23 +93,17 @@ namespace Menu
 		switch (direction)
 		{
 		case kTop:
-			cursorPos.x = 0.5f; cursorPos.y = 0.0f;
-			break;
+			cursorPos = { 0.5f, 0.0f }; break;
 		case kBottom:
-			cursorPos.x = 0.5f; cursorPos.y = 1.0f;
-			break;
+			cursorPos = { 0.5f, 1.0f }; break;
 		case kLeft:
-			cursorPos.x = 0.0f; cursorPos.y = 0.5f;
-			break;
+			cursorPos = { 0.0f, 0.5f }; break;
 		case kRight:
-			cursorPos.x = 1.0f; cursorPos.y = 0.5f;
-			break;
+			cursorPos = { 1.0f, 0.5f }; break;
 		case kCenter:
-			cursorPos.x = 0.5f; cursorPos.y = 0.5f;
-			break;
+			cursorPos = { 0.5f, 0.5f }; break;
 		default:
-			cursorPos.x = 0.0f; cursorPos.y = 0.0f;
-			break;
+			cursorPos = { 0.0f, 0.0f }; break;
 		}
 
 		ImGui::SetCursorPosX((wndDimensions.x - margins[0]) * cursorPos.x);
