@@ -5,7 +5,7 @@
 #include "globals.h"
 
 #define WS_CLEAN() WSACleanup(); return 1;
-#define WS_ERROR(message) std::printf(message, WSAGetLastError());
+#define WS_ERROR(message) Info(message, (const wchar_t*)WSAGetLastError(), MB_ICONERROR);
 
 /// <summary>
 /// Used to handle Socket and address.
