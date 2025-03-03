@@ -53,6 +53,7 @@ def save_model():
 # [START DEFINITIONS]
 create_docs: str = """
     Creates a new model instance to start training.
+    `python inference.py create <PROFILE_NAME>`
 
     If a model before this one was already in created and had started training, it will be overwritten. This method simply creates a new instance and 
     sets it as the current model to train. When `train()` is called, the most recently created model with `create()` will be trained.
@@ -92,6 +93,7 @@ create.__doc__ = create_docs;
 
 train_docs: str = """
     Will add a sample of size ({CHANNEL_COUNT}) to the window and then feed the window to the model. When training, pass the stream 
+    `python inference.py train <PROFILE_NAME> 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8  <up | down | left | right | baseline>`
 
     To start training a model, please use `create(profileName: str) -> None;`.
 
@@ -147,7 +149,8 @@ train.__doc__ = train_docs;
 
 export_docs: str = """
     Will export the currently trained model under `inference/models/<PROFILE_NAME>.onnx`. If file of same name exists, will overwrite.
-
+    `python inference.py export <PROFILE_NAME>`
+    
     To start training a model, please use `create(profileName: str) -> None;`.
 
     Parameters
