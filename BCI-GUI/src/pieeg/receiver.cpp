@@ -7,7 +7,7 @@ bool Receiver::Init()
 
 	if (result != 0)
 	{
-		WS_ERROR("CANT INIT WSA - %d\n")
+		WS_ERROR(L"CANT INIT WSA - %d\n")
 		WS_CLEAN()
 	}
 
@@ -23,7 +23,8 @@ bool Receiver::CreateSocket()
 	SOCKET serverSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (serverSocket == INVALID_SOCKET)
 	{
-		WS_ERROR("CANT CREATE SOCKET - %d\n");
+		
+		WS_ERROR(L"CANT CREATE SOCKET");
 		WS_CLEAN();
 	}
 
@@ -39,7 +40,7 @@ bool Receiver::BindSocket()
 
 	if (result == SOCKET_ERROR)
 	{
-		WS_ERROR("BIND FAILED - %d\n");
+		WS_ERROR(L"BIND FAILED");
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
@@ -52,7 +53,7 @@ bool Receiver::ReceiveFromSender()
 
 	if (result == SOCKET_ERROR)
 	{
-		WS_ERROR("Receiving - %d\n");
+		WS_ERROR(L"Cannot Receive anything");
 		closesocket(m_socket);
 		WS_CLEAN();
 	}

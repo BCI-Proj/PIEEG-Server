@@ -15,12 +15,13 @@
 namespace Menu
 {
 	// Booleans that refer to training actioners ( last letter refer to direction )
-	inline bool bActionerT       = false;
-	inline bool bActionerB       = false;
-	inline bool bActionerL       = false;
-	inline bool bActionerR       = false;
-	inline bool bActionerC		 = false;
-	inline bool bHideActioner	 = false; // hide all actioners around the center (for pre-session training)
+	inline bool
+		bActionerT    = false,
+		bActionerB    = false,
+		bActionerL    = false,
+		bActionerR    = false,
+		bActionerC    = false,
+		bHideActioner = false; // hide all actioners around the center (for pre-session training)
 
 	inline bool bPaused			 = false;
 	inline bool bTrainingStarted = false;
@@ -99,7 +100,7 @@ namespace Menu
 	inline void PositionActioner(const TrainingDirection direction, bool* p_bValue)
 	{
 		ImVec2 wndDimensions = ImGui::GetWindowSize(); // x refer to width, y refer to height
-
+		
 		ImGui::SetCursorPosX((wndDimensions.x - 30) * Menu::positionsMap[direction].x);
 		ImGui::SetCursorPosY((wndDimensions.y - 50) * Menu::positionsMap[direction].y);
 
