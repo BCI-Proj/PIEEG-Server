@@ -38,11 +38,11 @@ namespace Menu
 
 	inline std::unordered_map<TrainingDirection, ImVec2> positionsMap =
 	{
-		{kTop,		ImVec2(0.5,  0.0f)  },
-		{kBottom,	ImVec2(0.5,  1.0f)  },
-		{kLeft,		ImVec2(0.0f, 0.5f)  },
-		{kRight,	ImVec2(1.0f, 0.5f)  },
-		{kCenter,	ImVec2(0.5f, 0.5f)  }
+		{kTop,		ImVec2(0.5,  0.0f)},
+		{kBottom,	ImVec2(0.5,  1.0f)},
+		{kLeft,		ImVec2(0.0f, 0.5f)},
+		{kRight,	ImVec2(1.0f, 0.5f)},
+		{kCenter,	ImVec2(0.5f, 0.5f)}
 	};
 
 

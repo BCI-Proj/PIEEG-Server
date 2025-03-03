@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "timing.h"
 
 float gDeltaTime = 0.0f;
 
@@ -76,27 +75,12 @@ void Menu::TrainingView()
 {
     if (bHideActioner)
     { 
-        // Top
-        PositionActioner(
-            kTop, &Menu::bActionerT
-        );
-        // Right
-        PositionActioner(
-            kRight, &Menu::bActionerR
-        );  
-        // Left
-        PositionActioner(
-            kLeft, &Menu::bActionerL
-        );
-        // Bottom
-        PositionActioner(
-            kBottom, &Menu::bActionerB
-        );
+        PositionActioner(kTop,    &Menu::bActionerT);   // Top
+        PositionActioner(kRight,  &Menu::bActionerR);   // Right
+        PositionActioner(kLeft,   &Menu::bActionerL);   // Left
+        PositionActioner(kBottom, &Menu::bActionerB);   // Bottom
     }
-    // Center
-    PositionActioner(
-        kCenter, &Menu::bActionerC
-    );
+    PositionActioner(kCenter, &Menu::bActionerC);       // Center
 }
 
 void Menu::ShowMenu()
