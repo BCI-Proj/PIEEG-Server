@@ -88,11 +88,29 @@ void Menu::ShowMenu()
     ImGui::Begin("Plotting");
         ImGui::Text("%f", gDeltaTime);
 
-        // this is a timing test ( testing how we can use deltatime to make timing events ) 
         if (ImGui::Button("Start Training"))
         {
-            deadline = gDeltaTime + 5;
+            ImGui::OpenPopup("TrainingPopup");
         }
+
+        ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+        ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+        if (ImGui::BeginPopupModal("TrainingPopup", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::Text("The training session is going to start. Do you want to continue ?");
+            ImGui::Separator();
+            if (ImGui::Button("Continue"))
+            {
+                deadline = gDeltaTime + 5;
+                ImGui::CloseCurrentPopup();
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Cancel")) { ImGui::CloseCurrentPopup(); }
+            ImGui::EndPopup();
+        }
+
+        // this is a timing test ( testing how we can use deltatime to make timing events ) 
         if (gDeltaTime >= deadline && deadline != 0.0f) {
             deadline = 0.0f;
             bHideActioner = true;
