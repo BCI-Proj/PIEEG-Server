@@ -1,11 +1,10 @@
 #include "window/menu.h"
 
 float gDeltaTime = 0.0f;
-
-float deadline;
+float deadline   = 0.0f;
 
 // temporary here ( 3000 is the max capacity that can be displayed in the graph ) 
-Menu::Graph graph(3000);
+Menu::Graph graph(Menu::maxGraphCount);
 
 void Menu::ChannelGraph(float* buffer)
 {
@@ -14,7 +13,7 @@ void Menu::ChannelGraph(float* buffer)
     if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
         // To make the graph scrolling for new data
-        if (!bPaused)
+        if (!isPaused)
         {
             ImPlot::SetupAxisLimits(ImAxis_X1, gDeltaTime - 5.0f, gDeltaTime, ImGuiCond_Always);
             gDeltaTime += ImGui::GetIO().DeltaTime;
@@ -73,14 +72,69 @@ void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
 
 void Menu::TrainingView()
 {
-    if (bHideActioner)
-    { 
-        PositionActioner(kTop,    &Menu::bActionerT);   // Top
-        PositionActioner(kRight,  &Menu::bActionerR);   // Right
-        PositionActioner(kLeft,   &Menu::bActionerL);   // Left
-        PositionActioner(kBottom, &Menu::bActionerB);   // Bottom
-    }
-    PositionActioner(kCenter, &Menu::bActionerC);       // Center
+    ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);
+        if (actionerHidden)
+        { 
+            PositionActioner(kTop,    &Menu::actionerT);   // Top
+            PositionActioner(kRight,  &Menu::actionerR);   // Right
+            PositionActioner(kLeft,   &Menu::actionerL);   // Left
+            PositionActioner(kBottom, &Menu::actionerB);   // Bottom
+        }
+        PositionActioner(kCenter, &Menu::actionerC);       // Center
+    ImGui::End();
+}
+
+void Menu::LoggingView()
+{
+    std::vector<ChannelsArray> lastData(graph.data.end() - maxLoggingCount, graph.data.end());
+
+    ImGui::Begin("Logging");
+        ImGui::SliderInt("Max displayed", &maxLoggingCount, 100, 2000);
+        for (const auto &element : lastData)
+        {
+            ImGui::Separator();
+
+            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 0, 255, 255));
+            ImGui::Text(" %f ", element[0]);
+            ImGui::PopStyleColor();
+            for (int i = 1; i < Globals::kNumElectrodes + 1; i++)
+            {      
+                ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(0, 255, 0, 255));
+                ImGui::Text("%d. ", i);
+                ImGui::PopStyleColor();
+                ImGui::SameLine();
+                ImGui::Text("%f", element[i]);
+            }
+            ImGui::Separator();
+        }
+    ImGui::End();
+}
+
+void Menu::ProfileView()
+{
+    ImGui::Begin("Profile Loader");
+        static int selected = 0;
+
+        ImGui::BeginChild("left pane", ImVec2(150, 0), ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeX);
+            for (int i = 0; i < 20; i++)
+            {
+                char label[128];
+                std::sprintf(label, "Profile %d", i);
+                if (ImGui::Selectable(label, selected == i))
+                    selected = i;
+            }
+            ImGui::EndChild();
+
+            ImGui::SameLine();
+
+            ImGui::BeginGroup();
+            ImGui::SeparatorText("Info");
+            ImGui::Text("FPS : %f", ImGui::GetIO().Framerate);
+            ImGui::Text("On Profile %d", selected);
+            ImGui::SeparatorText("Options");
+            ImGui::Button("Load");
+        ImGui::EndGroup();
+    ImGui::End();
 }
 
 void Menu::ShowMenu()
@@ -88,67 +142,49 @@ void Menu::ShowMenu()
     ImGui::Begin("Plotting");
         ImGui::Text("%f", gDeltaTime);
 
-        if (ImGui::Button("Start Training"))
+        ImGui::PushStyleColor(ImGuiCol_Button, (isTrainingStarted) ? ImVec4(0, 1, 0, 0.5) : ImVec4(1,0,0,0.5));
+        if (ImGui::Button((isTrainingStarted) ? "Training Started" : "Training not started"))
         {
             ImGui::OpenPopup("TrainingPopup");
         }
+        ImGui::PopStyleColor();
 
         ImVec2 center = ImGui::GetMainViewport()->GetCenter();
         ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
         if (ImGui::BeginPopupModal("TrainingPopup", NULL, ImGuiWindowFlags_AlwaysAutoResize))
         {
-            ImGui::Text("The training session is going to start. Do you want to continue ?");
-            ImGui::Separator();
-            if (ImGui::Button("Continue"))
+            ImGui::Text((!isTrainingStarted) ? "The training session is going to start. Do you want to continue ?" : "The training session in in progress.Do you want to stop ?"); ImGui::Separator();
+            if (ImGui::Button("YES"))
             {
-                deadline = gDeltaTime + 5;
+                if (!isTrainingStarted)
+                {
+                    isTrainingStarted = true;
+                    deadline = gDeltaTime + 5;
+                }
+                else
+                    isTrainingStarted = false;
                 ImGui::CloseCurrentPopup();
             }
             ImGui::SameLine();
-            if (ImGui::Button("Cancel")) { ImGui::CloseCurrentPopup(); }
+            if (ImGui::Button("NO")) { ImGui::CloseCurrentPopup(); }
+
             ImGui::EndPopup();
         }
 
         // this is a timing test ( testing how we can use deltatime to make timing events ) 
         if (gDeltaTime >= deadline && deadline != 0.0f) {
             deadline = 0.0f;
-            bHideActioner = true;
+            actionerHidden = true;
             Info(L"TIMEOUT", L"PATRON DU PARC #BENSON", MB_ICONEXCLAMATION);
         }
-
-        ImGui::Checkbox("Pause",  &bPaused);
+        ImGui::Checkbox("Pause",  &isPaused);
         ImGui::SeparatorText("Graph");
+
         ChannelGraph(PIEEG::receiver.buffer);
     ImGui::End();
 
-	ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);
-        TrainingView();
-	ImGui::End();
-
-	ImGui::Begin("Profile Loader");
-
-        static int selected = 0;
-
-        ImGui::BeginChild("left pane", ImVec2(150, 0), ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeX);
-        for (int i = 0; i < 20; i++)
-        {
-            char label[128];
-            std::sprintf(label, "Profile %d", i);
-            if (ImGui::Selectable(label, selected == i))
-                selected = i;
-        }
-        ImGui::EndChild();
-
-        ImGui::SameLine();
-
-        ImGui::BeginGroup();
-            ImGui::SeparatorText("Info");
-		    ImGui::Text("FPS : %f", ImGui::GetIO().Framerate);
-            ImGui::Text("On Profile %d", selected);
-            ImGui::SeparatorText("Options");
-            ImGui::Button("Load");
-        ImGui::EndGroup();
-
-	ImGui::End();
+    TrainingView();
+    LoggingView();
+    ProfileView();
 }

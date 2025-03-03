@@ -7,7 +7,7 @@ bool Receiver::Init()
 
 	if (result != 0)
 	{
-		WS_ERROR(L"CANT INIT WSA - %d\n")
+		WS_ERROR(L"CANT INIT WSA\n")
 		WS_CLEAN()
 	}
 

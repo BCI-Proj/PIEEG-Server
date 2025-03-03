@@ -14,17 +14,20 @@
 
 namespace Menu
 {
+	inline bool isPaused = false;
+	inline bool isTrainingStarted = false;
+
 	// Booleans that refer to training actioners ( last letter refer to direction )
 	inline bool
-		bActionerT    = false,
-		bActionerB    = false,
-		bActionerL    = false,
-		bActionerR    = false,
-		bActionerC    = false,
-		bHideActioner = false; // hide all actioners around the center (for pre-session training)
+		actionerT    = false,
+		actionerB    = false,
+		actionerL    = false,
+		actionerR    = false,
+		actionerC    = false,
+		actionerHidden = false; // hide all actioners around the center (for pre-session training)
 
-	inline bool bPaused			 = false;
-	inline bool bTrainingStarted = false;
+	inline int			 maxLoggingCount	= 300;
+	inline constexpr int maxGraphCount = 3000;
 
 	// For saving training buttons order
 	enum TrainingDirection 
@@ -44,7 +47,6 @@ namespace Menu
 		{kRight,	ImVec2(1.0f, 0.5f)},
 		{kCenter,	ImVec2(0.5f, 0.5f)}
 	};
-
 
 	/// <summary>
 	/// Struct that dynamically remove oldest values by keeping a 
@@ -94,6 +96,13 @@ namespace Menu
 	/// Contain all placed Actioners
 	/// </summary>
 	void TrainingView();
+
+	/// <summary>
+	/// Contain coming values from channels
+	/// </summary>
+	void LoggingView();
+
+	void ProfileView();
 
 	// To place Actioner in the Training View depending on direction
 
