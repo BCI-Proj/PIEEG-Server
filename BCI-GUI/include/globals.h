@@ -1,5 +1,6 @@
 #pragma once
 
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
 /// <summary>
@@ -22,4 +23,5 @@ inline VOID Info(LPCWSTR title, LPCWSTR message, UINT icon)
 		message,
 		icon
 	);
+	//Beep(750, 300);
 }

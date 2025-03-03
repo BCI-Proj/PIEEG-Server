@@ -20,6 +20,7 @@ namespace Menu
 	inline bool bActionerL       = false;
 	inline bool bActionerR       = false;
 	inline bool bActionerC		 = false;
+	inline bool bHideActioner	 = false; // hide all actioners around the center (for pre-session training)
 
 	inline bool bPaused			 = false;
 	inline bool bTrainingStarted = false;

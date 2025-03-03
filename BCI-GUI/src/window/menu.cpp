@@ -85,7 +85,7 @@ void Menu::TrainingView()
         wndDimensions,
         margins,
         kRight, &Menu::bActionerR
-    );
+    );  
     // Left
     PositionActioner(
         wndDimensions,
