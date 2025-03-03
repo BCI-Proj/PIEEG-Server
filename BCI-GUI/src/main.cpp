@@ -1,6 +1,6 @@
-#include "graphics.h"
-#include "menu.h"
 #include <thread>
+#include "window/graphics.h"
+#include "window/menu.h"
 
 int main(int argc, char** argv) 
 {

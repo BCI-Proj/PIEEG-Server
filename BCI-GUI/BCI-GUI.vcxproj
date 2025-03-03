@@ -178,11 +178,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\globals.h" />
-    <ClInclude Include="include\inference.h" />
-    <ClInclude Include="include\menu.h" />
-    <ClInclude Include="include\graphics.h" />
-    <ClInclude Include="include\pieeg.h" />
-    <ClInclude Include="include\receiver.h" />
+    <ClInclude Include="include\pieeg\inference.h" />
+    <ClInclude Include="include\window\menu.h" />
+    <ClInclude Include="include\window\graphics.h" />
+    <ClInclude Include="include\pieeg\pieeg.h" />
+    <ClInclude Include="include\pieeg\receiver.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_sdl2.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_sdlrenderer2.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />

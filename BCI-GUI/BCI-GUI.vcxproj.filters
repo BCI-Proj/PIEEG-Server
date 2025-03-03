@@ -89,10 +89,10 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>Header Files\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="include\graphics.h">
+    <ClInclude Include="include\window\graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\menu.h">
+    <ClInclude Include="include\window\menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\implot\implot.h">
@@ -101,16 +101,16 @@
     <ClInclude Include="lib\implot\implot_internal.h">
       <Filter>Header Files\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="include\pieeg.h">
+    <ClInclude Include="include\pieeg\pieeg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\receiver.h">
+    <ClInclude Include="include\pieeg\receiver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\inference.h">
+    <ClInclude Include="include\pieeg\inference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

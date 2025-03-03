@@ -8,7 +8,7 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "pieeg.h"
+#include "pieeg/pieeg.h"
 
 #pragma warning(disable: 4996)
 

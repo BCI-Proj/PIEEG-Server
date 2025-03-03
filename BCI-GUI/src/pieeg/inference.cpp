@@ -1,4 +1,4 @@
-#include "inference.h"
+#include "pieeg/inference.h"
 
 void Inference::Create(bool isIca, const wchar_t* profileName)
 {

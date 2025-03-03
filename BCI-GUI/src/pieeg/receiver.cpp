@@ -1,4 +1,4 @@
-#include "receiver.h"
+#include "pieeg/receiver.h"
 
 bool Receiver::Init()
 {
