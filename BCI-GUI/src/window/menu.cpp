@@ -69,40 +69,27 @@ void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
 
 void Menu::TrainingView()
 {
-    ImVec2 wndDimensions = ImGui::GetWindowSize(); // x refer to width, y refer to height
-
-    int margins[2] = { 30, 50 };
-
-    // Top
-    PositionActioner(
-        wndDimensions,
-        margins,
-        kTop, &Menu::bActionerT
-    );
-
-    // Right
-    PositionActioner(
-        wndDimensions,
-        margins,
-        kRight, &Menu::bActionerR
-    );  
-    // Left
-    PositionActioner(
-        wndDimensions,
-        margins,
-        kLeft, &Menu::bActionerL
-    );
-    // Bottom
-    PositionActioner(
-        wndDimensions,
-        margins,
-        kBottom, &Menu::bActionerB
-    );
-
+    if (bHideActioner)
+    { 
+        // Top
+        PositionActioner(
+            kTop, &Menu::bActionerT
+        );
+        // Right
+        PositionActioner(
+            kRight, &Menu::bActionerR
+        );  
+        // Left
+        PositionActioner(
+            kLeft, &Menu::bActionerL
+        );
+        // Bottom
+        PositionActioner(
+            kBottom, &Menu::bActionerB
+        );
+    }
     // Center
     PositionActioner(
-        wndDimensions,
-        margins,
         kCenter, &Menu::bActionerC
     );
 }
