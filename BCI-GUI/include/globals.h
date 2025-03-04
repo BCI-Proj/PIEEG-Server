@@ -2,13 +2,15 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#include "imgui.h";
 
 /// <summary>
-/// Commonly used variables. The're defined and compile time.
+/// Commonly used variables.
 /// </summary>
 namespace Globals
-{
-	inline constexpr UINT16 kPort = 8888;
+{										   
+	inline constexpr ImU32  kAccentColor   = IM_COL32(147, 129, 255, 255);
+	inline constexpr UINT16 kPort		   = 8888;
 	inline constexpr UINT8  kNumElectrodes = 8;
 }
 

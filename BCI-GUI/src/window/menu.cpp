@@ -60,8 +60,8 @@ void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
     ImVec2 actionerSize = ImVec2(actionerPos.x + width, actionerPos.y + height);
 
     // Colors in format RGBA ( From 1.0f to 0.0f | Max is 1.0f so 255 )
-    ImU32 activeColor  = ImGui::GetColorU32(ImVec4(0.0f,  1.0f,  0.0f,  1.0f));
-    ImU32 disableColor = ImGui::GetColorU32(ImVec4(0.45f, 0.45f, 0.45f, 1.0f));
+    ImU32 activeColor  = Globals::kAccentColor;
+    ImU32 disableColor = IM_COL32(115, 115, 115, 255);
 
     // Act as a button for now 
     bool isPressed = ImGui::InvisibleButton("button", ImVec2(width, height)); // an invisible button is here to make it interactable
@@ -80,7 +80,8 @@ void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
 
 void Menu::TrainingView()
 {
-    ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);
+    if (ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar))
+    {
         if (actionerHidden)
         { 
             PositionActioner(kTop,    &Menu::actionerT);   // Top
@@ -89,20 +90,23 @@ void Menu::TrainingView()
             PositionActioner(kBottom, &Menu::actionerB);   // Bottom
         }
         PositionActioner(kCenter, &Menu::actionerC);       // Center
-    ImGui::End();
+        
+        ImGui::End();
+    }
 }
 
 void Menu::LoggingView()
 {
     std::vector<ChannelsArray> lastData(graph.data.end() - maxLoggingCount, graph.data.end());
 
-    ImGui::Begin("Logging");
+    if (ImGui::Begin("Logging"))
+    {
         ImGui::SliderInt("Max displayed", &maxLoggingCount, 100, 2000);
         for (const auto &element : lastData)
         {
             ImGui::Separator();
 
-            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(147, 129, 255, 255));
+            ImGui::PushStyleColor(ImGuiCol_Text, Globals::kAccentColor);
             ImGui::Text(" %f ", element[0]);
             ImGui::PopStyleColor();
             for (int i = 1; i < Globals::kNumElectrodes + 1; i++)
@@ -115,15 +119,18 @@ void Menu::LoggingView()
             }
             ImGui::Separator();
         }
-    ImGui::End();
+        ImGui::End();
+    }
 }
 
 void Menu::ProfileView()
 {
-    ImGui::Begin("Profile Loader");
+    if (ImGui::Begin("Profile Loader"))
+    {
         static int selected = 0;
 
-        ImGui::BeginChild("left pane", ImVec2(150, 0), ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeX);
+        if (ImGui::BeginChild("left pane", ImVec2(150, 0), ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeX))
+        {
             for (int i = 0; i < 20; i++)
             {
                 char label[128];
@@ -132,17 +139,19 @@ void Menu::ProfileView()
                     selected = i;
             }
             ImGui::EndChild();
+        }
+        ImGui::SameLine();
 
-            ImGui::SameLine();
-
-            ImGui::BeginGroup();
+        ImGui::BeginGroup();
             ImGui::SeparatorText("Info");
             ImGui::Text("FPS : %f", ImGui::GetIO().Framerate);
             ImGui::Text("On Profile %d", selected);
             ImGui::SeparatorText("Options");
             ImGui::Button("Load");
         ImGui::EndGroup();
-    ImGui::End();
+
+        ImGui::End();
+    }
 }
 
 void Menu::ShowMenu()

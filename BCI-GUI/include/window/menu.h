@@ -49,7 +49,7 @@ namespace Menu
 	};
 
 	/// <summary>
-	/// Struct that dynamically remove oldest values by keeping a 
+	/// Struct that dynamically remove oldest values (a certain percent is removed)
 	/// </summary>
 	struct Graph
 	{

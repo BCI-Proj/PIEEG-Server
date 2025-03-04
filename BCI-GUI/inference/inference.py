@@ -1,11 +1,10 @@
 import argparse;
-from torcheeg.models import FBMSNet;
+from torcheeg.models import EEGNet;
 import os;
 import torch;
 from torch import nn;
 import pandas as pd;
 from typing import List;
-import torcheeg as eeg;
 
 # Global variables
 profile: nn.Module = None;
@@ -18,7 +17,8 @@ MODEL_PATH = "./models"
 CHANNEL_COUNT = 8;
 WINDOW_LENGTH = 250;
 SAMPLE_RATE = 250;
-CLASSES: List[str] = ["up", "down", "left", "right", "baseline "];
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu";
+CLASSES: List[str] = ["up", "down", "left", "right", "baseline"];
 SAVE_INTERVAL = 12000; # 8 trials -> for one session, equates to reloading model 48 times
 
 os.makedirs(MODEL_PATH, exist_ok=True);
@@ -28,12 +28,12 @@ def load_model(profileName: str):
     global profile, profile_name;
     model_file = os.path.join(MODEL_PATH, f"{profileName}.pth");
 
-    profile = FBMSNet(
-        num_electrodes=CHANNEL_COUNT,
+    profile = EEGNet(
         chunk_size=WINDOW_LENGTH,
-        in_channels=1,
+        dropout=0.25,
         num_classes=len(CLASSES),
-    );
+        num_electrodes=CHANNEL_COUNT,
+    ).to(DEVICE);
 
     if os.path.isfile(model_file):
         profile.load_state_dict(torch.load(model_file));
@@ -77,16 +77,16 @@ def create(profileName: str) -> None:
     global profile_name;
     global eeg_buffer;
 
-    profile = FBMSNet(
-        num_electrodes=CHANNEL_COUNT,
+    profile = EEGNet(
         chunk_size=WINDOW_LENGTH,
-        in_channels=1,
+        dropout=0.25,
         num_classes=len(CLASSES),
-    );
+        num_electrodes=CHANNEL_COUNT,
+    ).to(DEVICE);
 
     profile.train();
     profile_name = profileName;
-    eeg_buffer = pd.DataFrame(columns=[f"electrode_{elec + 1}" for elec in range(CHANNEL_COUNT)], dtype=pd.Float32Dtype)
+    eeg_buffer = pd.DataFrame(columns=[f"electrode_{elec + 1}" for elec in range(CHANNEL_COUNT)], dtype=pd.Float32Dtype())
 
 create.__doc__ = create_docs;
 
@@ -111,7 +111,7 @@ train_docs: str = """
         If the type of the input is incorrect in any way this will be thrown, reffer to the messages in the error.
 """.format(CHANNEL_COUNT=CHANNEL_COUNT, CLASSES=", ".join(CLASSES));
 def train(input: List[float], target: str) -> None:
-    global profile, eeg_buffer, training_counter  # Declare globals first
+    global profile, eeg_buffer, training_counter;
 
     if len(input) != CHANNEL_COUNT:
         raise TypeError(f"\nThe input length is invalid. \nActual Length: {len(input)}\nExpected Length: {CHANNEL_COUNT}")
@@ -119,8 +119,6 @@ def train(input: List[float], target: str) -> None:
         raise TypeError("\nThe input type is invalid. The elements are not numbers.")
     if profile is None:
         raise ValueError("\nNo model loaded! Use 'create' first.")
-
-    training_counter += 1
 
     new_row = pd.DataFrame([input], columns=[f"electrode_{i+1}" for i in range(CHANNEL_COUNT)])
     eeg_buffer = pd.concat([eeg_buffer, new_row], ignore_index=True)
@@ -130,8 +128,9 @@ def train(input: List[float], target: str) -> None:
 
     # Train only when the buffer reaches 250 samples
     if len(eeg_buffer) == WINDOW_LENGTH:
-        X = torch.tensor(eeg_buffer.values, dtype=torch.float32).unsqueeze(0).unsqueeze(0)  # Shape: (1, 1, 8, 250)
-        y = torch.tensor([CLASSES.index(target)], dtype=torch.long)
+    
+        X = torch.tensor(eeg_buffer.values, dtype=torch.float32).unsqueeze(0).unsqueeze(0).to(DEVICE)  # Shape: (1, 1, 8, 250)
+        y = torch.tensor([CLASSES.index(target)], dtype=torch.long).to(DEVICE)
 
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(profile.parameters(), lr=0.001)
@@ -167,15 +166,16 @@ def export() -> None:
 
     global profile;
     global profile_name;
+
     if profile == None:
         raise FileNotFoundError("No Profile is currently in training. call `inference.py create <PROFILE_NAME>`.\n");
 
     profile.eval();
     
     torch.onnx.export(
-        profile,
-        torch.randn(1, 1, 8, 250), # (window, in_channel, electrode, sample_size)
-        f"./models/{profile_name}",
+        profile.to(DEVICE),
+        torch.randn(1, 1, CHANNEL_COUNT, WINDOW_LENGTH).to(DEVICE), # (1 sample, 1 channel, 8 electrode, window/chunk size)
+        f"./models/{profile_name}.onnx",
         export_params=True,
         opset_version=11,
         input_names=["input"],
