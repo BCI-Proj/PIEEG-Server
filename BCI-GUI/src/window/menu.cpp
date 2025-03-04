@@ -15,6 +15,12 @@ void Menu::ChannelGraph(float* buffer)
         // To make the graph scrolling for new data
         if (!isPaused)
         {
+            ImPlot::SetupAxis(
+                ImAxis_X1, 
+                nullptr, 
+                ImPlotAxisFlags_NoLabel | ImPlotAxisFlags_NoTickLabels | ImPlotAxisFlags_NoTickMarks
+            );
+
             ImPlot::SetupAxisLimits(ImAxis_X1, gDeltaTime - 5.0f, gDeltaTime, ImGuiCond_Always);
             gDeltaTime += ImGui::GetIO().DeltaTime;
 
@@ -27,6 +33,7 @@ void Menu::ChannelGraph(float* buffer)
         // Plot all 8 channels
         for (int i = 1; i <= Globals::kNumElectrodes; i++)
         {
+            ImPlot::PushColormap(ImPlotColormap_Cool);
             ImPlot::PlotLine(
                 std::to_string(i).c_str(),
                 &graph.data[0][0], // Delta Time
@@ -35,6 +42,7 @@ void Menu::ChannelGraph(float* buffer)
                 0, 0,
                 9 * sizeof(float)  // Size of the 9 elements in graph ChannelsArray
             );
+            ImPlot::PopColormap();
         }
         ImPlot::EndPlot();
     }
@@ -94,12 +102,12 @@ void Menu::LoggingView()
         {
             ImGui::Separator();
 
-            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 0, 255, 255));
+            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(147, 129, 255, 255));
             ImGui::Text(" %f ", element[0]);
             ImGui::PopStyleColor();
             for (int i = 1; i < Globals::kNumElectrodes + 1; i++)
             {      
-                ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(0, 255, 0, 255));
+                ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(100, 255, 255, 255));
                 ImGui::Text("%d. ", i);
                 ImGui::PopStyleColor();
                 ImGui::SameLine();

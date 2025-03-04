@@ -2,6 +2,13 @@
 
 void Inference::Create(bool isIca, const wchar_t* profileName)
 {
+	const wchar_t* command = L"python";
+	HINSTANCE result = ShellExecute(NULL, L"open", command, NULL, NULL, SW_SHOWNORMAL);
+
+	if ((int)result <= 32)
+	{
+		std::cerr << "Failed to execute" << std::endl;
+	}
 }
 
 void Inference::Train(bool isIca, float* electrodes)

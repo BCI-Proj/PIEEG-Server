@@ -1,7 +1,8 @@
 #pragma once
 
-#include "globals.h"
 #include <iostream>
+#include <Windows.h>
+#include "globals.h"
 
 /*
 ica_model.py
