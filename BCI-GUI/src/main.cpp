@@ -6,6 +6,7 @@ int main(int argc, char** argv)
 {
 	Graphics panel(800, 600);
 
+	// Network operations
 	std::thread t_udpReceiver(
 		[&]()
 		{
@@ -15,6 +16,7 @@ int main(int argc, char** argv)
 			}
 		});
 
+	// Rendering
 	panel.Loop();
 
 	// Detach and not join here to kill the thread because recvfrom function will wait until the next message before closing.

@@ -12,7 +12,7 @@ namespace PIEEG
 
 	struct Channels
 	{
-		ChannelsArray vals = {};
+		ChannelsArray vals = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
 		Channels() = default;
 		Channels(float deltaTime, float* buff)

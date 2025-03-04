@@ -28,6 +28,8 @@ void Graphics::InitSDL()
 
 void Graphics::SetupImGuiStyle()
 {
+	// Style mess
+
 	ImGuiStyle& style = ImGui::GetStyle();
 
 	style.Alpha = 1.0f;

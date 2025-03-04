@@ -6,10 +6,8 @@ float deadline   = 0.0f;
 // temporary here ( 3000 is the max capacity that can be displayed in the graph ) 
 Menu::Graph graph(Menu::maxGraphCount);
 
-void Menu::ChannelGraph(float* buffer)
+void Menu::ChannelGraph()
 {
-    using namespace PIEEG;
-
     if (ImPlot::BeginPlot("Channels", ImVec2(-1, -1), ImPlotFlags_NoTitle | ImPlotFlags_NoFrame))
     {
         // To make the graph scrolling for new data
@@ -26,7 +24,7 @@ void Menu::ChannelGraph(float* buffer)
 
             // Receive data to a buffer
             // Add received to graph data
-            Channels chns(gDeltaTime, buffer);
+            PIEEG::Channels chns(gDeltaTime, PIEEG::receiver.buffer);
             graph.Add(chns.vals);
         }
 
@@ -40,7 +38,7 @@ void Menu::ChannelGraph(float* buffer)
                 &graph.data[0][i], // Value of Channel that is being plotted
                 graph.data.size(),
                 0, 0,
-                9 * sizeof(float)  // Size of the 9 elements in graph ChannelsArray
+                (Globals::kNumElectrodes + 1) * sizeof(float)  // Size of the n (correspond to num of channels) elements in graph ChannelsArray
             );
             ImPlot::PopColormap();
         }
@@ -97,9 +95,10 @@ void Menu::TrainingView()
 
 void Menu::LoggingView()
 {
+    // Picking last n data from the graph to store them in this vector
     std::vector<ChannelsArray> lastData(graph.data.end() - maxLoggingCount, graph.data.end());
 
-    if (ImGui::Begin("Logging"))
+    ImGui::Begin("Logging");
     {
         ImGui::SliderInt("Max displayed", &maxLoggingCount, 100, 2000);
         for (const auto &element : lastData)
@@ -119,17 +118,17 @@ void Menu::LoggingView()
             }
             ImGui::Separator();
         }
-        ImGui::End();
     }
+    ImGui::End();
 }
 
 void Menu::ProfileView()
 {
-    if (ImGui::Begin("Profile Loader"))
+    ImGui::Begin("Profile Loader");
     {
         static int selected = 0;
 
-        if (ImGui::BeginChild("left pane", ImVec2(150, 0), ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeX))
+        ImGui::BeginChild("left pane", ImVec2(150, 0), ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeX);
         {
             for (int i = 0; i < 20; i++)
             {
@@ -138,8 +137,9 @@ void Menu::ProfileView()
                 if (ImGui::Selectable(label, selected == i))
                     selected = i;
             }
-            ImGui::EndChild();
         }
+        ImGui::EndChild();
+
         ImGui::SameLine();
 
         ImGui::BeginGroup();
@@ -149,23 +149,21 @@ void Menu::ProfileView()
             ImGui::SeparatorText("Options");
             ImGui::Button("Load");
         ImGui::EndGroup();
-
-        ImGui::End();
     }
+    ImGui::End();
 }
 
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
-        ImGui::Text("%f", gDeltaTime);
-
         ImGui::PushStyleColor(ImGuiCol_Button, (isTrainingStarted) ? ImVec4(0, 1, 0, 0.5) : ImVec4(1,0,0,0.5));
-        if (ImGui::Button((isTrainingStarted) ? "Training Started" : "Training not started"))
+        if (ImGui::Button((isTrainingStarted) ? "Stop" : "Start"))
         {
             ImGui::OpenPopup("TrainingPopup");
         }
         ImGui::PopStyleColor();
 
+#pragma region Training Popup
         ImVec2 center = ImGui::GetMainViewport()->GetCenter();
         ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
@@ -188,6 +186,7 @@ void Menu::ShowMenu()
 
             ImGui::EndPopup();
         }
+#pragma endregion
 
         // this is a timing test ( testing how we can use deltatime to make timing events ) 
         if (gDeltaTime >= deadline && deadline != 0.0f) {
@@ -195,10 +194,12 @@ void Menu::ShowMenu()
             actionerHidden = true;
             Info(L"TIMEOUT", L"PATRON DU PARC #BENSON", MB_ICONEXCLAMATION);
         }
+        else { actionerHidden = false; }
         ImGui::Checkbox("Pause",  &isPaused);
         ImGui::SeparatorText("Graph");
 
-        ChannelGraph(PIEEG::receiver.buffer);
+        ChannelGraph();
+
     ImGui::End();
 
     TrainingView();

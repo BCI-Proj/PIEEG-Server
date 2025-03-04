@@ -17,7 +17,6 @@ namespace Menu
 	inline bool isPaused = false;
 	inline bool isTrainingStarted = false;
 
-	// Booleans that refer to training actioners ( last letter refer to direction )
 	inline bool
 		actionerT    = false,
 		actionerB    = false,
@@ -26,10 +25,9 @@ namespace Menu
 		actionerC    = false,
 		actionerHidden = false; // hide all actioners around the center (for pre-session training)
 
-	inline int			 maxLoggingCount	= 300;
-	inline constexpr int maxGraphCount = 3000;
+	inline int			 maxLoggingCount =  300;
+	inline constexpr int maxGraphCount   = 3000;
 
-	// For saving training buttons order
 	enum TrainingDirection 
 	{
 		kTop,
@@ -54,13 +52,14 @@ namespace Menu
 	struct Graph
 	{
 		ImVector<ChannelsArray> data;
+
 		const int maximumSize;
 		const int removeAmount = static_cast<int>(0.1f * maximumSize); // remove 10% of maximum size
 
 		explicit Graph(int max)
 			: maximumSize(max)
 		{
-			data.reserve(maximumSize); // Set capacity to maximum
+			//data.reserve(maximumSize); // Set capacity to maximum
 		};
 
 		inline void Add(const ChannelsArray& arr)
@@ -83,7 +82,7 @@ namespace Menu
 	/// Graph used to monitor all electrodes channels coming values
 	/// </summary>
 	/// <param name="buffer"> - floats buffer of values received via UDP from the electrodes</param>
-	void ChannelGraph(float* buffer);
+	void ChannelGraph();
 
 	/// <summary>
 	/// Custom ImGui component that act as indicators. Can flash in green
@@ -103,8 +102,6 @@ namespace Menu
 	void LoggingView();
 
 	void ProfileView();
-
-	// To place Actioner in the Training View depending on direction
 
 	inline void PositionActioner(const TrainingDirection direction, bool* p_bValue)
 	{
