@@ -15,7 +15,7 @@ training_counter = 0;
 # Customizable constants
 MODEL_PATH = "./models"
 CHANNEL_COUNT = 8;
-WINDOW_LENGTH = 256;
+WINDOW_LENGTH = 250;
 SAMPLE_RATE = 250;
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu";
 CLASSES: List[str] = ["up", "down", "left", "right", "baseline"];
