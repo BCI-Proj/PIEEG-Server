@@ -22,6 +22,9 @@ private:
 	// Initialise ImGui using created SDL2 Wnd
 	void InitImGui();
 
+	// Change default style of ImGui
+	void SetupImGuiStyle();
+
 	// Destroy ImGui + ImPlot + SDL2
 	void Cleanup();
 
