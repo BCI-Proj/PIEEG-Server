@@ -156,7 +156,7 @@ void Menu::ProfileView()
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
-        ImGui::PushStyleColor(ImGuiCol_Button, (isTrainingStarted) ? ImVec4(0, 1, 0, 0.5) : ImVec4(1,0,0,0.5));
+        ImGui::PushStyleColor(ImGuiCol_Button, (!isTrainingStarted) ? ImVec4(0, 1, 0, 0.5) : ImVec4(1,0,0,0.5));
         if (ImGui::Button((isTrainingStarted) ? "Stop" : "Start"))
         {
             ImGui::OpenPopup("TrainingPopup");
@@ -194,7 +194,6 @@ void Menu::ShowMenu()
             actionerHidden = true;
             Info(L"TIMEOUT", L"PATRON DU PARC #BENSON", MB_ICONEXCLAMATION);
         }
-        else { actionerHidden = false; }
         ImGui::Checkbox("Pause",  &isPaused);
         ImGui::SeparatorText("Graph");
 
