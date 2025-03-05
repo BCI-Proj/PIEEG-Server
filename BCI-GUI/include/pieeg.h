@@ -4,6 +4,8 @@
 #include "receiver.h"
 #include "globals.h"
 
+using ChannelsArray = std::array<float, Globals::kNumElectrodes + 1>;
+
 namespace PIEEG
 {
 	inline Receiver receiver(Globals::kPort, Globals::kNumElectrodes);
@@ -11,7 +13,7 @@ namespace PIEEG
 	struct Channels
 	{
 		// Num of electrodes + 1 to handle the delta time in addition
-		std::array<float, 8+1> vals = {};
+		ChannelsArray vals = {};
 
 		Channels() = default;
 		Channels(float deltaTime, float* buff)
