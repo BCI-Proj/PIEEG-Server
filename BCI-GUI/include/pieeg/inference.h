@@ -1,8 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include <Windows.h>
+#include <string>
+#include <unordered_map>
 #include "globals.h"
+#include "window/menu.h"
 
 /*
 ica_model.py
@@ -24,15 +26,25 @@ train <DATA>
 export
 */
 
-
 namespace Inference
 {
+	inline std::unordered_map<Menu::TrainingDirection, const char*> trainDirectionMap =
+	{
+		{Menu::kLeft,    "left"},
+		{Menu::kRight,   "right"},
+		{Menu::kTop ,    "up"},
+		{Menu::kBottom , "down"},
+		{Menu::kCenter , "baseline"},
+	};
+
+	inline const std::string baseCommand = "python ./inference/inference.py ";
+
 	// If ICA, create .dat file called from ica_inference.py else create .onnx from inference.py
-	void Create (bool isIca, const wchar_t* profileName);
+	void Create (const char* profileName);
 
 	// If ICA, call Training functions for Jaw, EOG, Breathing else train 
-	void Train  (bool isIca, float* electrodes);
+	void Train  (const char* profileName, const float* electrodes, Menu::TrainingDirection direction);
 
 	// If ICA, export .dat, else export .onnx
-	void Export (bool isIca); 
+	void Export (const char* profileName); 
 }

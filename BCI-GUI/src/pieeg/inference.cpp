@@ -1,32 +1,37 @@
 #include "pieeg/inference.h"
 
-void Inference::Create(bool isIca, const wchar_t* profileName)
+void Inference::Create(const char* profileName)
 {
-	const wchar_t* command = L"python";
-	HINSTANCE result = ShellExecute(NULL, L"open", command, NULL, NULL, SW_SHOWNORMAL);
-
-	if ((int)result <= 32)
-	{
-		std::cerr << "Failed to execute" << std::endl;
-	}
+	std::string createCommand = baseCommand + "create " + profileName;
+	int result = system(createCommand.c_str());
+	
+	if (result)
+		Info(L"Cannot create model with profile", L"ERROR Create Command", MB_ICONERROR);
 }
 
-void Inference::Train(bool isIca, float* electrodes)
+void Inference::Train(const char* profileName, const float* electrodes, Menu::TrainingDirection direction)
 {
-	// call TrainEOG, TrainJaw, TrainBreathing
+	std::string trainCommand = baseCommand + "train " + profileName + " ";
+
+	for (int i = 0; i < Globals::kNumElectrodes; i++)
+	{
+		trainCommand += std::to_string(electrodes[i]);
+		trainCommand += " ";
+	}
+	trainCommand += trainDirectionMap[direction];
+
+	int result = system(trainCommand.c_str());
+	
+	if (result)
+		Info(L"Cannot send system commands to python file", L"ERROR", MB_ICONERROR);
 }
 
-void Inference::Export(bool isIca)
+void Inference::Export(const char* profileName)
 {
-	try
-	{
-		//if (isIca)
-			// create .dat file called from ica_inference.py
-		//else
-			// create .onnx file called from inference.py
-	}
-	catch (const std::exception &e)
-	{
-		Info(L"Error", L"Cannot create model file", MB_ICONERROR);
-	}
+	// need to have onnx dep
+	std::string exportCommand = baseCommand + "export " + profileName;
+	int result = system(exportCommand.c_str());
+	
+	if (result) 
+		Info(L"Cannot create model file", L"ERROR", MB_ICONERROR);
 }
