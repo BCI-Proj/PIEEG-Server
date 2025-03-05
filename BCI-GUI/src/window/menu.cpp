@@ -13,10 +13,10 @@ void Menu::ChannelGraph()
         if (!isPaused)
         {
             ImPlot::SetupAxis(
-                ImAxis_X1, 
-                nullptr, 
-                ImPlotAxisFlags_NoLabel | ImPlotAxisFlags_NoTickLabels | ImPlotAxisFlags_NoTickMarks
-            );
+                ImAxis_X1, nullptr, 
+                ImPlotAxisFlags_NoLabel | ImPlotAxisFlags_NoTickLabels | ImPlotAxisFlags_NoTickMarks);
+
+            ImPlot::SetupLegend(ImPlotLocation_NorthEast, ImPlotLegendFlags_Horizontal | ImPlotLegendFlags_Outside);
 
             ImPlot::SetupAxisLimits(ImAxis_X1, gDeltaTime - 5.0f, gDeltaTime, ImGuiCond_Always);
             gDeltaTime += ImGui::GetIO().DeltaTime;
@@ -199,7 +199,7 @@ void Menu::ShowMenu()
             Info(L"TIMEOUT", L"PATRON DU PARC #BENSON", MB_ICONEXCLAMATION);
         }
         ImGui::Checkbox("Pause",  &isPaused);
-        ImGui::SeparatorText("Graph");
+        ImGui::Separator();
 
         ChannelGraph();
 

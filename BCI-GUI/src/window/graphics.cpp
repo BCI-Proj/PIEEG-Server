@@ -82,6 +82,7 @@ void Graphics::SetupImGuiStyle()
 	style.Colors[ImGuiCol_SliderGrab] = ImVec4(0.57f, 0.5f, 1.0f, 1.0f);
 	style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.57f, 0.5f, 1.0f, 1.0f);
 	style.Colors[ImGuiCol_CheckMark] = ImVec4(0.40f, 0.40f, 0.40f, 1.0f);
+	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.0f,0.0f,0.0f,0.8f);
 }
 
 void Graphics::InitImGui()
