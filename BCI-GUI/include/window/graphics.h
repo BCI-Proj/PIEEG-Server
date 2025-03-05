@@ -1,7 +1,5 @@
 #pragma once
 
-#include <functional>
-
 #include <SDL.h>
 #include "menu.h"
 

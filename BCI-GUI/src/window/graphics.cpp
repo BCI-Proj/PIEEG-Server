@@ -1,4 +1,5 @@
 #include "window/graphics.h"
+#include "pieeg/inference.h"
 
 void Graphics::InitSDL()
 {
@@ -127,7 +128,7 @@ void Graphics::Loop()
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			ImGui_ImplSDL2_ProcessEvent(&event);
-
+			
 			if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 				SDL_GetRendererOutputSize(m_pRenderer, &m_width, &m_height);
 

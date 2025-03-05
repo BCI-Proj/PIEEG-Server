@@ -1,20 +1,21 @@
 #include <thread>
 #include "window/graphics.h"
 #include "window/menu.h"
+#include "pieeg/inference.h"
 
 int main(int argc, char** argv) 
 {
 	Graphics panel(800, 600);
 
 	// Network operations
-	std::thread t_udpReceiver(
+	std::thread t_udpReceiver
+	(
 		[&]()
 		{
 			while (panel.IsRunning)
-			{
 				PIEEG::receiver.ReceiveFromSender();
-			}
-		});
+		}
+	);
 
 	// Rendering
 	panel.Loop();
