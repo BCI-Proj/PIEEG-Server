@@ -3,7 +3,6 @@
 float gDeltaTime = 0.0f;
 float deadline   = 0.0f;
 
-// temporary here ( 3000 is the max capacity that can be displayed in the graph ) 
 Menu::Graph graph(Menu::maxGraphCount);
 
 void Menu::ChannelGraph()
@@ -24,7 +23,7 @@ void Menu::ChannelGraph()
 
             // Receive data to a buffer
             // Add received to graph data
-            PIEEG::Channels chns(gDeltaTime, PIEEG::receiver.buffer);
+            PIEEG::Channels chns(&gDeltaTime, PIEEG::receiver.buffer);
             graph.Add(chns.vals);
         }
 
@@ -78,7 +77,7 @@ void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
 
 void Menu::TrainingView()
 {
-    if (ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar))
+    ImGui::Begin("Training", nullptr, ImGuiWindowFlags_NoScrollbar);
     {
         if (actionerHidden)
         { 
@@ -89,8 +88,8 @@ void Menu::TrainingView()
         }
         PositionActioner(kCenter, &Menu::actionerC);       // Center
         
-        ImGui::End();
     }
+    ImGui::End();
 }
 
 void Menu::LoggingView()
@@ -148,6 +147,42 @@ void Menu::ProfileView()
             ImGui::Text("On Profile %d", selected);
             ImGui::SeparatorText("Options");
             ImGui::Button("Load");
+
+            ImGui::SameLine();
+
+#pragma region Training Popup
+            ImGui::PushStyleColor(ImGuiCol_Button, (!isTrainingStarted) ? ImVec4(0, 1, 0, 0.5) : ImVec4(1, 0, 0, 0.5));
+            if (ImGui::Button((isTrainingStarted) ? "Stop" : "Start"))
+            {
+                ImGui::OpenPopup("TrainingPopup");
+            }
+            ImGui::PopStyleColor();
+
+            ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+            ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+            if (ImGui::BeginPopupModal("TrainingPopup", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+            {
+                ImGui::Text((!isTrainingStarted) ? "The training session is going to start. Do you want to continue ?" : "The training session in in progress. Do you want to stop ?"); ImGui::Separator();
+
+                if (ImGui::Button("YES"))
+                {
+                    if (!isTrainingStarted)
+                    {
+                        isTrainingStarted = true;
+                        deadline = gDeltaTime + 5;
+                    }
+                    else
+                        isTrainingStarted = false;
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::SameLine();
+                if (ImGui::Button("NO")) { ImGui::CloseCurrentPopup(); }
+
+                ImGui::EndPopup();
+            }
+#pragma endregion
+            
         ImGui::EndGroup();
     }
     ImGui::End();
@@ -156,37 +191,6 @@ void Menu::ProfileView()
 void Menu::ShowMenu()
 {
     ImGui::Begin("Plotting");
-        ImGui::PushStyleColor(ImGuiCol_Button, (!isTrainingStarted) ? ImVec4(0, 1, 0, 0.5) : ImVec4(1,0,0,0.5));
-        if (ImGui::Button((isTrainingStarted) ? "Stop" : "Start"))
-        {
-            ImGui::OpenPopup("TrainingPopup");
-        }
-        ImGui::PopStyleColor();
-
-#pragma region Training Popup
-        ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-        ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-
-        if (ImGui::BeginPopupModal("TrainingPopup", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::Text((!isTrainingStarted) ? "The training session is going to start. Do you want to continue ?" : "The training session in in progress.Do you want to stop ?"); ImGui::Separator();
-            if (ImGui::Button("YES"))
-            {
-                if (!isTrainingStarted)
-                {
-                    isTrainingStarted = true;
-                    deadline = gDeltaTime + 5;
-                }
-                else
-                    isTrainingStarted = false;
-                ImGui::CloseCurrentPopup();
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("NO")) { ImGui::CloseCurrentPopup(); }
-
-            ImGui::EndPopup();
-        }
-#pragma endregion
 
         // this is a timing test ( testing how we can use deltatime to make timing events ) 
         if (gDeltaTime >= deadline && deadline != 0.0f) {

@@ -101,6 +101,9 @@ namespace Menu
 	/// </summary>
 	void LoggingView();
 
+	/// <summary>
+	/// Contain profile loader
+	/// </summary>
 	void ProfileView();
 
 	inline void PositionActioner(const TrainingDirection direction, bool* p_bValue)
