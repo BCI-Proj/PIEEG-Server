@@ -413,3 +413,5 @@ venv/Lib/site-packages/
 venv/Include/
 venv/Scripts/
 venv/pyvenv.cfg
+
+.vscode

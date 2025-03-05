@@ -56,7 +56,7 @@ def create(profileName: str) -> None:
     profile.train();
     profile_name = profileName;
 
-    eeg_buffer = pd.DataFrame(columns=[f"electrode_{elec + 1}" for elec in range(CHANNEL_COUNT)], dtype=pd.Float32Dtype)
+    eeg_buffer = pd.DataFrame(columns=[f"electrode_{elec + 1}" for elec in range(CHANNEL_COUNT)], dtype=pd.Float32Dtype())
 
 create.__doc__ = create_docs;
 
