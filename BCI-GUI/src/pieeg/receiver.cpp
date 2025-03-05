@@ -36,7 +36,7 @@ bool Receiver::BindSocket()
 {
 	int result = bind(
 		m_socket, reinterpret_cast<sockaddr*>(&m_receiverAddr), sizeof(m_receiverAddr));
-
+	
 	if (result == SOCKET_ERROR)
 	{
 		WS_ERROR(L"BIND FAILED");
@@ -62,7 +62,7 @@ bool Receiver::ReceiveFromSender()
 	// Hardcoded here because I dont want to include globals.h 
 	for (int i = 0; i < 8; i++)
 	{
-		std::printf("Channel %d : %f \n", i, buffer[0]);
+		std::printf("Channel %d : %f \n", i, buffer[i]);
 	}
 #endif
 	return 0;
