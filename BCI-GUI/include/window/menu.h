@@ -14,16 +14,17 @@
 
 namespace Menu
 {
-	inline bool isPaused = false;
-	inline bool isTrainingStarted = false;
-
 	inline bool
-		actionerT    = false,
-		actionerB    = false,
-		actionerL    = false,
-		actionerR    = false,
-		actionerC    = false,
+		actionerT      = false,
+		actionerB      = false,
+		actionerL      = false,
+		actionerR      = false,
+		actionerC      = false,
 		actionerHidden = false; // hide all actioners around the center (for pre-session training)
+
+	inline bool			 
+		isPaused		  = false, 
+		isTrainingStarted = false;
 
 	inline int			 maxLoggingCount =  300;
 	inline constexpr int maxGraphCount   = 3000;
@@ -59,7 +60,7 @@ namespace Menu
 		explicit Graph(int max)
 			: maximumSize(max)
 		{
-			//data.reserve(maximumSize); // Set capacity to maximum
+			data.reserve(maximumSize); // Set capacity to maximum
 		};
 
 		inline void Add(const ChannelsArray& arr)
@@ -106,14 +107,14 @@ namespace Menu
 	/// </summary>
 	void ProfileView();
 
-	inline void PositionActioner(const TrainingDirection direction, bool* p_bValue)
+	inline void PositionActioner(const TrainingDirection direction, bool* pBoolean)
 	{
 		ImVec2 wndDimensions = ImGui::GetWindowSize(); // x refer to width, y refer to height
 		
 		ImGui::SetCursorPosX((wndDimensions.x - 30) * Menu::positionsMap[direction].x);
 		ImGui::SetCursorPosY((wndDimensions.y - 50) * Menu::positionsMap[direction].y);
 
-		TrainingActioner(direction, p_bValue);
+		TrainingActioner(direction, pBoolean);
 	}
 
 #pragma endregion

@@ -5,8 +5,8 @@ void Graphics::InitSDL()
 {
 	SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO);
 
-	SDL_WindowFlags windowFlags = (SDL_WindowFlags) (SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-
+	auto windowFlags = (SDL_WindowFlags) (SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+	
 	m_pWindow = SDL_CreateWindow
 	(
 		"BCI",			        // Title
@@ -27,7 +27,7 @@ void Graphics::InitSDL()
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255); // all black
 }
 
-void Graphics::SetupImGuiStyle()
+void Graphics::SetupImGuiStyle() const
 {
 	// Style mess
 
@@ -85,7 +85,7 @@ void Graphics::SetupImGuiStyle()
 	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.0f,0.0f,0.0f,0.8f);
 }
 
-void Graphics::InitImGui()
+void Graphics::InitImGui() const
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -106,7 +106,7 @@ void Graphics::InitImGui()
 	ImGui_ImplSDL2_NewFrame();
 }
 
-void Graphics::Cleanup()
+void Graphics::Cleanup() const
 {
 	ImGui_ImplSDLRenderer2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();

@@ -15,7 +15,7 @@ bool Receiver::Init()
 	m_receiverAddr.sin_family      = AF_INET;
 	m_receiverAddr.sin_addr.s_addr = INADDR_ANY;
 
-	return 0;
+	return false;
 }
 
 bool Receiver::CreateSocket()
@@ -29,7 +29,7 @@ bool Receiver::CreateSocket()
 
 	m_socket = serverSocket;
 
-	return 0;
+	return false;
 }
 
 bool Receiver::BindSocket()

@@ -113,10 +113,16 @@
     <ClInclude Include="include\pieeg\inference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ml\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="lib\SDL2\SDL2.dll">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

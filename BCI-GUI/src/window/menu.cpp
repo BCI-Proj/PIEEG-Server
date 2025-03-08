@@ -51,7 +51,8 @@ void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
 
     ImVec2 actionerPos = ImGui::GetCursorScreenPos();
 
-    float width = 30, height = 30;
+    const float width = 30;
+    const float height = 30;
 
     // To place the actioner at the exact position by taking consideration of its width and height
     ImVec2 actionerSize = ImVec2(actionerPos.x + width, actionerPos.y + height);
@@ -61,9 +62,7 @@ void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
     ImU32 disableColor = IM_COL32(115, 115, 115, 255);
 
     // Act as a button for now 
-    bool isPressed = ImGui::InvisibleButton("button", ImVec2(width, height)); // an invisible button is here to make it interactable
-
-    if (isPressed)
+    if (ImGui::InvisibleButton("button", ImVec2(width, height)))
         *pBoolean = !*pBoolean;
         
     ImGui::GetWindowDrawList()->AddRectFilled(
@@ -87,7 +86,6 @@ void Menu::TrainingView()
             PositionActioner(kBottom, &Menu::actionerB);   // Bottom
         }
         PositionActioner(kCenter, &Menu::actionerC);       // Center
-        
     }
     ImGui::End();
 }
@@ -129,6 +127,7 @@ void Menu::ProfileView()
 
         ImGui::BeginChild("left pane", ImVec2(150, 0), ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeX);
         {
+            // this will be removed when requests to api will be made 
             for (int i = 0; i < 20; i++)
             {
                 char label[128];
@@ -152,7 +151,7 @@ void Menu::ProfileView()
 
 #pragma region Training Popup
             ImGui::PushStyleColor(ImGuiCol_Button, (!isTrainingStarted) ? ImVec4(0, 1, 0, 0.5) : ImVec4(1, 0, 0, 0.5));
-            if (ImGui::Button((isTrainingStarted) ? "Stop" : "Start"))
+            if (ImGui::Button(isTrainingStarted ? "Stop" : "Start"))
             {
                 ImGui::OpenPopup("TrainingPopup");
             }
@@ -161,7 +160,7 @@ void Menu::ProfileView()
             ImVec2 center = ImGui::GetMainViewport()->GetCenter();
             ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
-            if (ImGui::BeginPopupModal("TrainingPopup", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+            if (ImGui::BeginPopupModal("TrainingPopup", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
             {
                 ImGui::Text((!isTrainingStarted) ? "The training session is going to start. Do you want to continue ?" : "The training session in in progress. Do you want to stop ?"); ImGui::Separator();
 

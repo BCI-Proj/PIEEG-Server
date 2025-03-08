@@ -9,22 +9,23 @@
 class Graphics
 {
 private:
-	int m_width = 0, m_height = 0;
+	int m_width = 0;
+	int m_height = 0;
 
-	SDL_Window*   m_pWindow   = nullptr;
+	SDL_Window*	  m_pWindow = nullptr;
 	SDL_Renderer* m_pRenderer = nullptr;
 
 	// Initialise SDL2 Window + Renderer
 	void InitSDL();
 
 	// Initialise ImGui using created SDL2 Wnd
-	void InitImGui();
+	void InitImGui() const;
 
 	// Change default style of ImGui
-	void SetupImGuiStyle();
+	void SetupImGuiStyle() const;
 
 	// Destroy ImGui + ImPlot + SDL2
-	void Cleanup();
+	void Cleanup() const;
 
 public:
 	bool IsRunning = true;

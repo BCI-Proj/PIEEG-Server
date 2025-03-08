@@ -4,7 +4,7 @@
 #include <winsock2.h>
 #include "globals.h"
 
-#define WS_CLEAN() WSACleanup(); return 1;
+#define WS_CLEAN() WSACleanup(); return true;
 #define WS_ERROR(message) Info(message, (const wchar_t*)WSAGetLastError(), MB_ICONERROR);
 
 /// <summary>
@@ -18,9 +18,8 @@ private:
 	
 	SOCKET m_socket = 0;
 
-	sockaddr_in
-		m_receiverAddr = {},
-		m_clientAddr   = {};
+	sockaddr_in m_receiverAddr = {};
+	sockaddr_in m_clientAddr   = {};
 
 	int m_clientAddrLen = sizeof(m_clientAddr);
 
