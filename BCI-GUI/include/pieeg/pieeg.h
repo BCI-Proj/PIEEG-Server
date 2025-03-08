@@ -12,12 +12,11 @@ namespace PIEEG
 
 	struct Channels
 	{
-		// Num of electrodes + 1 to handle the delta time in addition
-		ChannelsArray vals = {};
+		ChannelsArray vals = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
 		Channels() = default;
-		Channels(float deltaTime, float* buff)
-			: vals{ {deltaTime, buff[0],buff[1],buff[2],buff[3],buff[4],buff[5],buff[6],buff[7]} }
+		Channels(const float* deltaTime, const float* buff)
+			: vals{ {*deltaTime, buff[0],buff[1],buff[2],buff[3],buff[4],buff[5],buff[6],buff[7]} }
 		{};
 	};
 }

@@ -1,4 +1,4 @@
-#include "receiver.h"
+#include "pieeg/receiver.h"
 
 bool Receiver::Init()
 {
@@ -7,7 +7,7 @@ bool Receiver::Init()
 
 	if (result != 0)
 	{
-		WS_ERROR("CANT INIT WSA - %d\n")
+		WS_ERROR(L"CANT INIT WSA\n")
 		WS_CLEAN()
 	}
 
@@ -15,7 +15,7 @@ bool Receiver::Init()
 	m_receiverAddr.sin_family      = AF_INET;
 	m_receiverAddr.sin_addr.s_addr = INADDR_ANY;
 
-	return 0;
+	return FALSE;
 }
 
 bool Receiver::CreateSocket()
@@ -23,27 +23,27 @@ bool Receiver::CreateSocket()
 	SOCKET serverSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (serverSocket == INVALID_SOCKET)
 	{
-		WS_ERROR("CANT CREATE SOCKET - %d\n");
+		WS_ERROR(L"CANT CREATE SOCKET");
 		WS_CLEAN();
 	}
 
 	m_socket = serverSocket;
 
-	return 0;
+	return FALSE;
 }
 
 bool Receiver::BindSocket()
 {
 	int result = bind(
 		m_socket, reinterpret_cast<sockaddr*>(&m_receiverAddr), sizeof(m_receiverAddr));
-
+	
 	if (result == SOCKET_ERROR)
 	{
-		WS_ERROR("BIND FAILED - %d\n");
+		WS_ERROR(L"BIND FAILED");
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
-	return 0;	
+	return FALSE;	
 }
 
 bool Receiver::ReceiveFromSender()
@@ -52,18 +52,19 @@ bool Receiver::ReceiveFromSender()
 
 	if (result == SOCKET_ERROR)
 	{
-		WS_ERROR("Receiving - %d\n");
+		WS_ERROR(L"Can't receive anything");
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
 
+	// Display all received values in console
 #ifdef _DEBUG
 	// 8 is the number of electrodes
-	// Hardcoded here because I dont want to include constants.h
+	// Hardcoded here because I dont want to include globals.h 
 	for (int i = 0; i < 8; i++)
 	{
-		std::printf("Channel %d : %f \n", i, buffer[0]);
+		std::printf("Channel %d : %f \n", i, buffer[i]);
 	}
 #endif
-	return 0;
+	return FALSE;
 }

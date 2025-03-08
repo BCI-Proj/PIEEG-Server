@@ -120,15 +120,18 @@ train_docs: str = """
 def train(input: List[float], target: str) -> None:
     global profile, eeg_buffer;
 
-    if len(input) != CHANNEL_COUNT: raise TypeError(f"\nThe input length is invalid. \nActual Length: {len(input)}\nExpected Length: {CHANNEL_COUNT}");
-    if not all(isinstance(x, (int, float)) for x in input): raise TypeError("\nThe input type is invalid. The elements are not numbers.");
-    if (profile is None) : raise ValueError("\nNo model loaded! Use 'create' first.");
+    if len(input) != CHANNEL_COUNT:
+        raise TypeError(f"\nThe input length is invalid. \nActual Length: {len(input)}\nExpected Length: {CHANNEL_COUNT}")
+    if not all(isinstance(x, (int, float)) for x in input):
+        raise TypeError("\nThe input type is invalid. The elements are not numbers.")
+    if profile is None:
+        raise ValueError("\nNo model loaded! Use 'create' first.")
 
     new_row = pd.DataFrame([input], columns=[f"electrode_{i+1}" for i in range(CHANNEL_COUNT)]);
     eeg_buffer = pd.concat([eeg_buffer, new_row], ignore_index=True);
 
     if len(eeg_buffer) > WINDOW_LENGTH:
-        eeg_buffer = eeg_buffer.iloc[1:].reset_index(drop=True);
+        eeg_buffer = eeg_buffer.iloc[1:].reset_index(drop=True)
 
     # Train only when the buffer reaches 250 samples
     if len(eeg_buffer) == WINDOW_LENGTH:
@@ -136,19 +139,20 @@ def train(input: List[float], target: str) -> None:
         X = torch.tensor(eeg_buffer.values, dtype=torch.float32).unsqueeze(0).unsqueeze(0).to(DEVICE)  # Shape: (1, 1, CHANNEL_COUNT, WINDOW_SIZE)
         y = torch.tensor([CLASSES.index(target)], dtype=torch.long).to(DEVICE)
 
-        criterion = nn.CrossEntropyLoss();
-        optimizer = torch.optim.Adam(profile.parameters(), lr=0.001);
+        criterion = nn.CrossEntropyLoss()
+        optimizer = torch.optim.Adam(profile.parameters(), lr=0.001)
 
-        profile.train();
-        optimizer.zero_grad();
+        profile.train()
+        optimizer.zero_grad()
 
-        preds = profile(X);
-        loss = criterion(preds, y);
+        preds = profile(X)
+        loss = criterion(preds, y)
 
-        loss.backward();
-        optimizer.step();
+        loss.backward()
+        optimizer.step()
 
-        print(f"Training Step: Loss = {loss.item():.4f}");
+        print(f"Training Step: Loss = {loss.item():.4f}")
+
 train.__doc__ = train_docs;
 
 export_docs: str = """

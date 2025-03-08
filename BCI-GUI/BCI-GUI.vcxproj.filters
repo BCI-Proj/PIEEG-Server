@@ -57,10 +57,10 @@
     <ClCompile Include="lib\implot\implot.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\pieeg\pieeg.cpp">
+    <ClCompile Include="src\pieeg\receiver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\pieeg\receiver.cpp">
+    <ClCompile Include="src\pieeg\inference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,10 +89,10 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>Header Files\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="include\graphics.h">
+    <ClInclude Include="include\window\graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\menu.h">
+    <ClInclude Include="include\window\menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\implot\implot.h">
@@ -101,13 +101,19 @@
     <ClInclude Include="lib\implot\implot_internal.h">
       <Filter>Header Files\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="include\pieeg.h">
+    <ClInclude Include="include\pieeg\pieeg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\receiver.h">
+    <ClInclude Include="include\pieeg\receiver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pieeg\inference.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ml\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -115,5 +121,14 @@
     <CopyFileToFolders Include="lib\SDL2\SDL2.dll">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-x64\native\onnxruntime.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-x64\native\onnxruntime_providers_shared.dll">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
