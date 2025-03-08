@@ -15,7 +15,7 @@ bool Receiver::Init()
 	m_receiverAddr.sin_family      = AF_INET;
 	m_receiverAddr.sin_addr.s_addr = INADDR_ANY;
 
-	return false;
+	return FALSE;
 }
 
 bool Receiver::CreateSocket()
@@ -29,7 +29,7 @@ bool Receiver::CreateSocket()
 
 	m_socket = serverSocket;
 
-	return false;
+	return FALSE;
 }
 
 bool Receiver::BindSocket()
@@ -43,7 +43,7 @@ bool Receiver::BindSocket()
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
-	return 0;	
+	return FALSE;	
 }
 
 bool Receiver::ReceiveFromSender()
@@ -57,6 +57,7 @@ bool Receiver::ReceiveFromSender()
 		WS_CLEAN();
 	}
 
+	// Display all received values in console
 #ifdef _DEBUG
 	// 8 is the number of electrodes
 	// Hardcoded here because I dont want to include globals.h 
@@ -65,5 +66,5 @@ bool Receiver::ReceiveFromSender()
 		std::printf("Channel %d : %f \n", i, buffer[i]);
 	}
 #endif
-	return 0;
+	return FALSE;
 }

@@ -107,6 +107,11 @@ namespace Menu
 	/// </summary>
 	void ProfileView();
 
+	/// <summary>
+	/// Position Actioners in equal position depending on the direction (left, right ... ) 
+	/// </summary>
+	/// <param name="direction">Where the Actioner should be located</param>
+	/// <param name="pBoolean">Ptr to bool that will be associated to this Actioner</param>
 	inline void PositionActioner(const TrainingDirection direction, bool* pBoolean)
 	{
 		ImVec2 wndDimensions = ImGui::GetWindowSize(); // x refer to width, y refer to height

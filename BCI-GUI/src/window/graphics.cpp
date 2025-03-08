@@ -132,8 +132,8 @@ void Graphics::Loop()
 			
 			if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 				SDL_GetRendererOutputSize(m_pRenderer, &m_width, &m_height);
-
-			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+			
+			if (event.window.event == SDL_WINDOWEVENT_CLOSE)
 				IsRunning = false;
 
 			if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE)

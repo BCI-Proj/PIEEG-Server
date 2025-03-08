@@ -4,7 +4,7 @@
 #include <winsock2.h>
 #include "globals.h"
 
-#define WS_CLEAN() WSACleanup(); return true;
+#define WS_CLEAN() WSACleanup(); return TRUE;
 #define WS_ERROR(message) Info(message, (const wchar_t*)WSAGetLastError(), MB_ICONERROR);
 
 /// <summary>
@@ -23,9 +23,9 @@ private:
 
 	int m_clientAddrLen = sizeof(m_clientAddr);
 
-	bool  Init();
-	bool  CreateSocket();
-	bool  BindSocket();
+	bool  Init();		  /// Initialize Winsock2
+	bool  CreateSocket(); /// Create UDP Server socket
+	bool  BindSocket();	  /// Bind UDP Server socket
 
 public:
 	float* buffer; // buffer for the data of the electrodes 
