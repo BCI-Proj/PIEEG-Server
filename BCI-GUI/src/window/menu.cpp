@@ -51,8 +51,8 @@ void Menu::TrainingActioner(const TrainingDirection direction, bool* pBoolean)
 
     ImVec2 actionerPos = ImGui::GetCursorScreenPos();
 
-    const float width = 30;
-    const float height = 30;
+    const uint16_t  width  = 30;
+    const uint16_t  height = 30;
 
     // To place the actioner at the exact position by taking consideration of its width and height
     ImVec2 actionerSize = ImVec2(actionerPos.x + width, actionerPos.y + height);

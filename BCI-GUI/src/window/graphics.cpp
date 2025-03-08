@@ -153,7 +153,7 @@ void Graphics::Loop()
 
 		// for fullscreen
 #ifdef IMGUI_HAS_VIEWPORT
-		ImGuiViewport* viewport = ImGui::GetMainViewport();
+		const ImGuiViewport* viewport = ImGui::GetMainViewport();
 		ImGui::SetNextWindowPos(viewport->WorkPos);
 		ImGui::SetNextWindowSize(viewport->WorkSize);
 		ImGui::SetNextWindowViewport(viewport->ID);

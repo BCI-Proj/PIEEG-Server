@@ -9,7 +9,7 @@
 class Graphics
 {
 private:
-	int m_width = 0;
+	int m_width  = 0;
 	int m_height = 0;
 
 	SDL_Window*	  m_pWindow = nullptr;
@@ -30,7 +30,7 @@ private:
 public:
 	bool IsRunning = true;
 
-	Graphics(int width, int height)
+	Graphics(uint16_t width, uint16_t height)
 		: m_width(width), m_height(height)
 	{
 		InitSDL();

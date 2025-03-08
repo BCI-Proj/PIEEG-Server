@@ -31,7 +31,7 @@ public:
 	float* buffer; // buffer for the data of the electrodes 
 
 	Receiver() = default;
-	Receiver(const int port, const int bufferLen)
+	Receiver(const uint16_t port, const uint16_t bufferLen)
 		: m_port(port), buffer(new float[bufferLen])
 	{
 		Init();

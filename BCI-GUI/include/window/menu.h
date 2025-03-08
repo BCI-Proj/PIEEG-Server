@@ -26,8 +26,8 @@ namespace Menu
 		isPaused		  = false, 
 		isTrainingStarted = false;
 
-	inline int			 maxLoggingCount =  300;
-	inline constexpr int maxGraphCount   = 3000;
+	inline		     int      maxLoggingCount =  300;
+	inline constexpr uint16_t maxGraphCount   = 3000;
 
 	enum TrainingDirection 
 	{
@@ -54,10 +54,10 @@ namespace Menu
 	{
 		ImVector<ChannelsArray> data;
 
-		const int maximumSize;
-		const int removeAmount = static_cast<int>(0.1f * maximumSize); // remove 10% of maximum size
+		const uint16_t maximumSize;
+		const uint16_t removeAmount = static_cast<uint16_t>(0.1f * maximumSize); // remove 10% of maximum size
 
-		explicit Graph(int max)
+		explicit Graph(uint16_t max)
 			: maximumSize(max)
 		{
 			data.reserve(maximumSize); // Set capacity to maximum

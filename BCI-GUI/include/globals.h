@@ -9,9 +9,9 @@
 /// </summary>
 namespace Globals
 {										   
-	inline constexpr ImU32  kAccentColor   = IM_COL32(147, 129, 255, 255);
-	inline constexpr UINT16 kPort		   = 8888;
-	inline constexpr UINT8  kNumElectrodes = 8;
+	inline constexpr ImU32    kAccentColor   = IM_COL32(147, 129, 255, 255);
+	inline constexpr uint16_t kPort		     = 8888;
+	inline constexpr uint8_t  kNumElectrodes = 8;
 }
 
 /// <summary>
