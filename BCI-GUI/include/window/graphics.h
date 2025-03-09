@@ -12,19 +12,30 @@ private:
 	int m_width  = 0;
 	int m_height = 0;
 
-	SDL_Window*	  m_pWindow = nullptr;
-	SDL_Renderer* m_pRenderer = nullptr;
+	/// Ptr to SDL_Window   - The Window
+	SDL_Window*	  m_pWindow = nullptr;   
 
-	// Initialise SDL2 Window + Renderer
+	/// Ptr to SDL_Renderer - The Renderer used to display element on the window
+	SDL_Renderer* m_pRenderer = nullptr; 
+
+	/// <summary>
+	/// Initialise SDL2 Window + Renderer
+	/// </summary>
 	void InitSDL();
 
-	// Initialise ImGui using created SDL2 Wnd
+	/// <summary>
+	/// Initialise ImGui using created SDL2 Window
+	/// </summary>
 	void InitImGui() const;
 
-	// Change default style of ImGui
+	/// <summary>
+	/// Change default style of ImGui
+	/// </summary>
 	void SetupImGuiStyle() const;
 
-	// Destroy ImGui + ImPlot + SDL2
+	/// <summary>
+	/// Destroy ImGui + ImPlot + SDL2
+	/// </summary>
 	void Cleanup() const;
 
 public:
@@ -37,6 +48,8 @@ public:
 		InitImGui();
 	}
 
-	// The main program loop where everything will occur
+	/// <summary>
+	/// The main program loop where everything will occur
+	/// </summary>
 	void Loop();
 };

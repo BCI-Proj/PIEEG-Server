@@ -4,7 +4,7 @@
 #include <winsock2.h>
 #include "globals.h"
 
-#define WS_CLEAN() WSACleanup(); return TRUE;
+#define WS_CLEAN() WSACleanup(); 
 #define WS_ERROR(message) Info(message, (const wchar_t*)WSAGetLastError(), MB_ICONERROR);
 
 /// <summary>
@@ -23,12 +23,24 @@ private:
 
 	int m_clientAddrLen = sizeof(m_clientAddr);
 
-	bool  Init();		  /// Initialize Winsock2
-	bool  CreateSocket(); /// Create UDP Server socket
-	bool  BindSocket();	  /// Bind UDP Server socket
+	/// <summary>
+	/// Initialize Winsock2
+	/// </summary>
+	void  Init();		  
+	
+	/// <summary>
+	/// Create UDP Server socket
+	/// </summary>
+	void  CreateSocket(); 
+
+	/// <summary>
+	/// Bind UDP Server socket
+	/// </summary>
+	void  BindSocket();	 
 
 public:
-	float* buffer; // buffer for the data of the electrodes 
+	/// buffer for the data of the electrodes 
+	float* buffer; 
 
 	Receiver() = default;
 	Receiver(const uint16_t port, const uint16_t bufferLen)
@@ -42,5 +54,5 @@ public:
 	/// <summary>
 	/// Store received float values in Receiver buffer
 	/// </summary>
-	bool ReceiveFromSender();
+	void ReceiveFromSender();
 };
