@@ -1,0 +1,59 @@
+\doxysection{include/globals.h File Reference}
+\hypertarget{globals_8h}{}\label{globals_8h}\index{include/globals.h@{include/globals.h}}
+{\ttfamily \#include $<$Windows.\+h$>$}\newline
+{\ttfamily \#include "{}imgui.\+h"{}}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_globals}{Globals}}
+\begin{DoxyCompactList}\small\item\em Commonly used variables. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{globals_8h_ac7bef5d85e3dcd73eef56ad39ffc84a9}{WIN32\+\_\+\+LEAN\+\_\+\+AND\+\_\+\+MEAN}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+VOID \mbox{\hyperlink{globals_8h_a99965489782c501c9fb0e7ef8c70aa73}{Info}} (LPCWSTR message, LPCWSTR title, UINT icon)
+\begin{DoxyCompactList}\small\item\em Pop an info box on the screen. Used to display Error Message or some information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr Im\+U32 \mbox{\hyperlink{namespace_globals_a80afeab4136e2c0bcad23127cf99f0dc}{Globals\+::k\+Accent\+Color}} = IM\+\_\+\+COL32(147, 129, 255, 255)
+\begin{DoxyCompactList}\small\item\em The Accent color of Sema Cerebrum. \end{DoxyCompactList}\item 
+constexpr uint16\+\_\+t \mbox{\hyperlink{namespace_globals_a5b45b16e83e97eb6a3054f3b62bcd711}{Globals\+::k\+Port}} = 8888
+\begin{DoxyCompactList}\small\item\em The Port where to receive. \end{DoxyCompactList}\item 
+constexpr uint8\+\_\+t \mbox{\hyperlink{namespace_globals_aec4af56c3decea7e2116f21b6b5ea1cd}{Globals\+::k\+Num\+Electrodes}} = 8
+\begin{DoxyCompactList}\small\item\em The Number of electrodes connected to the \doxylink{namespace_p_i_e_e_g}{PIEEG}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{globals_8h_ac7bef5d85e3dcd73eef56ad39ffc84a9}\index{globals.h@{globals.h}!WIN32\_LEAN\_AND\_MEAN@{WIN32\_LEAN\_AND\_MEAN}}
+\index{WIN32\_LEAN\_AND\_MEAN@{WIN32\_LEAN\_AND\_MEAN}!globals.h@{globals.h}}
+\doxysubsubsection{\texorpdfstring{WIN32\_LEAN\_AND\_MEAN}{WIN32\_LEAN\_AND\_MEAN}}
+{\footnotesize\ttfamily \label{globals_8h_ac7bef5d85e3dcd73eef56ad39ffc84a9} 
+\#define WIN32\+\_\+\+LEAN\+\_\+\+AND\+\_\+\+MEAN}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{globals_8h_a99965489782c501c9fb0e7ef8c70aa73}\index{globals.h@{globals.h}!Info@{Info}}
+\index{Info@{Info}!globals.h@{globals.h}}
+\doxysubsubsection{\texorpdfstring{Info()}{Info()}}
+{\footnotesize\ttfamily \label{globals_8h_a99965489782c501c9fb0e7ef8c70aa73} 
+VOID Info (\begin{DoxyParamCaption}\item[{LPCWSTR}]{message}{, }\item[{LPCWSTR}]{title}{, }\item[{UINT}]{icon}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pop an info box on the screen. Used to display Error Message or some information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The message in the Info Box\\
+\hline
+{\em title} & The title of the Info Box\\
+\hline
+{\em icon} & The icon display the Info Box\\
+\hline
+\end{DoxyParams}

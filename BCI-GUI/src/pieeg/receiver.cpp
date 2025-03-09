@@ -1,6 +1,6 @@
 #include "pieeg/receiver.h"
 
-bool Receiver::Init()
+void Receiver::Init()
 {
 	WSAData wsaData;
 	int result = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -14,11 +14,9 @@ bool Receiver::Init()
 	m_receiverAddr.sin_port        = htons(m_port);
 	m_receiverAddr.sin_family      = AF_INET;
 	m_receiverAddr.sin_addr.s_addr = INADDR_ANY;
-
-	return FALSE;
 }
 
-bool Receiver::CreateSocket()
+void Receiver::CreateSocket()
 {
 	SOCKET serverSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (serverSocket == INVALID_SOCKET)
@@ -28,11 +26,9 @@ bool Receiver::CreateSocket()
 	}
 
 	m_socket = serverSocket;
-
-	return FALSE;
 }
 
-bool Receiver::BindSocket()
+void Receiver::BindSocket()
 {
 	int result = bind(
 		m_socket, reinterpret_cast<sockaddr*>(&m_receiverAddr), sizeof(m_receiverAddr));
@@ -43,10 +39,9 @@ bool Receiver::BindSocket()
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
-	return FALSE;	
 }
 
-bool Receiver::ReceiveFromSender()
+void Receiver::ReceiveFromSender()
 {
 	int result = recvfrom(m_socket, reinterpret_cast<char*>(buffer), Globals::kNumElectrodes * sizeof(float), 0, reinterpret_cast<sockaddr*>(&m_clientAddr), &m_clientAddrLen);
 
@@ -66,5 +61,4 @@ bool Receiver::ReceiveFromSender()
 		std::printf("Channel %d : %f \n", i, buffer[i]);
 	}
 #endif
-	return FALSE;
 }

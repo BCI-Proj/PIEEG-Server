@@ -1,0 +1,74 @@
+\doxysection{include/window/menu.h File Reference}
+\hypertarget{menu_8h}{}\label{menu_8h}\index{include/window/menu.h@{include/window/menu.h}}
+{\ttfamily \#include $<$imgui.\+h$>$}\newline
+{\ttfamily \#include $<$imgui\+\_\+impl\+\_\+sdl2.\+h$>$}\newline
+{\ttfamily \#include $<$imgui\+\_\+impl\+\_\+sdlrenderer2.\+h$>$}\newline
+{\ttfamily \#include $<$implot.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include "{}pieeg/pieeg.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_menu_1_1_graph}{Menu\+::\+Graph}}
+\begin{DoxyCompactList}\small\item\em Struct that dynamically remove oldest values (a certain percent is removed) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_menu}{Menu}}
+\begin{DoxyCompactList}\small\item\em Namespace that contain all parameters and components displayed in the UI. Contain UI Logic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Menu\+::\+Training\+Direction}} \{ \newline
+\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537a1aa9f7b3b08cc2492899e48f783e5c3c}{Menu\+::k\+Top}}
+, \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537acf860a756436fa7e5736cf904f5f2259}{Menu\+::k\+Bottom}}
+, \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537a69b77626aefd4f0efd80ac0ceee57b03}{Menu\+::k\+Left}}
+, \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537a04d507a92e9b3affc141ed8ce6404bf1}{Menu\+::k\+Right}}
+, \newline
+\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537a1e959b192bf551a895ab2fb721219f52}{Menu\+::k\+Center}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum that indicate directions. Used to define Actioners positions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespace_menu_a98ba1ceebfd14996179c5111e09c31bd}{Menu\+::\+Show\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Display the whole interface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_a8128f041f0e9416522da9826fa42f3c5}{Menu\+::\+Channel\+Graph}} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_menu_1_1_graph}{Graph} used to monitor all electrodes channels coming values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_ab2ad429f613468e6aabef8d40757203f}{Menu\+::\+Training\+Actioner}} (const \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}} direction, bool \texorpdfstring{$\ast$}{*}p\+Boolean)
+\begin{DoxyCompactList}\small\item\em Custom Im\+Gui component that act as indicators. Can flash in green. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_a7d456a2c0c9520b64f04a1905261b277}{Menu\+::\+Training\+View}} ()
+\begin{DoxyCompactList}\small\item\em Contain all placed Actioners. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_a55bd6572f083aadacd5e9864e1da1b7c}{Menu\+::\+Logging\+View}} ()
+\begin{DoxyCompactList}\small\item\em Contain coming values from channels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_acd41e197346a66a2b704783997c84db2}{Menu\+::\+Profile\+View}} ()
+\begin{DoxyCompactList}\small\item\em Contain profile loader. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_a4e18ec5a14b615e1e66a6e006b7c604e}{Menu\+::\+Position\+Actioner}} (const \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}} direction, bool \texorpdfstring{$\ast$}{*}p\+Boolean)
+\begin{DoxyCompactList}\small\item\em Position Actioners in equal position depending on the direction (left, right ... ) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespace_menu_a3307ae248ea64e986250e787ff97ec8b}{Menu\+::actionerT}} = false
+\item 
+bool \mbox{\hyperlink{namespace_menu_aa4ac97bfcc824d3095ddfdf5da16bd3b}{Menu\+::actionerB}} = false
+\item 
+bool \mbox{\hyperlink{namespace_menu_a4d1c426f74272600ff2fec9db335eb4e}{Menu\+::actionerL}} = false
+\item 
+bool \mbox{\hyperlink{namespace_menu_a91dfd4c6f70c73c08211accb0bf5ca04}{Menu\+::actionerR}} = false
+\item 
+bool \mbox{\hyperlink{namespace_menu_aa2284d1c3d12e3eed71122be2aea34b8}{Menu\+::actionerC}} = false
+\item 
+bool \mbox{\hyperlink{namespace_menu_a4e7db25e59aa5c17e67ed8193509417c}{Menu\+::actioner\+Hidden}} = false
+\begin{DoxyCompactList}\small\item\em hide all actioners around the center (for pre-\/session training) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespace_menu_a5b3c095f2ba8a12f84f4f969625d49c9}{Menu\+::is\+Paused}} = false
+\item 
+bool \mbox{\hyperlink{namespace_menu_a0aec74d95736430c483261b70a1d9df4}{Menu\+::is\+Training\+Started}} = false
+\item 
+int \mbox{\hyperlink{namespace_menu_a1e34e2c0b3239e996d10079d0f3db7c3}{Menu\+::max\+Logging\+Count}} = 300
+\begin{DoxyCompactList}\small\item\em Value that defined how many values will be displayed in the Logging View. \end{DoxyCompactList}\item 
+constexpr uint16\+\_\+t \mbox{\hyperlink{namespace_menu_a81f12a53fdfd99f62e41c88f37d7002a}{Menu\+::max\+Graph\+Count}} = 3000
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}}, Im\+Vec2 $>$ \mbox{\hyperlink{namespace_menu_a99512ba3c62b9c11607a0e530b4b2b2a}{Menu\+::positions\+Map}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction} mapped into index in the Training\+View. \end{DoxyCompactList}\end{DoxyCompactItemize}

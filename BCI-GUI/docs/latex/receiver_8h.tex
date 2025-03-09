@@ -1,0 +1,42 @@
+\doxysection{include/pieeg/receiver.h File Reference}
+\hypertarget{receiver_8h}{}\label{receiver_8h}\index{include/pieeg/receiver.h@{include/pieeg/receiver.h}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$winsock2.\+h$>$}\newline
+{\ttfamily \#include "{}globals.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_receiver}{Receiver}}
+\begin{DoxyCompactList}\small\item\em Used to handle Socket and address. Act as a Winsock UDP Server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{receiver_8h_abd03445537fec47d93dd025a60c5e57e}{WS\+\_\+\+CLEAN}}()
+\item 
+\#define \mbox{\hyperlink{receiver_8h_af5fc6fbaf79876d9c2d68df3d80ea7c1}{WS\+\_\+\+ERROR}}(message)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{receiver_8h_abd03445537fec47d93dd025a60c5e57e}\index{receiver.h@{receiver.h}!WS\_CLEAN@{WS\_CLEAN}}
+\index{WS\_CLEAN@{WS\_CLEAN}!receiver.h@{receiver.h}}
+\doxysubsubsection{\texorpdfstring{WS\_CLEAN}{WS\_CLEAN}}
+{\footnotesize\ttfamily \label{receiver_8h_abd03445537fec47d93dd025a60c5e57e} 
+\#define WS\+\_\+\+CLEAN(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{WSACleanup();}
+
+\end{DoxyCode}
+\Hypertarget{receiver_8h_af5fc6fbaf79876d9c2d68df3d80ea7c1}\index{receiver.h@{receiver.h}!WS\_ERROR@{WS\_ERROR}}
+\index{WS\_ERROR@{WS\_ERROR}!receiver.h@{receiver.h}}
+\doxysubsubsection{\texorpdfstring{WS\_ERROR}{WS\_ERROR}}
+{\footnotesize\ttfamily \label{receiver_8h_af5fc6fbaf79876d9c2d68df3d80ea7c1} 
+\#define WS\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{message}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{globals_8h_a99965489782c501c9fb0e7ef8c70aa73}{Info}}(message,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*)WSAGetLastError(),\ MB\_ICONERROR);}
+
+\end{DoxyCode}

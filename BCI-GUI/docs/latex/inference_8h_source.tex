@@ -1,0 +1,34 @@
+\doxysection{inference.\+h}
+\hypertarget{inference_8h_source}{}\label{inference_8h_source}\index{include/pieeg/inference.h@{include/pieeg/inference.h}}
+\mbox{\hyperlink{inference_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{globals_8h}{globals.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{menu_8h}{window/menu.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_inference}{Inference}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{inline}\ std::unordered\_map<Menu::TrainingDirection,\ const\ char*>\ \mbox{\hyperlink{namespace_inference_a507c06d1c999dae24704798bea12f355}{trainDirectionMap}}\ =}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537a69b77626aefd4f0efd80ac0ceee57b03}{Menu::kLeft}},\ \ \ \ \textcolor{stringliteral}{"{}left"{}}\},}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537a04d507a92e9b3affc141ed8ce6404bf1}{Menu::kRight}},\ \ \ \textcolor{stringliteral}{"{}right"{}}\},}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537a1aa9f7b3b08cc2492899e48f783e5c3c}{Menu::kTop}}\ ,\ \ \ \ \textcolor{stringliteral}{"{}up"{}}\},}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537acf860a756436fa7e5736cf904f5f2259}{Menu::kBottom}}\ ,\ \textcolor{stringliteral}{"{}down"{}}\},}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537a1e959b192bf551a895ab2fb721219f52}{Menu::kCenter}}\ ,\ \textcolor{stringliteral}{"{}baseline"{}}\},}
+\DoxyCodeLine{00024\ \ \ \ \ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{namespace_inference_a4074c6617457e94ac6941409a3734b8e}{baseCommand}}\ =\ \textcolor{stringliteral}{"{}python\ ./inference/inference.py\ "{}};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_inference_a6483564e538b9234f793530132373205}{Create}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ profileName);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_inference_aad303a63201ff4f41e5b2fa70e547a12}{Train}}\ \ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ profileName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ electrodes,\ \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Menu::TrainingDirection}}\ direction);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_inference_acd099e707b36793d5fb56249d160f953}{Export}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ profileName);\ }
+\DoxyCodeLine{00048\ \}}
+
+\end{DoxyCode}

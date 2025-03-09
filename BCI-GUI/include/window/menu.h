@@ -12,23 +12,30 @@
 
 #pragma warning(disable: 4996)
 
+/// <summary>
+/// Namespace that contain all parameters and components displayed in the UI. Contain UI Logic
+/// </summary>
 namespace Menu
 {
-	inline bool
-		actionerT      = false,
-		actionerB      = false,
-		actionerL      = false,
-		actionerR      = false,
-		actionerC      = false,
-		actionerHidden = false; // hide all actioners around the center (for pre-session training)
+	inline bool actionerT      = false;
+	inline bool actionerB      = false;
+	inline bool actionerL      = false;
+	inline bool actionerR      = false;
+	inline bool actionerC      = false;
 
-	inline bool			 
-		isPaused		  = false, 
-		isTrainingStarted = false;
+	/// hide all actioners around the center (for pre-session training)
+	inline bool actionerHidden = false; 
 
-	inline		     int      maxLoggingCount =  300;
+	inline bool	isPaused		  = false;
+	inline bool isTrainingStarted = false;
+
+	/// Value that defined how many values will be displayed in the Logging View
+	inline		     int      maxLoggingCount =  300; 
 	inline constexpr uint16_t maxGraphCount   = 3000;
 
+	/// <summary>
+	/// Enum that indicate directions. Used to define Actioners positions
+	/// </summary>
 	enum TrainingDirection 
 	{
 		kTop,
@@ -38,6 +45,9 @@ namespace Menu
 		kCenter
 	};
 
+	/// <summary>
+	/// TrainingDirection mapped into index in the TrainingView
+	/// </summary>
 	inline std::unordered_map<TrainingDirection, ImVec2> positionsMap =
 	{
 		{kTop,		ImVec2(0.5,  0.0f)},
@@ -54,6 +64,7 @@ namespace Menu
 	{
 		ImVector<ChannelsArray> data;
 
+		/// Maximum capacity of the graph
 		const uint16_t maximumSize;
 		const uint16_t removeAmount = static_cast<uint16_t>(0.1f * maximumSize); // remove 10% of maximum size
 
@@ -92,11 +103,12 @@ namespace Menu
 	/// <param name="pBoolean"> - active or not</param>
 	void TrainingActioner(const TrainingDirection direction, bool* pBoolean);
 
+	
 	/// <summary>
 	/// Contain all placed Actioners
 	/// </summary>
 	void TrainingView();
-
+	
 	/// <summary>
 	/// Contain coming values from channels
 	/// </summary>
@@ -108,7 +120,7 @@ namespace Menu
 	void ProfileView();
 
 	/// <summary>
-	/// Position Actioners in equal position depending on the direction (left, right ... ) 
+	/// Position Actioners in equal position depending on the direction (left, right ... )
 	/// </summary>
 	/// <param name="direction">Where the Actioner should be located</param>
 	/// <param name="pBoolean">Ptr to bool that will be associated to this Actioner</param>
