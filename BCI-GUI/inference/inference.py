@@ -1,18 +1,18 @@
+import tqdm;
 import argparse;
 from torcheeg.models import EEGNet;
 import os;
+import time;
 import torch;
 from torch import nn;
-import pandas as pd;
+import json;
 from typing import List;
-import requests;
-
-# Global variables
-profile: nn.Module = None;
-profile_name: str = "";
-eeg_buffer: pd.DataFrame = None;
+import requests
+from torch.utils.data.dataloader import DataLoader;
+import tqdm.auto;
 
 # Customizable constants
+EPOCH_COUNT = 50;
 MODEL_PATH = "./models"
 CHANNEL_COUNT = 8;
 WINDOW_LENGTH = 250;
@@ -25,14 +25,13 @@ os.makedirs(MODEL_PATH, exist_ok=True);
 
 # [UTILITY START]
 
-def upload_model():
-    global profile_name, profile, eeg_buffer;
-
-    data = {"name": f"{profile_name}"};
+def upload_model(profileName):
+    time.sleep(1);
+    data = {"name": f"{profileName}"};
 
     files = {
-        "model_data": open(f"BCI-GUI/inference/models/{profile_name}.onnx", "rb"),
-        "ica_model": open(f"BCI-GUI/inference/models/{profile_name}.dat", "rb"),
+        "model_data": open(f"{MODEL_PATH}/{profileName}.onnx", "rb"),
+        "ica_model": open(f"{MODEL_PATH}/{profileName}.json", "rb"), # For now, I'll instead send the json that holds the data
     };
 
     response = requests.post(f"{API_BASE_URL}/create", data=data, files=files);
@@ -46,24 +45,34 @@ def upload_model():
     else:
         print(f"Error {response.status_code}: {response.text}");
     
-    profile = None;
-    profile_name = "";
-    eeg_buffer = None;
     pass;
 
 def api_has_model(profileName: str) -> bool:
     response = requests.get(f"{API_BASE_URL}/profile", params={"profileName": f"{profileName}"});
     return response.status_code == 200;
         
+class EEGDataset(torch.utils.data.Dataset):
+    def __init__(self, json_path):
+        with open(json_path, "r") as f:
+            self.data = json.load(f);
+        
+        self.labels = {cls: idx for idx, cls in enumerate(CLASSES)};
+
+    def __len__(self):
+        return len(self.data);
+
+    def __getitem__(self, idx):
+        sample = self.data[idx];
+        X = torch.tensor([sample[f"eeg-{i+1}"] for i in range(CHANNEL_COUNT)], dtype=torch.float32).unsqueeze(0);
+        y = torch.tensor(self.labels[sample["target"]], dtype=torch.long);
+        return X, y
+
 # [UTILITY END]
 
 # [START DEFINITIONS]
 create_docs: str = """
-    Creates a new model instance to start training.
+    Creates the json file that will persist EEG Data for given model.
     `python inference.py create <PROFILE_NAME>`
-
-    If a model before this one was already in created and had started training, it will be overwritten. This method simply creates a new instance and 
-    sets it as the current model to train. When `train()` is called, the most recently created model with `create()` will be trained.
 
     Parameters
     ----------
@@ -79,28 +88,15 @@ def create(profileName: str) -> None:
 
     if os.path.isfile(f"./models/{profileName}.onnx") or api_has_model(profileName): 
         raise FileExistsError(f"The profile {profileName} already exists");
-    
-    global profile;
-    global profile_name;
-    global eeg_buffer;
 
-    profile = EEGNet(
-        chunk_size=WINDOW_LENGTH,
-        dropout=0.25,
-        num_classes=len(CLASSES),
-        num_electrodes=CHANNEL_COUNT,
-    ).to(DEVICE);
-
-    profile.train();
-    profile_name = profileName;
-    eeg_buffer = pd.DataFrame(columns=[f"electrode_{elec + 1}" for elec in range(CHANNEL_COUNT)], dtype=pd.Float32Dtype())
-
+    with open(f'{MODEL_PATH}/{profileName}.json', 'w') as f:
+        json.dump([], f);
 create.__doc__ = create_docs;
 
 
 train_docs: str = """
     Will add a sample of size ({CHANNEL_COUNT}) to the window and then feed the window to the model. When training, pass the stream 
-    `python inference.py train 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8  <up | down | left | right | baseline>`
+    `python inference.py train 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8  <up | down | left | right | baseline> <PROFILE_NAME>`
 
     To start training a model, please use `create(profileName: str) -> None;`.
 
@@ -117,42 +113,8 @@ train_docs: str = """
     TypeError
         If the type of the input is incorrect in any way this will be thrown, reffer to the messages in the error.
 """.format(CHANNEL_COUNT=CHANNEL_COUNT, CLASSES=", ".join(CLASSES));
-def train(input: List[float], target: str) -> None:
-    global profile, eeg_buffer;
-
-    if len(input) != CHANNEL_COUNT:
-        raise TypeError(f"\nThe input length is invalid. \nActual Length: {len(input)}\nExpected Length: {CHANNEL_COUNT}")
-    if not all(isinstance(x, (int, float)) for x in input):
-        raise TypeError("\nThe input type is invalid. The elements are not numbers.")
-    if profile is None:
-        raise ValueError("\nNo model loaded! Use 'create' first.")
-
-    new_row = pd.DataFrame([input], columns=[f"electrode_{i+1}" for i in range(CHANNEL_COUNT)]);
-    eeg_buffer = pd.concat([eeg_buffer, new_row], ignore_index=True);
-
-    if len(eeg_buffer) > WINDOW_LENGTH:
-        eeg_buffer = eeg_buffer.iloc[1:].reset_index(drop=True)
-
-    # Train only when the buffer reaches 250 samples
-    if len(eeg_buffer) == WINDOW_LENGTH:
-    
-        X = torch.tensor(eeg_buffer.values, dtype=torch.float32).unsqueeze(0).unsqueeze(0).to(DEVICE)  # Shape: (1, 1, CHANNEL_COUNT, WINDOW_SIZE)
-        y = torch.tensor([CLASSES.index(target)], dtype=torch.long).to(DEVICE)
-
-        criterion = nn.CrossEntropyLoss()
-        optimizer = torch.optim.Adam(profile.parameters(), lr=0.001)
-
-        profile.train()
-        optimizer.zero_grad()
-
-        preds = profile(X)
-        loss = criterion(preds, y)
-
-        loss.backward()
-        optimizer.step()
-
-        print(f"Training Step: Loss = {loss.item():.4f}")
-
+def train(input: List[float], target: str, profileName: str) -> None:
+    pass;   
 train.__doc__ = train_docs;
 
 export_docs: str = """
@@ -169,28 +131,45 @@ export_docs: str = """
     ----------
     None
 """.format(CHANNEL_COUNT=CHANNEL_COUNT, CLASSES=", ".join(CLASSES));
-def export() -> None:
+def export(profileName) -> None:
+    dataset = EEGDataset(f"{MODEL_PATH}/{profileName}.json")
+    dataloader = DataLoader(dataset, batch_size=16, shuffle=True)
 
-    global profile;
-    global profile_name;
+    profile = EEGNet(
+        chunk_size=WINDOW_LENGTH,
+        dropout=0.25,
+        num_classes=len(CLASSES),
+        num_electrodes=CHANNEL_COUNT,
+    ).to(DEVICE)
 
-    if profile == None:
-        raise FileNotFoundError("No Profile is currently in training. call `inference.py create <PROFILE_NAME>`.\n");
+    criterion = nn.CrossEntropyLoss();
+    optimizer = torch.optim.Adam(profile.parameters(), lr=0.001);
 
-    profile.eval();
-    
+    profile.train();
+    for epoch in tqdm.auto.tqdm(range(EPOCH_COUNT)):  
+        epoch_loss = 0.0;
+        for X, y in dataloader:
+            X, y = X.to(DEVICE), y.to(DEVICE);
+            optimizer.zero_grad();
+            preds = profile(X);
+            loss = criterion(preds, y);
+            loss.backward();
+            optimizer.step();
+            epoch_loss += loss.item();
+        print(f"Epoch {epoch+1}: Loss = {epoch_loss / len(dataloader):.4f}");
+ 
     torch.onnx.export(
         profile.to(DEVICE),
-        torch.randn(1, 1, CHANNEL_COUNT, WINDOW_LENGTH).to(DEVICE), # (1 sample, 1 channel, electrode count, window/chunk size)
-        f"./models/{profile_name}.onnx",
+        torch.randn(1, 1, CHANNEL_COUNT, WINDOW_LENGTH).to(DEVICE), 
+        f"{MODEL_PATH}/{profileName}.onnx",
         export_params=True,
         opset_version=11,
         input_names=["input"],
         output_names=["output"],
-        dynamic_axes={'input': {0: 'batch_size'}, 'output': {0: 'batch_size'}} # Allow dynamic batch size
-    );
+        dynamic_axes={'input': {0: 'batch_size'}, 'output': {0: 'batch_size'}} 
+    )
 
-    upload_model();
+    upload_model(profileName);
 export.__doc__ = export_docs;
 # [END DEFINITIONS]
 
@@ -205,6 +184,7 @@ create_parser.add_argument("profile_name", type=str, help="Create's a profile un
 train_parser = subparsers.add_parser("train", help="Train a model using EEG data");
 train_parser.add_argument("data", type=float, nargs="+", help="List of EEG data values");
 train_parser.add_argument("target", type=str, help="The target class for training. (e.g. left, up, right, ...)")
+train_parser.add_argument("profile_name", type=str, help="Profile Name");
 
 export_parser = subparsers.add_parser("export", help="Export trained model");
 export_parser.add_argument("profile_name", type=str, help="Profile Name");
@@ -216,8 +196,8 @@ if args.command == "create":
     create(args.profile_name);
 
 elif args.command == "train":
-    train(args.data, args.target);
+    train(args.data, args.target, args.profile_name);
 
 elif args.command == "export":
-    export();
+    export(args.profile_name);
 # [END PARSER]
