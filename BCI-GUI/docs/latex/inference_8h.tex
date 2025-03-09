@@ -1,0 +1,28 @@
+\doxysection{include/pieeg/inference.h File Reference}
+\hypertarget{inference_8h}{}\label{inference_8h}\index{include/pieeg/inference.h@{include/pieeg/inference.h}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include "{}globals.\+h"{}}\newline
+{\ttfamily \#include "{}window/menu.\+h"{}}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_inference}{Inference}}
+\begin{DoxyCompactList}\small\item\em Namespace that contain methods to make \doxylink{namespace_inference}{Inference} to Python Code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespace_inference_a6483564e538b9234f793530132373205}{Inference\+::\+Create}} (const char \texorpdfstring{$\ast$}{*}profile\+Name)
+\begin{DoxyCompactList}\small\item\em If ICA, create .dat file called from ica\+\_\+inference.\+py else create .onnx from inference.\+py. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_inference_aad303a63201ff4f41e5b2fa70e547a12}{Inference\+::\+Train}} (const char \texorpdfstring{$\ast$}{*}profile\+Name, const float \texorpdfstring{$\ast$}{*}electrodes, \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Menu\+::\+Training\+Direction}} direction)
+\begin{DoxyCompactList}\small\item\em If ICA, call Training functions for Jaw, EOG, Breathing else train. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_inference_acd099e707b36793d5fb56249d160f953}{Inference\+::\+Export}} (const char \texorpdfstring{$\ast$}{*}profile\+Name)
+\begin{DoxyCompactList}\small\item\em If ICA, export the model to .dat else to .onnx. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Menu\+::\+Training\+Direction}}, const char \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{namespace_inference_a507c06d1c999dae24704798bea12f355}{Inference\+::train\+Direction\+Map}}
+\begin{DoxyCompactList}\small\item\em Training\+Direction mapped in string send corresponding strings to Python Program. \end{DoxyCompactList}\item 
+const std\+::string \mbox{\hyperlink{namespace_inference_a4074c6617457e94ac6941409a3734b8e}{Inference\+::base\+Command}} = "{}python ./inference/inference.\+py "{}
+\end{DoxyCompactItemize}

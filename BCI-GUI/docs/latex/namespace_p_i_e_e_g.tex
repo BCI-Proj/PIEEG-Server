@@ -1,0 +1,40 @@
+\doxysection{PIEEG Namespace Reference}
+\hypertarget{namespace_p_i_e_e_g}{}\label{namespace_p_i_e_e_g}\index{PIEEG@{PIEEG}}
+
+
+Namespace that contain what\textquotesingle{}s needed to gather data from the \doxylink{namespace_p_i_e_e_g}{PIEEG} module.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_p_i_e_e_g_1_1_channels}{Channels}}
+\begin{DoxyCompactList}\small\item\em Struct to handle values coming from \doxylink{namespace_p_i_e_e_g}{PIEEG} + Delta\+Time -\/ Used to keep track when displayed on graph so we know when a chunk of data has been received. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_receiver}{Receiver}} \mbox{\hyperlink{namespace_p_i_e_e_g_a5c8110f17d895e1776e8ff3484198242}{receiver}} (\mbox{\hyperlink{namespace_globals_a5b45b16e83e97eb6a3054f3b62bcd711}{Globals\+::k\+Port}}, \mbox{\hyperlink{namespace_globals_aec4af56c3decea7e2116f21b6b5ea1cd}{Globals\+::k\+Num\+Electrodes}})
+\begin{DoxyCompactList}\small\item\em \doxylink{class_receiver}{Receiver} that act as UDP Server to receive data coming from the client in the Raspberry\+Pi. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Namespace that contain what\textquotesingle{}s needed to gather data from the \doxylink{namespace_p_i_e_e_g}{PIEEG} module. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_p_i_e_e_g_a5c8110f17d895e1776e8ff3484198242}\index{PIEEG@{PIEEG}!receiver@{receiver}}
+\index{receiver@{receiver}!PIEEG@{PIEEG}}
+\doxysubsubsection{\texorpdfstring{receiver()}{receiver()}}
+{\footnotesize\ttfamily \label{namespace_p_i_e_e_g_a5c8110f17d895e1776e8ff3484198242} 
+\mbox{\hyperlink{class_receiver}{Receiver}} PIEEG\+::receiver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_globals_a5b45b16e83e97eb6a3054f3b62bcd711}{Globals\+::k\+Port}}}]{}{, }\item[{\mbox{\hyperlink{namespace_globals_aec4af56c3decea7e2116f21b6b5ea1cd}{Globals\+::k\+Num\+Electrodes}}}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxylink{class_receiver}{Receiver} that act as UDP Server to receive data coming from the client in the Raspberry\+Pi. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & The port to open UDP Server\\
+\hline
+{\em buffer\+Len} & The number of electrodes used\\
+\hline
+\end{DoxyParams}
