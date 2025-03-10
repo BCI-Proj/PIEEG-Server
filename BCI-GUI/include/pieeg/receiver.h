@@ -56,7 +56,7 @@ public:
 	}
 
 	/// <summary>
-	/// Store received float values in Receiver buffer
+	/// Store received float values in Receiver buffer and prepare them to later save as JSON file
 	/// </summary>
 	void ReceiveFromSender();
 };

@@ -110,14 +110,14 @@
     <ClInclude Include="include\pieeg\inference.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\implot\implot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\implot\implot_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\utils\utility.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\implot\implot.h">
+      <Filter>Header Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\implot\implot_internal.h">
+      <Filter>Header Files\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

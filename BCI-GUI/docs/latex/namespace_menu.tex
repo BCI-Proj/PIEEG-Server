@@ -1,0 +1,161 @@
+\doxysection{Menu Namespace Reference}
+\hypertarget{namespace_menu}{}\label{namespace_menu}\index{Menu@{Menu}}
+
+
+Namespace that contain all parameters and components displayed in the UI. Contain UI Logic.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_menu_1_1_graph}{Graph}}
+\begin{DoxyCompactList}\small\item\em Struct that dynamically remove oldest values (a certain percent is removed) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}\label{namespace_menu_aab69074b564bafd0f7ea530ad89b2537} 
+enum \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}} \{ \newline
+{\bfseries k\+Top}
+, {\bfseries k\+Bottom}
+, {\bfseries k\+Left}
+, {\bfseries k\+Right}
+, \newline
+{\bfseries k\+Center}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum that indicate directions. Used to define Actioners positions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespace_menu_a98ba1ceebfd14996179c5111e09c31bd}\label{namespace_menu_a98ba1ceebfd14996179c5111e09c31bd} 
+void {\bfseries Show\+Menu} ()
+\begin{DoxyCompactList}\small\item\em Display the whole interface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_a8128f041f0e9416522da9826fa42f3c5}{Channel\+Graph}} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_menu_1_1_graph}{Graph} used to monitor all electrodes channels coming values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_ab2ad429f613468e6aabef8d40757203f}{Training\+Actioner}} (const \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}} direction, bool \texorpdfstring{$\ast$}{*}p\+Boolean)
+\begin{DoxyCompactList}\small\item\em Custom Im\+Gui component that act as indicators. Can flash in green. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_menu_a7d456a2c0c9520b64f04a1905261b277}\label{namespace_menu_a7d456a2c0c9520b64f04a1905261b277} 
+void {\bfseries Training\+View} ()
+\begin{DoxyCompactList}\small\item\em Contain all placed Actioners. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_menu_a55bd6572f083aadacd5e9864e1da1b7c}\label{namespace_menu_a55bd6572f083aadacd5e9864e1da1b7c} 
+void {\bfseries Logging\+View} ()
+\begin{DoxyCompactList}\small\item\em Contain coming values from channels. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_menu_acd41e197346a66a2b704783997c84db2}\label{namespace_menu_acd41e197346a66a2b704783997c84db2} 
+void {\bfseries Profile\+View} ()
+\begin{DoxyCompactList}\small\item\em Contain profile loader. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_menu_a4e18ec5a14b615e1e66a6e006b7c604e}{Position\+Actioner}} (const \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}} direction, bool \texorpdfstring{$\ast$}{*}p\+Boolean)
+\begin{DoxyCompactList}\small\item\em Position Actioners in equal position depending on the direction (left, right ... ) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespace_menu_a3307ae248ea64e986250e787ff97ec8b}\label{namespace_menu_a3307ae248ea64e986250e787ff97ec8b} 
+bool {\bfseries actionerT} = false
+\item 
+\Hypertarget{namespace_menu_aa4ac97bfcc824d3095ddfdf5da16bd3b}\label{namespace_menu_aa4ac97bfcc824d3095ddfdf5da16bd3b} 
+bool {\bfseries actionerB} = false
+\item 
+\Hypertarget{namespace_menu_a4d1c426f74272600ff2fec9db335eb4e}\label{namespace_menu_a4d1c426f74272600ff2fec9db335eb4e} 
+bool {\bfseries actionerL} = false
+\item 
+\Hypertarget{namespace_menu_a91dfd4c6f70c73c08211accb0bf5ca04}\label{namespace_menu_a91dfd4c6f70c73c08211accb0bf5ca04} 
+bool {\bfseries actionerR} = false
+\item 
+\Hypertarget{namespace_menu_aa2284d1c3d12e3eed71122be2aea34b8}\label{namespace_menu_aa2284d1c3d12e3eed71122be2aea34b8} 
+bool {\bfseries actionerC} = false
+\item 
+\Hypertarget{namespace_menu_a4e7db25e59aa5c17e67ed8193509417c}\label{namespace_menu_a4e7db25e59aa5c17e67ed8193509417c} 
+bool {\bfseries actioner\+Hidden} = false
+\begin{DoxyCompactList}\small\item\em hide all actioners around the center (for pre-\/session training) \end{DoxyCompactList}\item 
+\Hypertarget{namespace_menu_a5b3c095f2ba8a12f84f4f969625d49c9}\label{namespace_menu_a5b3c095f2ba8a12f84f4f969625d49c9} 
+bool {\bfseries is\+Paused} = false
+\item 
+\Hypertarget{namespace_menu_a0aec74d95736430c483261b70a1d9df4}\label{namespace_menu_a0aec74d95736430c483261b70a1d9df4} 
+bool {\bfseries is\+Training\+Started} = false
+\item 
+\Hypertarget{namespace_menu_a1e34e2c0b3239e996d10079d0f3db7c3}\label{namespace_menu_a1e34e2c0b3239e996d10079d0f3db7c3} 
+int {\bfseries max\+Logging\+Count} = 300
+\begin{DoxyCompactList}\small\item\em Value that defined how many values will be displayed in the Logging View. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_menu_a81f12a53fdfd99f62e41c88f37d7002a}\label{namespace_menu_a81f12a53fdfd99f62e41c88f37d7002a} 
+constexpr uint16\+\_\+t {\bfseries max\+Graph\+Count} = 3000
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}}, Im\+Vec2 $>$ \mbox{\hyperlink{namespace_menu_a99512ba3c62b9c11607a0e530b4b2b2a}{positions\+Map}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction} mapped into index in the Training\+View. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Namespace that contain all parameters and components displayed in the UI. Contain UI Logic. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_menu_a8128f041f0e9416522da9826fa42f3c5}\index{Menu@{Menu}!ChannelGraph@{ChannelGraph}}
+\index{ChannelGraph@{ChannelGraph}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{ChannelGraph()}{ChannelGraph()}}
+{\footnotesize\ttfamily \label{namespace_menu_a8128f041f0e9416522da9826fa42f3c5} 
+void Menu\+::\+Channel\+Graph (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxylink{struct_menu_1_1_graph}{Graph} used to monitor all electrodes channels coming values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & -\/ floats buffer of values received via UDP from the electrodes\\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespace_menu_a4e18ec5a14b615e1e66a6e006b7c604e}\index{Menu@{Menu}!PositionActioner@{PositionActioner}}
+\index{PositionActioner@{PositionActioner}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{PositionActioner()}{PositionActioner()}}
+{\footnotesize\ttfamily \label{namespace_menu_a4e18ec5a14b615e1e66a6e006b7c604e} 
+void Menu\+::\+Position\+Actioner (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}}}]{direction}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{p\+Boolean}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Position Actioners in equal position depending on the direction (left, right ... ) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & Where the Actioner should be located\\
+\hline
+{\em p\+Boolean} & Ptr to bool that will be associated to this Actioner\\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespace_menu_ab2ad429f613468e6aabef8d40757203f}\index{Menu@{Menu}!TrainingActioner@{TrainingActioner}}
+\index{TrainingActioner@{TrainingActioner}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{TrainingActioner()}{TrainingActioner()}}
+{\footnotesize\ttfamily \label{namespace_menu_ab2ad429f613468e6aabef8d40757203f} 
+void Menu\+::\+Training\+Actioner (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}}}]{direction}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{p\+Boolean}{}\end{DoxyParamCaption})}
+
+
+
+Custom Im\+Gui component that act as indicators. Can flash in green. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & -\/ where it should be placed\\
+\hline
+{\em p\+Boolean} & -\/ active or not\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_menu_a99512ba3c62b9c11607a0e530b4b2b2a}\index{Menu@{Menu}!positionsMap@{positionsMap}}
+\index{positionsMap@{positionsMap}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{positionsMap}{positionsMap}}
+{\footnotesize\ttfamily \label{namespace_menu_a99512ba3c62b9c11607a0e530b4b2b2a} 
+std\+::unordered\+\_\+map$<$\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction}}, Im\+Vec2$>$ Menu\+::positions\+Map\hspace{0.3cm}{\ttfamily [inline]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{kTop,\ \ \ \ \ \ ImVec2(0.5,\ \ 0.0f)\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{kBottom,\ \ \ ImVec2(0.5,\ \ 1.0f)\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{kLeft,\ \ \ \ \ ImVec2(0.0f,\ 0.5f)\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{kRight,\ \ \ \ ImVec2(1.0f,\ 0.5f)\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{kCenter,\ \ \ ImVec2(0.5f,\ 0.5f)\}}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxylink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Training\+Direction} mapped into index in the Training\+View. 
+

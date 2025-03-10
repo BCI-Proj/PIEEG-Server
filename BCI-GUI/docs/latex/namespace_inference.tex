@@ -1,0 +1,104 @@
+\doxysection{Inference Namespace Reference}
+\hypertarget{namespace_inference}{}\label{namespace_inference}\index{Inference@{Inference}}
+
+
+Namespace that contain methods to make \doxylink{namespace_inference}{Inference} to Python Code.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespace_inference_a6483564e538b9234f793530132373205}{Create}} (const char \texorpdfstring{$\ast$}{*}profile\+Name)
+\begin{DoxyCompactList}\small\item\em If ICA, create .dat file called from ica\+\_\+inference.\+py else create .onnx from inference.\+py. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_inference_aad303a63201ff4f41e5b2fa70e547a12}{Train}} (const char \texorpdfstring{$\ast$}{*}profile\+Name, const float \texorpdfstring{$\ast$}{*}electrodes, \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Menu\+::\+Training\+Direction}} direction)
+\begin{DoxyCompactList}\small\item\em If ICA, call Training functions for Jaw, EOG, Breathing else train. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_inference_acd099e707b36793d5fb56249d160f953}{Export}} (const char \texorpdfstring{$\ast$}{*}profile\+Name)
+\begin{DoxyCompactList}\small\item\em If ICA, export the model to .dat else to .onnx. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Menu\+::\+Training\+Direction}}, const std\+::string $>$ \mbox{\hyperlink{namespace_inference_ab977802903e1651963650306e95838be}{train\+Direction\+Map}}
+\begin{DoxyCompactList}\small\item\em Training\+Direction mapped in string send corresponding strings to Python Program. \end{DoxyCompactList}\item 
+\Hypertarget{namespace_inference_a4074c6617457e94ac6941409a3734b8e}\label{namespace_inference_a4074c6617457e94ac6941409a3734b8e} 
+const std\+::string {\bfseries base\+Command} = "{}python ./inference/inference.\+py "{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Namespace that contain methods to make \doxylink{namespace_inference}{Inference} to Python Code. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_inference_a6483564e538b9234f793530132373205}\index{Inference@{Inference}!Create@{Create}}
+\index{Create@{Create}!Inference@{Inference}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{namespace_inference_a6483564e538b9234f793530132373205} 
+void Inference\+::\+Create (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{profile\+Name}{}\end{DoxyParamCaption})}
+
+
+
+If ICA, create .dat file called from ica\+\_\+inference.\+py else create .onnx from inference.\+py. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em profile\+Name} & The name of profile that is being trained\\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespace_inference_acd099e707b36793d5fb56249d160f953}\index{Inference@{Inference}!Export@{Export}}
+\index{Export@{Export}!Inference@{Inference}}
+\doxysubsubsection{\texorpdfstring{Export()}{Export()}}
+{\footnotesize\ttfamily \label{namespace_inference_acd099e707b36793d5fb56249d160f953} 
+void Inference\+::\+Export (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{profile\+Name}{}\end{DoxyParamCaption})}
+
+
+
+If ICA, export the model to .dat else to .onnx. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em profile\+Name} & The name of profile that is being trained\\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespace_inference_aad303a63201ff4f41e5b2fa70e547a12}\index{Inference@{Inference}!Train@{Train}}
+\index{Train@{Train}!Inference@{Inference}}
+\doxysubsubsection{\texorpdfstring{Train()}{Train()}}
+{\footnotesize\ttfamily \label{namespace_inference_aad303a63201ff4f41e5b2fa70e547a12} 
+void Inference\+::\+Train (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{profile\+Name}{, }\item[{const float \texorpdfstring{$\ast$}{*}}]{electrodes}{, }\item[{\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Menu\+::\+Training\+Direction}}}]{direction}{}\end{DoxyParamCaption})}
+
+
+
+If ICA, call Training functions for Jaw, EOG, Breathing else train. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em profile\+Name} & The name of profile that is being trained\\
+\hline
+{\em electrodes} & Float ptr of values coming from the electrodes\\
+\hline
+{\em direction} & The Training\+Direction \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_inference_ab977802903e1651963650306e95838be}\index{Inference@{Inference}!trainDirectionMap@{trainDirectionMap}}
+\index{trainDirectionMap@{trainDirectionMap}!Inference@{Inference}}
+\doxysubsubsection{\texorpdfstring{trainDirectionMap}{trainDirectionMap}}
+{\footnotesize\ttfamily \label{namespace_inference_ab977802903e1651963650306e95838be} 
+std\+::unordered\+\_\+map$<$\mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{Menu\+::\+Training\+Direction}}, const std\+::string$>$ Inference\+::train\+Direction\+Map\hspace{0.3cm}{\ttfamily [inline]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Menu::kLeft,\ \ \ \ \textcolor{stringliteral}{"{}left"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Menu::kRight,\ \ \ \textcolor{stringliteral}{"{}right"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Menu::kTop\ ,\ \ \ \ \textcolor{stringliteral}{"{}up"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Menu::kBottom\ ,\ \textcolor{stringliteral}{"{}down"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Menu::kCenter\ ,\ \textcolor{stringliteral}{"{}baseline"{}}\},}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Training\+Direction mapped in string send corresponding strings to Python Program. 
+

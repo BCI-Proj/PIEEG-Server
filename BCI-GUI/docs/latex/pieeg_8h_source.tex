@@ -1,0 +1,28 @@
+\doxysection{pieeg.\+h}
+\hypertarget{pieeg_8h_source}{}\label{pieeg_8h_source}\index{include/pieeg/pieeg.h@{include/pieeg/pieeg.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}receiver.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}globals.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{using\ }ChannelsArray\ =\ std::array<float,\ Globals::kNumElectrodes\ +\ 1>;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_p_i_e_e_g}{PIEEG}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_receiver}{Receiver}}\ \mbox{\hyperlink{namespace_p_i_e_e_g_a5c8110f17d895e1776e8ff3484198242}{receiver}}(\mbox{\hyperlink{namespace_globals_a5b45b16e83e97eb6a3054f3b62bcd711}{Globals::kPort}},\ \mbox{\hyperlink{namespace_globals_aec4af56c3decea7e2116f21b6b5ea1cd}{Globals::kNumElectrodes}});}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{struct\ }Channels\ }
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ ChannelsArray\ vals\ =\ \{0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f\};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ Channels()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ Channels(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ deltaTime,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}*\ buff)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ :\ vals\{\ \{*deltaTime,\ buff[0],buff[1],buff[2],buff[3],buff[4],buff[5],buff[6],buff[7]\}\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \{\};}
+\DoxyCodeLine{00036\ \ \ \ \ \};}
+\DoxyCodeLine{00037\ \}}
+
+\end{DoxyCode}

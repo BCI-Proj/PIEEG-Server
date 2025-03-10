@@ -1,0 +1,104 @@
+\doxysection{menu.\+h}
+\hypertarget{menu_8h_source}{}\label{menu_8h_source}\index{include/window/menu.h@{include/window/menu.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <imgui.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <imgui\_impl\_sdl2.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <imgui\_impl\_sdlrenderer2.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <implot.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}pieeg/pieeg.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ warning(disable:\ 4996)}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_menu}{Menu}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ actionerT\ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ actionerB\ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ actionerL\ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ actionerR\ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ actionerC\ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_menu_a4e7db25e59aa5c17e67ed8193509417c}{actionerHidden}}\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ isPaused\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ isTrainingStarted\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{inline}\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \mbox{\hyperlink{namespace_menu_a1e34e2c0b3239e996d10079d0f3db7c3}{maxLoggingCount}}\ =\ \ 300;\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ uint16\_t\ maxGraphCount\ \ \ =\ 3000;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{TrainingDirection}}\ }
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ kTop,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ kBottom,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ kLeft,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ kRight,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ kCenter}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{inline}\ std::unordered\_map<TrainingDirection,\ ImVec2>\ \mbox{\hyperlink{namespace_menu_a99512ba3c62b9c11607a0e530b4b2b2a}{positionsMap}}\ =}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \{kTop,\ \ \ \ \ \ ImVec2(0.5,\ \ 0.0f)\},}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \{kBottom,\ \ \ ImVec2(0.5,\ \ 1.0f)\},}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{kLeft,\ \ \ \ \ ImVec2(0.0f,\ 0.5f)\},}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \{kRight,\ \ \ \ ImVec2(1.0f,\ 0.5f)\},}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \{kCenter,\ \ \ ImVec2(0.5f,\ 0.5f)\}}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{struct\ }Graph}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ ImVector<ChannelsArray>\ data;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint16\_t\ \mbox{\hyperlink{struct_menu_1_1_graph_a79c3786ec85945688ade554321f6803c}{maximumSize}};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint16\_t\ removeAmount\ =\ \textcolor{keyword}{static\_cast<}uint16\_t\textcolor{keyword}{>}(0.1f\ *\ \mbox{\hyperlink{struct_menu_1_1_graph_a79c3786ec85945688ade554321f6803c}{maximumSize}});\ \textcolor{comment}{//\ remove\ 10\%\ of\ maximum\ size}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ Graph(uint16\_t\ max)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_menu_1_1_graph_a79c3786ec85945688ade554321f6803c}{maximumSize}}(max)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ data.reserve(\mbox{\hyperlink{struct_menu_1_1_graph_a79c3786ec85945688ade554321f6803c}{maximumSize}});\ \textcolor{comment}{//\ Set\ capacity\ to\ maximum}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Add(\textcolor{keyword}{const}\ ChannelsArray\&\ arr)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ data.push\_back(arr);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (data.size()\ >=\ \mbox{\hyperlink{struct_menu_1_1_graph_a79c3786ec85945688ade554321f6803c}{maximumSize}})}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data.erase(data.begin(),\ data.begin()\ +\ removeAmount);\ \textcolor{comment}{//\ Removed\ N\ oldest}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_menu_a98ba1ceebfd14996179c5111e09c31bd}{ShowMenu}}();}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#pragma\ region\ Custom\ Components}}
+\DoxyCodeLine{00092\ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_menu_a8128f041f0e9416522da9826fa42f3c5}{ChannelGraph}}();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_menu_ab2ad429f613468e6aabef8d40757203f}{TrainingActioner}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{TrainingDirection}}\ direction,\ \textcolor{keywordtype}{bool}*\ pBoolean);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_menu_a7d456a2c0c9520b64f04a1905261b277}{TrainingView}}();}
+\DoxyCodeLine{00111\ \ \ \ \ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_menu_a55bd6572f083aadacd5e9864e1da1b7c}{LoggingView}}();}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_menu_acd41e197346a66a2b704783997c84db2}{ProfileView}}();}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_menu_a4e18ec5a14b615e1e66a6e006b7c604e}{PositionActioner}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_menu_aab69074b564bafd0f7ea530ad89b2537}{TrainingDirection}}\ direction,\ \textcolor{keywordtype}{bool}*\ pBoolean)}
+\DoxyCodeLine{00128\ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ ImVec2\ wndDimensions\ =\ ImGui::GetWindowSize();\ \textcolor{comment}{//\ x\ refer\ to\ width,\ y\ refer\ to\ height}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ ImGui::SetCursorPosX((wndDimensions.x\ -\/\ 30)\ *\ \mbox{\hyperlink{namespace_menu_a99512ba3c62b9c11607a0e530b4b2b2a}{Menu::positionsMap}}[direction].x);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ ImGui::SetCursorPosY((wndDimensions.y\ -\/\ 50)\ *\ \mbox{\hyperlink{namespace_menu_a99512ba3c62b9c11607a0e530b4b2b2a}{Menu::positionsMap}}[direction].y);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_menu_ab2ad429f613468e6aabef8d40757203f}{TrainingActioner}}(direction,\ pBoolean);}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#pragma\ endregion}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \}}
+
+\end{DoxyCode}
