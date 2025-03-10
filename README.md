@@ -77,8 +77,8 @@ All namespaces, classes, structures and functions has been documented [here](htt
 - ICA ( Independent Component analysis ) model 
 
 ## Videos
-![coming-tomorrow]()
-![coming-tomorrow]()
+[SEMA-CEREBRUM – YOUTUBE](https://youtu.be/Nd4Kb7TSLpA)
+
 
 
 
