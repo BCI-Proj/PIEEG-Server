@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <winsock2.h>
-#include "globals.h"
+#include "utils/utility.h"
 
 #define WS_CLEAN() WSACleanup(); 
 #define WS_ERROR(message) Info(message, (const wchar_t*)WSAGetLastError(), MB_ICONERROR);
@@ -17,6 +17,10 @@ private:
 	int	m_port;
 	
 	SOCKET m_socket = 0;
+
+	int inBatchNumber = 0; // to 250
+
+	Utility::Chunk chunk	   = {};
 
 	sockaddr_in m_receiverAddr = {};
 	sockaddr_in m_clientAddr   = {};

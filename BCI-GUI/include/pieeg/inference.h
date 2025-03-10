@@ -14,7 +14,7 @@ namespace Inference
 	/// <summary>
 	/// TrainingDirection mapped in string send corresponding strings to Python Program
 	/// </summary>
-	inline std::unordered_map<Menu::TrainingDirection, const char*> trainDirectionMap =
+	inline std::unordered_map<Menu::TrainingDirection, const std::string> trainDirectionMap =
 	{
 		{Menu::kLeft,    "left"},
 		{Menu::kRight,   "right"},

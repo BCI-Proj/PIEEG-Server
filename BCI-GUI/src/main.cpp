@@ -13,7 +13,8 @@ int main(int argc, char** argv)
 		[&]()
 		{
 			while (panel.IsRunning)
-				PIEEG::receiver.ReceiveFromSender();
+				if (Menu::isTrainingStarted)
+					PIEEG::receiver.ReceiveFromSender();
 		}
 	);
 

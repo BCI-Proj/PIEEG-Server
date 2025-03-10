@@ -1,4 +1,6 @@
 #include "pieeg/receiver.h"
+#include "globals.h"
+#include "json.hpp"
 
 void Receiver::Init()
 {
@@ -51,14 +53,36 @@ void Receiver::ReceiveFromSender()
 		closesocket(m_socket);
 		WS_CLEAN();
 	}
+	for (int i = 0; i < Globals::kNumElectrodes; i++)
+	{
+		chunk.lines[i].values.data()[inBatchNumber] = buffer[i];
+		Utility::document[std::to_string(chunk.id)][std::to_string(i)] = buffer[i];
+	}
+	inBatchNumber++;
+	
+	if (inBatchNumber == 250)
+	{
+		inBatchNumber = 0;
+		Utility::document[std::to_string(chunk.id)]["target"] = "baseline";
+		chunk.id+=1;
+	}
 
-	// Display all received values in console
+	if (chunk.id == 200)
+	{
+		Utility::SaveToJson("test.json");
+	}
+
 #ifdef _DEBUG
-	// 8 is the number of electrodes
-	// Hardcoded here because I dont want to include globals.h 
+	// Display all received values in console
+	
+	// Number of channels is Hardcoded here because I dont want to include globals.h 
 	for (int i = 0; i < 8; i++)
 	{
 		std::printf("Channel %d : %f \n", i, buffer[i]);
+		std::printf("Batch number : %d \n", inBatchNumber);
+		std::printf("Chunk id: %d \n", chunk.id);
+
+		std::cout << Utility::document.dump(4) << "\n";
 	}
 #endif
 }

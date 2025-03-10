@@ -6,7 +6,7 @@ void Inference::Create(const char* profileName)
 	int result = system(createCommand.c_str());
 	
 	if (result)
-		Info(L"Cannot create model with profile", L"ERROR Create Command", MB_ICONERROR);
+		Info(L"Cannot create model with profile", L"ERROR", MB_ICONERROR);
 }
 
 void Inference::Train(const char* profileName, const float* electrodes, Menu::TrainingDirection direction)
