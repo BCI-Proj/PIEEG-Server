@@ -63,7 +63,7 @@ class EEGDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         sample = self.data[idx];
-        X = torch.tensor([sample[f"eeg-{i+1}"] for i in range(CHANNEL_COUNT)], dtype=torch.float32).unsqueeze(0);
+        X = torch.tensor([sample[f"eeg-{i}"] for i in range(CHANNEL_COUNT)], dtype=torch.float32).unsqueeze(0);
         y = torch.tensor(self.labels[sample["target"]], dtype=torch.long);
         return X, y
 
