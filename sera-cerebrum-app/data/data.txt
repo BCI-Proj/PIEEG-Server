@@ -1,0 +1,6 @@
+"""
+
+This folder will be for holding files in buffer for the app or to save models and such. 
+Storage and memory medium for the app.
+
+"""
